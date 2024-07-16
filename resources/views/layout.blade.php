@@ -19,21 +19,21 @@
       <meta property="og:type" content="website" /> --}}
     <!--//-------Seo--------->
     <title>{{$meta_title}}</title>
-    <link href="{{asset('public/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('public/frontend/css/font-awesome.min.css')}}" rel="stylesheet">
-    <link href="{{asset('public/frontend/css/prettyPhoto.css')}}" rel="stylesheet">
-    <link href="{{asset('public/frontend/css/price-range.css')}}" rel="stylesheet">
-    <link href="{{asset('public/frontend/css/animate.css')}}" rel="stylesheet">
-    <link href="{{asset('public/frontend/css/main.css')}}" rel="stylesheet">
-    <link href="{{asset('public/frontend/css/responsive.css')}}" rel="stylesheet">
-     <link href="{{asset('public/frontend/css/sweetalert.css')}}" rel="stylesheet">
+    <link href="{{asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('frontend/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('frontend/css/prettyPhoto.css')}}" rel="stylesheet">
+    <link href="{{asset('frontend/css/price-range.css')}}" rel="stylesheet">
+    <link href="{{asset('frontend/css/animate.css')}}" rel="stylesheet">
+    <link href="{{asset('frontend/css/main.css')}}" rel="stylesheet">
+    <link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet">
+     <link href="{{asset('frontend/css/sweetalert.css')}}" rel="stylesheet">
    
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->       
-    <link rel="shortcut icon" href="{{('public/frontend/images/favicon.ico')}}">
+    <link rel="shortcut icon" href="{{('frontend/images/favicon.ico')}}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
@@ -74,7 +74,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="logo pull-left">
-                            <a href="index.html"><img src="{{('public/frontend/images/home/logo.png')}}" alt="" /></a>
+                            <a href="index.html"><img src="{{('frontend/images/home/logo.png')}}" alt="" /></a>
                         </div>
                         <div class="btn-group pull-right">
                             <div class="btn-group">
@@ -217,7 +217,7 @@
                             <div class="item {{$i==1 ? 'active' : '' }}">
                                 
                                 <div class="col-sm-12">
-                                    <img alt="{{$slide->slider_desc}}" src="{{asset('public/uploads/slider/'.$slide->slider_image)}}" height="200" width="100%" class="img img-responsive img-slider">
+                                    <img alt="{{$slide->slider_desc}}" src="{{asset('uploads/slider/'.$slide->slider_image)}}" height="200" width="100%" class="img img-responsive img-slider">
                                    
                                 </div>
                             </div>
@@ -296,7 +296,7 @@
                             <div class="video-gallery text-center">
                                 <a href="#">
                                     <div class="iframe-img">
-                                        <img src="{{('public/frontend/images/iframe1.png')}}" alt="" />
+                                        <img src="{{('frontend/images/iframe1.png')}}" alt="" />
                                     </div>
                                     <div class="overlay-icon">
                                         <i class="fa fa-play-circle-o"></i>
@@ -311,7 +311,7 @@
                             <div class="video-gallery text-center">
                                 <a href="#">
                                     <div class="iframe-img">
-                                         <img src="{{('public/frontend/images/iframe2.png')}}" alt="" />
+                                         <img src="{{('frontend/images/iframe2.png')}}" alt="" />
                                     </div>
                                     <div class="overlay-icon">
                                         <i class="fa fa-play-circle-o"></i>
@@ -326,7 +326,7 @@
                             <div class="video-gallery text-center">
                                 <a href="#">
                                     <div class="iframe-img">
-                                         <img src="{{('public/frontend/images/iframe3.png')}}" alt="" />
+                                         <img src="{{('frontend/images/iframe3.png')}}" alt="" />
                                     </div>
                                     <div class="overlay-icon">
                                         <i class="fa fa-play-circle-o"></i>
@@ -341,7 +341,7 @@
                             <div class="video-gallery text-center">
                                 <a href="#">
                                     <div class="iframe-img">
-                                         <img src="{{('public/frontend/images/iframe4.png')}}" alt="" />
+                                         <img src="{{('frontend/images/iframe4.png')}}" alt="" />
                                     </div>
                                     <div class="overlay-icon">
                                         <i class="fa fa-play-circle-o"></i>
@@ -441,15 +441,15 @@
     
 
   
-    <script src="{{asset('public/frontend/js/jquery.js')}}"></script>
-    <script src="{{asset('public/frontend/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('public/frontend/js/jquery.scrollUp.min.js')}}"></script>
-    <script src="{{asset('public/frontend/js/price-range.js')}}"></script>
-    <script src="{{asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
-    <script src="{{asset('public/frontend/js/main.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery.js')}}"></script>
+    <script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery.scrollUp.min.js')}}"></script>
+    <script src="{{asset('frontend/js/price-range.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery.prettyPhoto.js')}}"></script>
+    <script src="{{asset('frontend/js/main.js')}}"></script>
 
 
-    <script src="{{asset('public/frontend/js/sweetalert.min.js')}}"></script>
+    <script src="{{asset('frontend/js/sweetalert.min.js')}}"></script>
    {{--  <script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
     <script>paypal.Buttons().render('body');</script> --}}
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
