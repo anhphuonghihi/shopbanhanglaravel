@@ -11,7 +11,7 @@
 |
 */
 //Frontend 
-Route::get('/','HomeController@index' );
+Route::get('/home','HomeController@index2' );
 Route::get('/trang-chu','HomeController@index');
 Route::get('/404','HomeController@error_page');
 Route::post('/tim-kiem','HomeController@search');
@@ -153,3 +153,14 @@ Route::get('/unactive-slide/{slide_id}','SliderController@unactive_slide');
 Route::get('/active-slide/{slide_id}','SliderController@active_slide');
 
 
+
+
+
+// Start
+
+Route::get('/','HomeController@index' );
+
+Route::get('/login','HomeController@index' );
+Route::post('/login','LoginController@login_user');
+
+Route::post('/register','LoginController@register_user');
