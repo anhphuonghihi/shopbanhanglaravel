@@ -158,9 +158,20 @@ Route::get('/active-slide/{slide_id}','SliderController@active_slide');
 
 // Start
 
-Route::get('/','HomeController@index' );
+Route::get('/','HomeController@trang_chu' );
+
+
+Route::get('/forums','HomeController@forums' );
 
 Route::get('/login','HomeController@index' );
 Route::post('/login','LoginController@login_user');
 
 Route::post('/register','LoginController@register_user');
+
+Route::get('/forums/{slug_danh_muc}','CategoryProduct@show_danh_muc_home');
+
+Route::get('/whats-new','CategoryProduct@whats_new');
+
+Route::get('/whats-new/news-post','CategoryProduct@news_post');
+
+Route::get('/whats-new/latest-activity','CategoryProduct@latest_activity');

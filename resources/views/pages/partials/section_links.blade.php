@@ -5,9 +5,23 @@
                 <ul class="p-sectionLinks-list">
 
                     <li>
+
                         <div class="p-navEl u-ripple  rippleButton">
+
+
+
+
                             <a href="/whats-new/posts/" class="p-navEl-link  " data-xf-key="alt+1"
                                 data-nav-id="newPosts"><span>Bài viết mới</span></a>
+
+
+
+
+
+
+
+
+
                         </div>
 
                     </li>
@@ -20,8 +34,11 @@
             <a aria-label="Toggle sidebar" href="javascript:;"
                 class="uix_sidebarTrigger__component uix_sidebarTrigger p-navgroup-link" data-xf-init="tooltip"
                 rel="nofollow" data-original-title="Sidebar" id="js-XFUniqueId2">
-                <i class="fa--xf far fa-ellipsis-v mdi mdi-dots-vertical" aria-hidden="true"></i>
-                <span class="uix_sidebarTrigger--phrase">Toggle sidebar</span>
+
+                @if (!empty($rightbar))
+                    <i class="fa--xf far fa-ellipsis-v mdi mdi-dots-vertical" aria-hidden="true"></i>
+                    <span class="uix_sidebarTrigger--phrase">Toggle sidebar</span>
+                @endif
             </a>
         </div>
     </div>

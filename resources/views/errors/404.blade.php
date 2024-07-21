@@ -1,16 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>404 ko tìm thấy</title>
-</head>
-<body>
-	<style>
-		body{
-			background: #ddd;
-			text-align: center;
-		}
-	</style>
-	<h1>404 ko tìm thấy</h1>
-</body>
-</html>
+<div class="p-body-main                             
+<div uix_component="MainContent" class="p-body-content">
+    <!-- ABOVE MAIN CONTENT -->
+    <div class="p-body-main  ">
+        <div uix_component="MainContent" class="p-body-content">
+            <!-- ABOVE MAIN CONTENT -->
+            <div class="p-body-pageContent">
+                <div class="blockMessage">
+                    <meta http-equiv="refresh" content="5; url={{ url('/') }}">
+                    <center><b>Trang bạn yêu cầu không tìm thấy<br><br>
+                            Hệ thống sẽ tự động chuyển về trang chủ trong <span id="countdown">5</span> giây...</b>
+                    </center>
+                </div>
+            </div>
+            <!-- BELOW MAIN CONTENT -->
+        </div>
+    </div>
+    <script>
+        var timeleft = 5;
+        var downloadTimer = setInterval(function() {
+            if (timeleft <= 0) {
+                clearInterval(downloadTimer);
+                document.getElementById("countdown").innerHTML = "Finished";
+            } else {
+                document.getElementById("countdown").innerHTML = timeleft;
+            }
+            timeleft -= 1;
+        }, 1000);
+    </script>
+    
+    <!-- BELOW MAIN CONTENT -->
+</div>
+</div>

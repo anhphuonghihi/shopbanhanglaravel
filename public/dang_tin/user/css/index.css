@@ -20659,7 +20659,11 @@ a.uix_logo {
 
 @media (max-width: 900px) {
     .p-body {
-     overflow: hidden !important;
+        overflow: hidden !important;
     }
 
+}
+
+.p-sectionLinks-inner {
+    height: 100%;
 }

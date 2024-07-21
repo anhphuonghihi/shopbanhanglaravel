@@ -124,4 +124,58 @@ class CategoryProduct extends Controller
     }
   
 
+
+    public function show_danh_muc_home(Request $request ,$slug_danh_muc){
+        //slide
+        $number = strripos($slug_danh_muc,".");
+        $danh_muc_id =  substr($slug_danh_muc,$number+1);
+
+        $danh_muc = DB::table('danh_muc')->where('id', '=', $danh_muc_id)->get(); 
+        
+        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
+        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_title="";
+        if($danh_muc){
+            
+            $meta_title = $danh_muc[0]->ten_danh_muc;
+        }
+        
+        $url_canonical = $request->url();
+
+        //  $post = DB::table('tbl_posts')->where('id_danh_muc_cha', '=', $danh_muc_id)->paginate(6); 
+
+        
+    	return view('pages.show_category')->with('rightbar','true')->with('danh_muc_id',$danh_muc_id)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+
+
+    }
+
+    public function whats_new(Request $request){
+        //seo 
+        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
+        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_title = "Có gì mới?";
+        $url_canonical = $request->url();
+        //--seo
+        return view('pages.show_category');
+    }
+    
+    public function news_post(Request $request){
+        //seo 
+        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
+        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_title = "Bài viết mới";
+        $url_canonical = $request->url();
+        //--seo
+    }
+
+        
+    public function latest_activity(Request $request){
+        //seo 
+        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
+        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_title = "Hoạt động mới nhất";
+        $url_canonical = $request->url();
+        //--seo
+    }
 }

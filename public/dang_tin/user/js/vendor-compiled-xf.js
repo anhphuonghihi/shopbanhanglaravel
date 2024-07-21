@@ -1934,7 +1934,7 @@ void 0 === window.jQuery && (jQuery = $ = {});
                               return a.sourceCapabilities.firesTouchEvents;
                       }
                   }
-                  return XF.Feature.has("touchevents");
+                  return XF.Feature?.has("touchevents");
               },
               getElEffectiveZIndex: function(a) {
                   var b = parseInt(a.css("z-index"), 10) || 0;
@@ -8631,7 +8631,7 @@ void 0 === window.jQuery && (jQuery = $ = {});
                     })
                     .on({
                         "menu:open": function() {
-                            c.open(XF.Feature.has("touchevents"));
+                            c.open(XF.Feature?.has("touchevents"));
                         },
                         "menu:close": function() {
                             c.close();

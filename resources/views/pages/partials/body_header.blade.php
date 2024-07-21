@@ -2,7 +2,7 @@
     <div class="pageContent">
         <div class="uix_headerInner">
             <div class="p-title ">
-                <h1 class="p-title-value">Danh sách diễn đàn</h1>
+                <h1 class="p-title-value">{{ $meta_title }}</h1>
             </div>
         </div>
         <div class="uix_headerInner--opposite">
