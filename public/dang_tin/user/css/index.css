@@ -15834,8 +15834,8 @@ html:not(.has-touchevents) .hScroller.hScroller--scrollHidden:hover .hScroller-a
 
 .hScroller-scroll.is-calculated {
     overflow-x: scroll;
-    padding-bottom: 30px;
-    margin-bottom: -30px
+    padding-bottom: 12px !important;
+    margin-bottom: -30px !important
 }
 
 .hScroller-action {

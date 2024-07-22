@@ -1,7 +1,7 @@
 <div class="p-sectionLinks">
     <div class="pageContent">
         <div class="p-sectionLinks-inner hScroller" data-xf-init="h-scroller">
-            <div class="hScroller-scroll is-calculated" style="margin-bottom: -47px;">
+            <div class="hScroller-scroll is-calculated">
                 <ul class="p-sectionLinks-list">
 
                     <li>
@@ -11,7 +11,7 @@
 
 
 
-                            <a href="/whats-new/posts/" class="p-navEl-link  " data-xf-key="alt+1"
+                            <a href="/whats-new/posts/" class="p-navEl-link " data-xf-key="alt+1"
                                 data-nav-id="newPosts"><span>Bài viết mới</span></a>
 
 

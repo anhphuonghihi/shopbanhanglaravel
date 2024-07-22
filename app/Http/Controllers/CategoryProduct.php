@@ -138,14 +138,16 @@ class CategoryProduct extends Controller
         if($danh_muc){
             
             $meta_title = $danh_muc[0]->ten_danh_muc;
+            $description = $danh_muc[0]->description;
+
         }
-        
+    
         $url_canonical = $request->url();
 
-        //  $post = DB::table('tbl_posts')->where('id_danh_muc_cha', '=', $danh_muc_id)->paginate(6); 
+        $post = DB::table('tbl_post')->where('danh_muc_id', '=', $danh_muc_id)->where('stiky', '=', '0')->paginate(1); 
 
         
-    	return view('pages.show_category')->with('rightbar','true')->with('danh_muc_id',$danh_muc_id)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+    	return view('pages.show_category')->with('slug_danh_muc',$slug_danh_muc)->with('post',$post)->with('breadcrumb','true')->with('rightbar','true')->with('description',$description)->with('danh_muc_id',$danh_muc_id)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
 
 
     }
@@ -157,7 +159,7 @@ class CategoryProduct extends Controller
         $meta_title = "Có gì mới?";
         $url_canonical = $request->url();
         //--seo
-        return view('pages.show_category');
+        return view('pages.whats_new')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
     
     public function news_post(Request $request){
@@ -166,10 +168,51 @@ class CategoryProduct extends Controller
         $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
+        return view('pages.whats_new')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         //--seo
     }
 
         
+    public function search(Request $request){
+        //seo 
+        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
+        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_title = "Bài viết mới";
+        $url_canonical = $request->url();
+        return view('pages.search')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        //--seo
+    }
+    public function account(Request $request){
+        //seo 
+        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
+        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_title = "Bài viết mới";
+        $url_canonical = $request->url();
+        return view('pages.account')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        //--seo
+    }
+
+    public function referral(Request $request){
+        //seo 
+        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
+        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_title = "Bài viết mới";
+        $url_canonical = $request->url();
+        return view('pages.referral')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        //--seo
+    }
+    
+    
+    public function deposit_money(Request $request){
+        //seo 
+        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
+        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_title = "Bài viết mới";
+        $url_canonical = $request->url();
+        return view('pages.deposit_money')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        //--seo
+    }
+    
     public function latest_activity(Request $request){
         //seo 
         $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 

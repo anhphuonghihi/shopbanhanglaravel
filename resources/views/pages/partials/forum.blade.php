@@ -11,7 +11,6 @@
     $tbl_binh_luan = DB::table('tbl_binh_luan')
         ->where('danh_muc_id', '=', $danh_muc_item_con->id)
         ->orderby('created_at', 'desc')
-        ->limit(1)
         ->get();
     $count_binh_luan_by_id_danh_muc = $tbl_binh_luan->count();
     if (!empty($tbl_binh_luan[0])) {
@@ -168,70 +167,14 @@
                         <ul class="listInline listInline--bullet">
                             <li><time class="node-extra-date u-dt" dir="auto"">
                                     @php
-                                        date_default_timezone_set('Asia/Ho_Chi_Minh');
-                                        $date1 = new DateTime('now');
-                                        $date2 = new DateTime('2024-07-20T20:00:00');
-                                        $vietnamese_days = [
-                                            'Thứ Hai',
-                                            'Thứ Ba',
-                                            'Thứ Tư',
-                                            'Thứ Năm',
-                                            'Thứ Sáu',
-                                            'Thứ Bảy',
-                                            'Chủ Nhật',
-                                        ];
-
-                                        $diff = $date2->diff($date1);
-
-                                        if ($diff->y) {
-                                            # code...
-                                            echo $date2->format('d');
-                                            echo '/';
-                                            echo $date2->format('m');
-                                            echo '/';
-                                            echo $date2->format('y');
-                                        } elseif ($diff->m < 1) {
-                                            $hours = $diff->h;
-
-                                            $hours = $hours + $diff->days * 24;
-                                            $hour_week = 24 * 7;
-                                            $thu = $date2->format('N');
-                                            if ($hour_week > $hours) {
-                                                if ($hours < 48) {
-                                                    if ($hours < 24) {
-                                                        if ($hours == 0) {
-                                                            echo $diff->i;
-                                                            echo ' phút trước';
-                                                        } else {
-                                                            echo 'Hôm nay, lúc ';
-                                                            echo $date2->format('h');
-                                                            echo ':';
-                                                            echo $date2->format('i');
-                                                        }
-                                                    } else {
-                                                        echo 'Hôm qua, lúc ';
-                                                        echo $date2->format('h');
-                                                        echo ':';
-                                                        echo $date2->format('i');
-                                                    }
-                                                } else {
-                                                    echo $vietnamese_days[$thu];
-                                                    echo ' lúc ';
-                                                    echo $date2->format('h');
-                                                    echo ':';
-                                                    echo $date2->format('i');
-                                                }
-                                            } else {
-                                                echo $date2->format('d');
-                                                echo '/';
-                                                echo $date2->format('m');
-                                            }
-                                        } else {
-                                            echo $date2->format('d');
-                                            echo '/';
-                                            echo $date2->format('m');
-                                        }
-                                    @endphp</time></li>
+                                        $date2 = new DateTime(
+                                            $tbl_binh_luan->count() > 0
+                                                ? $tbl_binh_luan[0]->created_at
+                                                : $post_new[0]->created_at,
+                                        );
+                                    @endphp
+                                    @include('pages.partials.time')
+                                </time></li>
                             <li class="node-extra-user"><a
                                     href="/threads/{{ $post_new[0]->post_slug }}.{{ $post_new[0]->id }}"
                                     class="username " dir="auto" data-user-id="514854" data-xf-init="member-tooltip"

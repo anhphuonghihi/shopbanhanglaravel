@@ -4,6 +4,11 @@
             <div class="p-title ">
                 <h1 class="p-title-value">{{ $meta_title }}</h1>
             </div>
+            @if (!empty($description))
+                <div class="p-description">
+                    @php echo $description; @endphp
+                </div>
+            @endif
         </div>
         <div class="uix_headerInner--opposite">
             <div class="p-title-pageAction">

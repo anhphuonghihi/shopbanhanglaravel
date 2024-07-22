@@ -435,7 +435,11 @@
                     @include('pages.partials.notices')
 
                     @include('pages.partials.welcome')
-
+                    @if (!empty($breadcrumb))
+                        <div class="breadcrumb">
+                            @include('pages.partials.breadcrumb')
+                        </div>
+                    @endif
 
                     <div uix_component="MainContainer" class="uix_contentWrapper">
                         <a href="/threads/v-v-trien-khai-kenh-telegram-cho-checkerviet.125378/"><img
@@ -455,6 +459,11 @@
                             @endif
                         </div>
                     </div>
+                    @if (!empty($breadcrumb))
+                        <div class="breadcrumb p-breadcrumb--bottom">
+                            @include('pages.partials.breadcrumb')
+                        </div>
+                    @endif
                 </div>
             </div>
             @include('pages.partials.footer')

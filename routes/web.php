@@ -175,3 +175,11 @@ Route::get('/whats-new','CategoryProduct@whats_new');
 Route::get('/whats-new/news-post','CategoryProduct@news_post');
 
 Route::get('/whats-new/latest-activity','CategoryProduct@latest_activity');
+
+Route::get('/whats-new/search','CategoryProduct@search');
+
+Route::get('/account','CategoryProduct@account');
+
+Route::get('/referral-code','CategoryProduct@referral');
+
+Route::get('/deposit-money','CategoryProduct@deposit_money');
