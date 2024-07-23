@@ -47,13 +47,20 @@
                         <dd>
 
 
-                            <ol class="listInline listInline--customField" data-field="dv">
-                                <li>BJ/HJ</li>
-                                <li>69</li>
-                                <li>Hôn môi</li>
-                                <li>Hôn vú</li>
-                                <li>Vét máng</li>
-                            </ol>
+                            @if ($post[0]->cam_ket != null)
+                                @php
+                                    $nhan = $post[0]->cam_ket;
+
+                                    $cam_ket = explode(',', $nhan);
+                                @endphp
+                                @foreach ($cam_ket as $key => $cam_ket_item)
+                                    <ol class="listInline listInline--customField" data-field="dv">
+
+                                        <li>{{ $cam_ket_item }}</li>
+                                @endforeach
+
+                                </ol>
+                            @endif
 
 
                         </dd>
@@ -92,7 +99,7 @@
 
 
                 <article class="message    message-threadStarterPost message--post  js-post js-inlineModContainer  "
-                    data-author="ISO 9002" data-content="post-3657193" id="js-post-3657193">
+                    data-author="{{ $user[0]->username }}" data-content="post-3657193" id="js-post-3657193">
 
                     <span class="u-anchorTarget" id="post-3657193"></span>
 
@@ -106,11 +113,16 @@
                                 <div class="message-avatar ">
                                     <div class="message-avatar-wrapper">
 
-                                        <a href="/members/iso-9002.19/"
-                                            class="avatar avatar--m avatar--default avatar--default--dynamic"
+                                        <a class="avatar avatar--m avatar--default avatar--default--dynamic"
                                             data-user-id="19" data-xf-init="member-tooltip"
-                                            style="background-color: #00796b; color: #a7ffeb" id="js-XFUniqueId8">
-                                            <span class="avatar-u19-m" role="img" aria-label="ISO 9002">I</span>
+                                            style="background-color: {{ $user[0]->background_color ?? 'red' }}; color: #a7ffeb"
+                                            id="js-XFUniqueId8">
+                                            <span class="avatar-u19-m" role="img"
+                                                aria-label="{{ $user[0]->username }}">@php
+
+                                                    $user_name = $user[0]->username;
+                                                    echo strtoupper(substr($user_name, 0, -(strlen($user_name) - 1)));
+                                                @endphp</span>
                                         </a>
 
 
@@ -120,10 +132,11 @@
                                     <div class="message-userDetails">
                                         <h4 class="message-name"><a href="/members/iso-9002.19/" class="username "
                                                 dir="auto" data-user-id="19" data-xf-init="member-tooltip"
-                                                itemprop="name" id="js-XFUniqueId9"><span class="username--style33">ISO
-                                                    9002</span></a></h4>
-                                        <h5 class="userTitle message-userTitle" dir="auto" itemprop="jobTitle">❀ Trung
-                                            Tâm Kiểm Định ❀</h5>
+                                                itemprop="name" id="js-XFUniqueId9"><span
+                                                    class="username--style{{ $user_name = $user[0]->rank }}">{{ $user[0]->username }}</span></a>
+                                        </h4>
+                                        <h5 class="userTitle message-userTitle" dir="auto" itemprop="jobTitle">V.VIP
+                                        </h5>
                                         <div class="star-ranks">
 
 
@@ -154,8 +167,12 @@
                                                             aria-hidden="true"></i>
                                                     </span>
                                                 </dt>
-
-                                                <dd>25</dd>
+                                                @php
+                                                    $countbl = DB::table('tbl_binh_luan')
+                                                        ->where('user_id', '=', $user[0]->id)
+                                                        ->get();
+                                                @endphp
+                                                <dd>{{ $countbl->count() }}</dd>
                                             </dl>
 
 
@@ -170,7 +187,7 @@
                                                     </span>
                                                 </dt>
 
-                                                <dd>-11</dd>
+                                                <dd>{{ $user[0]->uy_tin }}</dd>
                                             </dl>
 
 
@@ -210,53 +227,15 @@
                                     <ul class="message-attribution-main listInline ">
 
                                         <li class="u-concealed">
-                                            <a href="/threads/trang-anh-net-dam-hien-tren-guong-mat-vu-to-mong-may-su-guc-nga-cua-cac-checker.125638/post-3657193"
+                                            <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}"
                                                 rel="nofollow">
-                                                <time class="u-dt" dir="auto" datetime="2023-10-06T22:50:08+0700"
-                                                    data-time="1696607408" data-date-string="6/10/23"
-                                                    data-time-string="22:50" title="6/10/23 lúc 22:50"
-                                                    itemprop="datePublished">6/10/23</time>
+                                                <time class="u-dt"> @php
+                                                    $date2 = new DateTime($post[0]->created_at);
+                                                @endphp
+                                                    @include('pages.partials.time')</time>
                                             </a>
                                         </li>
 
-
-                                    </ul>
-
-                                    <ul class="message-attribution-opposite message-attribution-opposite--list ">
-
-                                        <li>
-                                            <a href="/threads/trang-anh-net-dam-hien-tren-guong-mat-vu-to-mong-may-su-guc-nga-cua-cac-checker.125638/post-3657193"
-                                                class="message-attribution-gadget" data-xf-init="share-tooltip"
-                                                data-href="/posts/3657193/share" aria-label="Share" rel="nofollow"
-                                                id="js-XFUniqueId12">
-                                                <i class="fa--xf far fa-share-alt" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-
-                                        <li>
-
-
-
-
-                                            <a href="/posts/3657193/bookmark"
-                                                class="bookmarkLink message-attribution-gadget bookmarkLink--highlightable "
-                                                title="Lưu bài viết" data-xf-click="bookmark-click"
-                                                data-label=".js-bookmarkText"
-                                                data-sk-bookmarked="addClass:is-bookmarked, Edit bookmark"
-                                                data-sk-bookmarkremoved="removeClass:is-bookmarked, Add bookmark"><span
-                                                    class="js-bookmarkText u-srOnly">Add bookmark</span></a>
-
-
-
-                                        </li>
-
-
-                                        <li>
-                                            <a href="/threads/trang-anh-net-dam-hien-tren-guong-mat-vu-to-mong-may-su-guc-nga-cua-cac-checker.125638/post-3657193"
-                                                rel="nofollow">
-                                                #1
-                                            </a>
-                                        </li>
 
                                     </ul>
                                 </header>
@@ -278,7 +257,7 @@
 
 
                                     <div class="message-userContent lbContainer js-lbContainer " data-lb-id="post-3657193"
-                                        data-lb-caption-desc="ISO 9002 · 6/10/23 lúc 22:50">
+                                        data-lb-caption-desc="{{ $user[0]->username }} · 6/10/23 lúc 22:50">
 
 
 
@@ -300,12 +279,9 @@
 
 
                                                     <div class="bbImageWrapper  js-lbImage"
-                                                        title="KX7A5715-copy-2575030029cac193e.jpg"
-                                                        data-src="https://upload69.cam/images/2024/01/02/KX7A5715-copy-2575030029cac193e.jpg"
-                                                        data-lb-sidebar-href="" data-lb-caption-extra-html=""
-                                                        data-single-image="1">
-                                                        <img src="https://upload69.cam/images/2024/01/02/KX7A5715-copy-2575030029cac193e.jpg"
-                                                            data-url="https://upload69.cam/images/2024/01/02/KX7A5715-copy-2575030029cac193e.jpg"
+                                                       >
+                                                        <img src="/public/uploads/product/{{ $post[0]->anh_dai_dien}}"
+                                                            data-url="/public/uploads/product/{{ $post[0]->anh_dai_dien}}"
                                                             class="bbImage" data-zoom-target="1" style=""
                                                             alt="KX7A5715-copy-2575030029cac193e.jpg" title=""
                                                             width="" height="" loading="lazy">
@@ -423,8 +399,8 @@
                                                     </a><br>
                                                     <a href="https://upload69.cam/image/r9q57s" target="_blank"
                                                         class="link link--external" rel="nofollow ugc noopener">
-                                                        <img src="https://upload69.cam/images/2024/01/02/KX7A5715-copy-2575030029cac193e.jpg"
-                                                            data-url="https://upload69.cam/images/2024/01/02/KX7A5715-copy-2575030029cac193e.jpg"
+                                                        <img src="/public/uploads/product/{{ $post[0]->anh_dai_dien}}"
+                                                            data-url="/public/uploads/product/{{ $post[0]->anh_dai_dien}}"
                                                             class="bbImage " loading="lazy" style=""
                                                             width="" height="">
 

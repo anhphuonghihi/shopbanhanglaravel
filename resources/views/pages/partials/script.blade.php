@@ -612,20 +612,55 @@
             if (!state.id) {
                 return state.text;
             }
-
+            console.log(state.element.className);
             var text = state.text.split(',')
+            var className = state.element.className
             var $state = $(
-                `<span class="label label--red">${text[0]}</span>`
+                `<span class="label label--${className}">${text[0]}</span>`
             );
             return $state;
         };
+
+
+
         $(document).ready(function() {
             $('#list').select2({
-                placeholder: 'Kies formaat en bekijk prijzen',
+                placeholder: 'Nhãn',
                 allowClear: true,
                 minimumResultsForSearch: Infinity,
                 multiple: true,
-                templateResult: formatState
+                templateResult: formatState,
+                templateSelection: function(selection) {
+                    console.log(selection);
+                    if (selection.selected) {
+                        return $.parseHTML('<span class="label label--' + selection.element
+                            .className + '">' + selection.text +
+                            '</span>');
+                    } else {
+                        return $.parseHTML('<span class="label label--' + selection.element
+                            .className + '">' + selection.text +
+                            '</span>');
+                    }
+                }
+            });
+            $('.create-thread select').select2({
+                placeholder: 'Nhãn',
+                allowClear: true,
+                minimumResultsForSearch: Infinity,
+                multiple: true,
+                templateResult: formatState,
+                templateSelection: function(selection) {
+                    console.log(selection);
+                    if (selection.selected) {
+                        return $.parseHTML('<span class="label label--' + selection.element
+                            .className + '">' + selection.text +
+                            '</span>');
+                    } else {
+                        return $.parseHTML('<span class="label label--' + selection.element
+                            .className + '">' + selection.text +
+                            '</span>');
+                    }
+                }
             });
         });
 

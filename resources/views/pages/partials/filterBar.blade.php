@@ -2,16 +2,15 @@
     <div class="filterBar">
 
 
-        <a class="filterBar-menuTrigger" data-xf-click="menu" role="button" tabindex="0"
-            aria-expanded="false" aria-haspopup="true">Filters</a>
+        <a class="filterBar-menuTrigger" data-xf-click="menu" role="button" tabindex="0" aria-expanded="false"
+            aria-haspopup="true">Filters</a>
         <div class="menu menu--wide" data-menu="menu" aria-hidden="true"
             data-href="/forums/hoi-checker-mien-bac.97/filters" data-load-target=".js-filterMenuBody">
             <div class="menu-content">
                 <h4 class="menu-header">Show only:</h4>
                 <div class="js-filterMenuBody">
                     <form action="/forums/hoi-checker-mien-bac.97/filters" method="post" class="">
-                        <input type="hidden" name="_xfToken"
-                            value="1721485566,7ea5e231e7fd2b6e242bbecde36a0e6f">
+                        <input type="hidden" name="_xfToken" value="1721485566,7ea5e231e7fd2b6e242bbecde36a0e6f">
 
 
 
@@ -19,11 +18,15 @@
                         <div class="menu-row menu-row--separated">
                             <label for="ctrl_started_by">Bắt đầu bởi:</label>
 
-                            <select id="list" multiple="multiple" class="js-example-basic-multiple">
-                                <option value="None"><span class="label label--red">CHÚ Ý</span>
-                                </option>
-                                <option id="one" value="1">One</option>
-                                <option value="2">Two</option>
+                            <select id="list" multiple="multiple" class="js-example-basic-multiple" name='nhan[]'>
+                                @php
+                                    $nhan = DB::table('tbl_tag')->where('la_label', '=', '1')->get();
+                                    foreach ($nhan as $row) {
+                                        $name = $row->name;
+                                        $color = $row->color;
+                                        echo "<option class='$color' value='$name'>$name</option>";
+                                    }
+                                @endphp
                             </select>
                         </div>
 
@@ -33,9 +36,8 @@
                         <div class="menu-row menu-row--separated">
                             <label for="ctrl_started_by">Bắt đầu bởi:</label>
                             <div class="u-inputSpacer">
-                                <input type="text" class="input" data-xf-init="auto-complete"
-                                    data-single="true" name="starter" maxlength="50" id="ctrl_started_by"
-                                    autocomplete="off">
+                                <input type="text" class="input" data-xf-init="auto-complete" data-single="true"
+                                    name="starter" maxlength="50" id="ctrl_started_by" autocomplete="off">
                             </div>
                         </div>
 
@@ -109,8 +111,7 @@
                                 <span class="u-srOnly" id="ctrl_sort_direction">Sort
                                     direction</span>
 
-                                <select name="direction" class="input"
-                                    aria-labelledby="ctrl_sort_direction">
+                                <select name="direction" class="input" aria-labelledby="ctrl_sort_direction">
                                     <option value="desc" selected="selected">Descending</option>
                                     <option value="asc">Ascending</option>
 

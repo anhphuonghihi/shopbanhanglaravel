@@ -145,7 +145,7 @@ class CategoryProduct extends Controller
         $url_canonical = $request->url();
 
         $post = DB::table('tbl_post')->where('danh_muc_id', '=', $danh_muc_id)->where('stiky', '=', '0')->paginate(1); 
-
+        Session::put('danh_muc_id_ht', $danh_muc_id);
         
     	return view('pages.show_category')->with('slug_danh_muc',$slug_danh_muc)->with('post',$post)->with('breadcrumb','true')->with('rightbar','true')->with('description',$description)->with('danh_muc_id',$danh_muc_id)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
 
@@ -225,14 +225,18 @@ class CategoryProduct extends Controller
     
     public function show_post(Request $request,$slug_post){
         $number = strripos($slug_post,".");
-        $danh_muc_id =  substr($slug_post,$number+1);
+        $post_id =  substr($slug_post,$number+1);
 
         //seo 
         $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
         $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
-        return view('pages.post')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        $post_header = "true";
+
+        $post = DB::table('tbl_post')->where('id', '=', $post_id)->get(); 
+         $user = DB::table('users')->where('id', '=', $post[0]->user_id)->get(); 
+        return view('pages.post')->with('user',$user)->with('post',$post)->with('post_header',$post_header)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         //--seo
     }
     
@@ -308,11 +312,82 @@ class CategoryProduct extends Controller
     }
 
     public function create_post(Request $request){
-        
-        
-     
+        $data = array();
+        $data['ten_bai_viet'] = $request->title;
+        $data['post_slug'] = $request->slug;
       
-    }
+        $get_image = $request->file('image');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+                $new_image =  $name_image.rand(0,9999).'.'.$get_image->getClientOriginalExtension();
+                $get_image->move('public/uploads/product',$new_image);
+                $data['anh_dai_dien'] = $new_image;
+            
+            
+        }
+        if ($request->nhan) {
+            # code...
+            $data['nhan'] = implode(',', $request->nhan);
+        }
+        $danh_muc_id=Session::get('danh_muc_id_ht');
+        $data['danh_muc_id'] = $danh_muc_id;
+        $user_id=Session::get('user_id');
+        $data['user_id'] = $user_id;
+        
+        $data['nghe_danh'] = $request->nghe_danh;
+        $data['gia'] = $request->gia_di_khach;
+        $data['so_dien_thoai'] = $request->so_dien_thoai;
+        $data['nam_sinh'] = $request->nam_sinh;
+        $data['xuat_xu'] = $request->xuat_xu;
+        $data['pass'] = $request->pass;
+        $data['gia_nha_nghi'] = $request->gia_nha_nghi;
+        $data['thoi_gian_di_lam'] = $request->thoi_gian_di_lam;
+        $data['mo_ta_them'] = $request->mo_ta_them;
+        $data['chieu_cao'] = $request->chieu_cao;
+        $data['can_nang'] = $request->can_nang;
+        $data['tong_quat'] = implode(',', $request->tong_quat);
+        $data['vong_1'] = implode(',', $request->vong_1);
+        $data['vong_2'] = implode(',', $request->vong_2);
+        $data['vong_3'] = implode(',', $request->vong_3);
+        $data['vong_4'] = implode(',', $request->vong_4);
+        $data['phong_cach_phuc_vu'] = implode(',', $request->phong_cach_phuc_vu);
+        $data['service'] = implode(',', $request->service);
+        $data['cam_ket'] = implode(',', $request->cam_ket);
+        $data['khong_cam_ket'] = implode(',', $request->khong_cam_ket);
+        $images=array();
+        if($files=$request->file('list_anh')){
+            foreach($files as $file){
+                $get_name_image = $get_image->getClientOriginalName();
+                $file_ext = explode('.', $get_image);
+                $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+                if (in_array($file_ext, $allowed)) {
+                    
+                    $name_image = current(explode('.',$get_name_image));
+                    $new_image =  $name_image.rand(0,99999).'.'.$file->getClientOriginalExtension();
+                    $file->move('public/uploads/product',$new_image);                
+                    $images[]=$new_image;
+                }else{
+                    Session::put('message','Vui lòng thêm đúng định dạng ảnh');
+                    return Redirect::to('/create-thread');
+                }
+            }
+        }
+        $data['list_anh'] = implode(",",$images);
+        
+        
+   
+   
+        $post_id=DB::table('tbl_post')->insertGetId($data);
+        if ($post_id !=0) {
+            # code...
+
+            $slug_post = '/threads/'.$request->slug .'.'.$post_id;
+            return Redirect::to($slug_post);
+        }
+
+        
+    }p
     
     public function view_create_post(Request $request){
         
@@ -322,7 +397,7 @@ class CategoryProduct extends Controller
         $url_canonical = $request->url();
       
         //--seo
-        // return view('pages.create_post')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        return view('pages.view_create_post')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
      
       
     }

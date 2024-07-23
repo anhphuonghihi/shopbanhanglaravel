@@ -1,6 +1,5 @@
 @if (!empty($post_header))
     <div class="p-body-header node-header-160 node--category th_node--overwriteTextStyling">
-
         <div class="pageContent">
 
 
@@ -9,14 +8,15 @@
 
 
                 <div class="p-title ">
+                    @php
+                        $nhan = $post[0]->nhan;
+                        $listnhan = explode(',', $nhan, -1);
+                    @endphp
 
+                    <h1 class="p-title-value">
+                        @include('pages.partials.listnhan')
 
-                    <h1 class="p-title-value"><a href="/forums/cave-xa-dan-hoang-cau-kiem-dinh.160/?prefix_id=43"
-                            class="labelLink" rel="nofollow"><span class="label label--red" dir="auto">✪ ĐỘC QUYỀN
-                                ✪</span></a><span class="label-append">&nbsp;</span><a
-                            href="/forums/cave-xa-dan-hoang-cau-kiem-dinh.160/?prefix_id=25" class="labelLink"
-                            rel="nofollow"><span class="label label--orange" dir="auto">600K</span></a>
-                        TRANG ANH- NÉT DÂM HIỆN TRÊN GƯƠNG MẶT - VÚ TO - MÔNG MẨY - SỰ GỤC NGÃ CỦA CÁC CHECKER
+                        {{ $post[0]->ten_bai_viet }}
                     </h1>
 
 
@@ -31,17 +31,18 @@
                             <span class="u-srOnly">Thread starter</span>
 
                             <a href="/members/iso-9002.19/" class="username  u-concealed" dir="auto"
-                                data-user-id="19" data-xf-init="member-tooltip" id="js-XFUniqueId7">ISO 9002</a>
+                                data-user-id="19" data-xf-init="member-tooltip" id="js-XFUniqueId7">
+                                {{ $user[0]->username }}</a>
                         </li>
                         <li>
                             <i class="fa--xf far fa-clock" aria-hidden="true" title="Ngày gửi"></i>
                             <span class="u-srOnly">Ngày gửi</span>
 
                             <a href="/threads/trang-anh-net-dam-hien-tren-guong-mat-vu-to-mong-may-su-guc-nga-cua-cac-checker.125638/"
-                                class="u-concealed"><time class="u-dt" dir="auto"
-                                    datetime="2023-10-06T22:50:08+0700" data-time="1696607408"
-                                    data-date-string="6/10/23" data-time-string="22:50"
-                                    title="6/10/23 lúc 22:50">6/10/23</time></a>
+                                class="u-concealed"><time class="u-dt"> @php
+                                    $date2 = new DateTime($post[0]->created_at);
+                                @endphp
+                                    @include('pages.partials.time')</time></a>
                         </li>
 
                     </ul>
@@ -58,10 +59,18 @@
 
                 <div class="p-title-pageAction">
 
-                    <a href="/threads/trang-anh-net-dam-hien-tren-guong-mat-vu-to-mong-may-su-guc-nga-cua-cac-checker.125638/reply"
+                    <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}/reply"
                         class="button--cta uix_quickReply--button button button--icon button--icon--write rippleButton"><span
                             class="button-text">Trả lời</span></a>
-
+                    <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}/reply"
+                        class="button--cta uix_quickReply--button button button--icon button--icon--write rippleButton"><span
+                            class="button-text">Sửa</span></a>
+                    <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}/reply"
+                        class="button--cta uix_quickReply--button button button--icon button--icon--write rippleButton"><span
+                            class="button-text">Xóa</span></a>
+                    <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}/reply"
+                        class="button--cta uix_quickReply--button button button--icon button--icon--write rippleButton"><span
+                            class="button-text">Ghim</span></a>
                 </div>
 
 

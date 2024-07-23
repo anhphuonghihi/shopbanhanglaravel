@@ -19626,7 +19626,8 @@ a.uix_logo {
 .p-pageWrapper .p-body-header .pageContent .p-title-pageAction {
     margin-top: 0;
     display: inline-flex;
-    grid-gap: 10px
+    grid-gap: 10px;
+    flex-wrap: wrap;
 }
 
 @media (max-width: 650px) {
