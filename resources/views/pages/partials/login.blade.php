@@ -1,67 +1,24 @@
-<div class="w3layouts-main">
-    <h2>Đăng nhập</h2>
-    <?php
-    $message = Session::get('message');
-    if ($message) {
-        echo '<span class="text-alert">' . $message . '</span>';
-        Session::put('message', null);
-    }
-    ?>
-    <div class="login-box">
-        Đăng nhập
-        <form action="{{ URL::to('/login') }}" method="post">
-            {{ csrf_field() }}
-            @foreach ($errors->all() as $val)
-                <ul>
-                    <li>{{ $val }}</li>
-                </ul>
-            @endforeach
-            <input type="text" class="ggg" name="username" placeholder="Tên tài khoản hoặc email">
-            <input type="password" class="ggg" name="password" placeholder="Mật khẩu">
-
-            <span><input type="checkbox" />Nhớ đăng nhập</span>
-            <h6><a href="#">Quên mật khẩu</a></h6>
-            <div class="clearfix"></div>
-            <input type="submit" value="Đăng nhập" name="login">
-
-        </form>
-        <a href="{{ url('/login-facebook') }}">Login Facebook</a> |
-        <a href="{{ url('/login-google') }}">Login Google</a>
-        <p>Don't Have an Account ?<a href="{{ URL::to('/dang-ky') }}">Create an account</a></p>
-    </div>
-    <div class="register-box">
-        Đăng ký
-        <form action="{{ URL::to('/register') }}" method="post">
-            {{ csrf_field() }}
-            @foreach ($errors->all() as $val)
-                <ul>
-                    <li>{{ $val }}</li>
-                </ul>
-            @endforeach
-            <input type="text" class="ggg" name="username" placeholder="Tên tài khoản">
-            <input type="text" class="ggg" name="email" placeholder="Email">
-            <input type="password" class="ggg" name="password" placeholder="Mật khẩu">
-            <input type="password" class="ggg" name="password_confirmation" placeholder="Mật khẩu xác nhận">
-            <div class="clearfix"></div>
-            <input type="submit" value="Đăng kí" name="register">
-        </form>
-        <a href="{{ url('/login-facebook') }}">Đăng kí bằng fb</a> |
-        <a href="{{ url('/login-google') }}">Đăng kí Google</a>
-        <a href="{{ URL::to('/dang-ky') }}">Đã có tài khoản</a>
-    </div>
-</div>
-
-
 <div class="overlay-container" id="dang_nhap">
     <div class="overlay" tabindex="-1" data-url="https://xcheckerviet.biz/login/" role="dialog" aria-hidden="false">
         <div class="overlay-title"><a class="overlay-titleCloser js-overlayClose" role="button" tabindex="0"
                 aria-label="Đóng"></a>Đăng nhập</div>
+        <?php
+        $message = Session::get('message');
+        if ($message) {
+            echo '<span class="text-alert">' . $message . '</span>';
+            Session::put('message', null);
+        }
+        ?>
         <div class="overlay-content">
             <div class="blocks">
-
-                <form action="/login/login" method="post" class="block">
-                    <input type="hidden" name="_xfToken" value="1721463296,5c6d1faa04e339de8224824205ad7c61">
-
+                {{ csrf_field() }}
+                @foreach ($errors->all() as $val)
+                    <ul>
+                        <li>{{ $val }}</li>
+                    </ul>
+                @endforeach
+                <form action="{{ URL::to('/login') }}" method="post" class="block">
+                    @csrf
                     <div class="block-container">
                         <div class="block-body">
 
@@ -74,8 +31,8 @@
                                     </div>
                                 </dt>
                                 <dd>
-                                    <input type="text" class="input" name="login" autofocus="autofocus"
-                                        autocomplete="username" id="_xfUid-1-1721463296">
+                                    <input type="text" class="input" name="username" autofocus="autofocus"
+                                        required="required" autocomplete="username" id="_xfUid-1-1721463296">
                                 </dd>
                             </dl>
 
@@ -97,7 +54,7 @@
 
                                         <div class="inputGroup inputGroup--joined">
 
-                                            <input type="password" name="password" value=""
+                                            <input type="password" name="password" value="" required="required"
                                                 class="input js-password input--passwordHideShow"
                                                 autocomplete="current-password" id="_xfUid-2-1721463296">
 
@@ -140,7 +97,6 @@
                             </dl>
 
 
-                            <input type="hidden" name="_xfRedirect" value="https://xcheckerviet.biz/forums/">
                         </div>
 
                         <dl class="formRow formSubmitRow">
@@ -223,10 +179,16 @@
 </div>
 
 <div class="overlay-container" id="dang_ki">
-    <div class="overlay" tabindex="-1" data-url="https://xcheckerviet.biz/register/" role="dialog"
-        aria-hidden="false">
+    <div class="overlay" tabindex="-1" role="dialog" aria-hidden="false">
         <div class="overlay-title"><a class="overlay-titleCloser js-overlayClose" role="button" tabindex="0"
                 aria-label="Đóng"></a>Đăng Ký</div>
+        <?php
+        $message = Session::get('message');
+        if ($message) {
+            echo '<span class="text-alert">' . $message . '</span>';
+            Session::put('message', null);
+        }
+        ?>
         <div class="overlay-content">
             <div class="block">
                 <div class="block-container">
@@ -278,11 +240,14 @@
             </div>
 
 
-
-            <form action="/register/register" method="post" class="block" data-xf-init="reg-form ajax-submit"
-                data-timer="10">
-                <input type="hidden" name="_xfToken" value="1721464748,d4f2649df1e6461d97c7842dad7fee7a">
-
+            {{ csrf_field() }}
+            @foreach ($errors->all() as $val)
+                <ul>
+                    <li>{{ $val }}</li>
+                </ul>
+            @endforeach
+            <form action="{{ URL::to('/register') }}" method="post" class="block">
+                @csrf
 
                 <div class="block-container">
                     <div class="block-body">
@@ -302,9 +267,7 @@
                                 </div>
                             </dt>
                             <dd>
-                                <input type="text" class="input" data-xf-init="input-validator"
-                                    data-validation-url="/misc/validate-username"
-                                    name="f9f20126c922ebffe7c6b3fe02bbb85c3e4e6e24" autocomplete="username"
+                                <input type="text" class="input" name="username" autocomplete="username"
                                     required="required" autofocus="autofocus" maxlength="15"
                                     id="_xfUid-1-1721464748">
                                 <div class="inputValidationError js-validationError"></div>
@@ -312,24 +275,6 @@
                                     dùng bất cứ tên nào mình muốn. Một khi đã đặt thì không thể đổi.</div>
                             </dd>
                         </dl>
-
-
-
-
-                        <dl class="formRow formRow--limited formRow--input">
-                            <dt>
-                                <div class="formRow-labelWrapper">
-                                    <label class="formRow-label" for="_xfUid-2-1721464748">Tên tài khoản</label>
-                                </div>
-                            </dt>
-                            <dd>
-                                <input type="text" class="input" name="username" autocomplete="off"
-                                    maxlength="50" id="_xfUid-2-1721464748">
-                                <div class="formRow-explain">Please leave this field blank.</div>
-                            </dd>
-                        </dl>
-
-
 
 
 
@@ -346,9 +291,8 @@
                                 </div>
                             </dt>
                             <dd>
-                                <input type="email" class="input" name="5ebfec2134a60b76f0974e0039194b67acc8acf4"
-                                    autocomplete="email" required="required" maxlength="120"
-                                    id="_xfUid-3-1721464748">
+                                <input type="email" class="input" name="email" autocomplete="email"
+                                    required="required" maxlength="120" id="_xfUid-3-1721464748">
                             </dd>
                         </dl>
 
@@ -382,8 +326,8 @@
 
                                     <div class="inputGroup inputGroup--joined">
 
-                                        <input type="password" name="261f99ef85ef5f8c8d2f0cec87b4aceabf44303c"
-                                            value="" class="input js-password input--passwordHideShow"
+                                        <input type="password" name="password" value=""
+                                            class="input js-password input--passwordHideShow"
                                             autocomplete="new-password" required="required" checkstrength="true"
                                             id="_xfUid-4-1721464748">
 
@@ -396,71 +340,12 @@
                                         </div>
                                     </div>
 
+                                    {{-- <span class="js-strengthText meterBarLabel">Entering a password is required.</span> --}}
 
-
-                                    <meter min="0" max="100" class="meterBar js-strengthMeter"
-                                        low="40" high="80" optimum="100"></meter>
-                                    <span class="js-strengthText meterBarLabel">Entering a password is required.</span>
-                      
 
                                 </div>
                             </dd>
                         </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <dl class="formRow" style="display: none;">
-                            <dt>
-                                <div class="formRow-labelWrapper">
-                                    <label class="formRow-label">Mã xác nhận</label>
-                                    <dfn class="formRow-hint">
-                                        <font color="red">*Bắt buộc</font>
-                                    </dfn>
-                                </div>
-                            </dt>
-                            <dd>
-                                <div data-xf-init="re-captcha" data-sitekey="6LdTFg8qAAAAAIXeScalbHnvhPs0ntq34zxxJ19G"
-                                    data-theme="dark" data-invisible="1"></div>
-
-
-                            </dd>
-                        </dl>
-                        <div>
-                            <div class="grecaptcha-badge" data-style="bottomright"
-                                style="width: 256px; height: 60px; display: block; transition: right 0.3s ease 0s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;">
-                                <div class="grecaptcha-logo"><iframe title="reCAPTCHA" width="256" height="60"
-                                        role="presentation" name="a-720g96rndoow" frameborder="0" scrolling="no"
-                                        sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"
-                                        src="https://www.recaptcha.net/recaptcha/api2/anchor?ar=1&amp;k=6LdTFg8qAAAAAIXeScalbHnvhPs0ntq34zxxJ19G&amp;co=aHR0cHM6Ly94Y2hlY2tlcnZpZXQuYml6OjQ0Mw..&amp;hl=vi&amp;v=rKbTvxTxwcw5VqzrtN-ICwWt&amp;size=invisible&amp;cb=etkwzinmwi9f"></iframe>
-                                </div>
-                                <div class="grecaptcha-error"></div>
-                                <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response"
-                                    style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
-                            </div><iframe style="display: none;"></iframe>
-                        </div>
-
-
-
-
-
-
-
 
 
 
@@ -469,8 +354,8 @@
                                 <div class="formRow-labelWrapper"></div>
                             </dt>
                             <dd>
-                                <label class="iconic"><input type="checkbox" name="accept" value="1"
-                                        required="required"><i aria-hidden="true"></i><span class="iconic-label">I
+                                <label class="iconic"><input type="checkbox" value="1" required="required"><i
+                                        aria-hidden="true"></i><span class="iconic-label">I
                                         agree to the <a href="/help/terms/" target="_blank">terms</a> and <a
                                             href="/help/privacy-policy/" target="_blank">privacy
                                             policy</a>.</span></label>
@@ -498,10 +383,6 @@
 
 
                 </div>
-
-                <input type="hidden" name="reg_key" value="ccnWCU9db9kstEII">
-                <input type="hidden" name="2166c6863b54c20cd5aa10dda4ec2a194c446a37" value="Asia/Bangkok"
-                    data-xf-init="auto-timezone">
 
 
             </form>

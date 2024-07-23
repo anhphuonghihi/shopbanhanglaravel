@@ -453,17 +453,18 @@
                                 <!-- ABOVE MAIN CONTENT -->
                                 @yield('content')
                                 <!-- BELOW MAIN CONTENT -->
+                                @if (!empty($breadcrumb))
+                                    <div class="breadcrumb p-breadcrumb--bottom">
+                                        @include('pages.partials.breadcrumb')
+                                    </div>
+                                @endif
                             </div>
                             @if (!empty($rightbar))
                                 @include('pages.partials.rightbar')
                             @endif
                         </div>
                     </div>
-                    @if (!empty($breadcrumb))
-                        <div class="breadcrumb p-breadcrumb--bottom">
-                            @include('pages.partials.breadcrumb')
-                        </div>
-                    @endif
+
                 </div>
             </div>
             @include('pages.partials.footer')

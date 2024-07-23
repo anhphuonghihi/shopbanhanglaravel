@@ -470,7 +470,7 @@
                 data-widget-definition="new_posts">
                 <div class="block-container">
                     <h3 class="block-minorHeader">
-                        <a href="/whats-new/posts/?skip=1" rel="nofollow">Bình luận
+                        <a href="/whats-new/news-post?skip=1" rel="nofollow">Bình luận
                             mới</a>
                     </h3>
                     <ul class="block-body">

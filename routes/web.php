@@ -13,7 +13,7 @@
 //Frontend 
 Route::get('/home','HomeController@index2' );
 Route::get('/trang-chu','HomeController@index');
-Route::get('/404','HomeController@error_page');
+// Route::get('/404','HomeController@error_page');
 Route::post('/tim-kiem','HomeController@search');
 
 //Danh muc san pham trang chu
@@ -24,7 +24,7 @@ Route::get('/chi-tiet/{product_slug}','ProductController@details_product');
 //Backend
 Route::get('/admin','AdminController@index');
 Route::get('/dashboard','AdminController@show_dashboard');
-Route::get('/logout','AdminController@logout');
+
 Route::post('/admin-dashboard','AdminController@dashboard');
 
 
@@ -163,7 +163,7 @@ Route::get('/','HomeController@trang_chu' );
 
 Route::get('/forums','HomeController@forums' );
 
-Route::get('/login','HomeController@index' );
+
 Route::post('/login','LoginController@login_user');
 
 Route::post('/register','LoginController@register_user');
@@ -183,3 +183,18 @@ Route::get('/account','CategoryProduct@account');
 Route::get('/referral-code','CategoryProduct@referral');
 
 Route::get('/deposit-money','CategoryProduct@deposit_money');
+
+Route::get('/threads/{slug_post}','CategoryProduct@show_post');
+
+Route::get('/serve','CategoryProduct@serve');
+
+Route::get('/logout','CategoryProduct@logout');
+
+Route::get('/referral-code/{slug_gioi_thieu}','CategoryProduct@gioi_thieu');
+
+
+Route::post('/referral-code','CategoryProduct@gioi_thieu_post');
+
+Route::get('/create-thread','CategoryProduct@view_create_post');
+
+Route::post('/create-thread','CategoryProduct@create_post');

@@ -11,7 +11,7 @@
 
 
 
-                            <a href="/whats-new/posts/" class="p-navEl-link " data-xf-key="alt+1"
+                            <a href="/whats-new/news-post" class="p-navEl-link " data-xf-key="alt+1"
                                 data-nav-id="newPosts"><span>Bài viết mới</span></a>
 
 

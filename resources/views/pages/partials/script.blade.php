@@ -628,7 +628,24 @@
                 templateResult: formatState
             });
         });
+
     });
 </script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@if (Session::has('ok'))
+    <script>
+        $(document).ready(function() {
+
+            $("#dang_nhap").toggleClass('is-active');
+        });
+    </script>
+@endif
+@if (Session::has('dki'))
+    <script>
+        $(document).ready(function() {
+
+            $("#dang_ki").toggleClass('is-active');
+        });
+    </script>
+@endif

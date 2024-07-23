@@ -30,8 +30,8 @@
     padding: 10px;
     justify-content: center;
     align-items: center;
-">Nạp
-                                                        tiền</span></span>
+">Mã
+                                                        giới thiệu</span></span>
                                             </span>
 
                                         </h1>

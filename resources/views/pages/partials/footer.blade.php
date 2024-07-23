@@ -67,9 +67,8 @@
                             </dl>
                             <dl class="pairs pairs--justified">
                                 <dt>Thành viên mới nhất</dt>
-                                <dd><a href="/members/rut-ra-o-kip.515185/" class="username "
-                                        dir="auto" data-user-id="515185"
-                                        data-xf-init="member-tooltip"
+                                <dd><a href="/members/rut-ra-o-kip.515185/" class="username " dir="auto"
+                                        data-user-id="515185" data-xf-init="member-tooltip"
                                         id="js-XFUniqueId60">Rút.ra.O.kịp</a></dd>
                             </dl>
                         </div>
@@ -80,13 +79,11 @@
                     <div class="block-container">
                         <h3 class="block-minorHeader">Share this page</h3>
                         <div class="block-body block-row" style="text-align: center;">
-                            <div class="shareButtons shareButtons--iconic" data-xf-init="share-buttons"
-                                data-page-url="" data-page-title="" data-page-desc=""
-                                data-page-image="">
+                            <div class="shareButtons shareButtons--iconic" data-xf-init="share-buttons" data-page-url=""
+                                data-page-title="" data-page-desc="" data-page-image="">
                                 <div class="shareButtons-buttons">
                                     <a class="shareButtons-button shareButtons-button--brand shareButtons-button--facebook"
-                                        data-href="https://www.facebook.com/sharer.php?u={url}"
-                                        id="js-XFUniqueId61">
+                                        data-href="https://www.facebook.com/sharer.php?u={url}" id="js-XFUniqueId61">
                                         <i aria-hidden="true"></i>
                                         <span>Facebook</span>
                                     </a>
@@ -97,15 +94,14 @@
                                         <span>Twitter</span>
                                     </a>
                                     <a class="shareButtons-button shareButtons-button--share is-hidden"
-                                        data-xf-init="web-share" data-title="" data-text=""
-                                        data-url=""
+                                        data-xf-init="web-share" data-title="" data-text="" data-url=""
                                         data-hide=".shareButtons-button:not(.shareButtons-button--share)"
                                         id="js-XFUniqueId63">
                                         <i aria-hidden="true"></i>
                                         <span>Share</span>
                                     </a>
-                                    <a class="shareButtons-button shareButtons-button--link"
-                                        data-clipboard="{url}" id="js-XFUniqueId64">
+                                    <a class="shareButtons-button shareButtons-button--link" data-clipboard="{url}"
+                                        id="js-XFUniqueId64">
                                         <i aria-hidden="true"></i>
                                         <span>Link</span>
                                     </a>
@@ -125,9 +121,9 @@
                         <li><a id="uix_widthToggle--trigger" data-xf-init="tooltip" rel="nofollow"
                                 data-original-title="Toggle width" aria-label="Toggle width"><i
                                     class="fa--xf far fa-compress-alt" aria-hidden="true"></i></a></li>
-                        <li><a href="/misc/language" data-xf-click="overlay" data-xf-init="tooltip"
-                                rel="nofollow" data-original-title="Chọn Ngôn ngữ"
-                                id="js-XFUniqueId65"><i class="fa fa-globe" aria-hidden="true"></i>
+                        <li><a href="/misc/language" data-xf-click="overlay" data-xf-init="tooltip" rel="nofollow"
+                                data-original-title="Chọn Ngôn ngữ" id="js-XFUniqueId65"><i class="fa fa-globe"
+                                    aria-hidden="true"></i>
                                 Tiếng Việt</a></li>
                     </ul>
                 </div>
@@ -138,10 +134,10 @@
                     <li><a href="/help/terms/">Quy định và Nội quy</a></li>
                     <li><a href="/help/privacy-policy/">Privacy Policy</a></li>
                     <li><a href="/help/">Trợ giúp</a></li>
-                    <li><a href="#top" title="Top" data-xf-click="scroll-to"><i
-                                class="fa fa-arrow-up" aria-hidden="true"></i></a></li>
-                    <li><a href="/forums/-/index.rss" target="_blank" class="p-footer-rssLink"
-                            title="RSS"><span aria-hidden="true"><i class="fa fa-rss"></i><span
+                    <li><a href="#top" title="Top" data-xf-click="scroll-to"><i class="fa fa-arrow-up"
+                                aria-hidden="true"></i></a></li>
+                    <li><a href="/forums/-/index.rss" target="_blank" class="p-footer-rssLink" title="RSS"><span
+                                aria-hidden="true"><i class="fa fa-rss"></i><span
                                     class="u-srOnly">RSS</span></span></a></li>
                 </ul>
             </div>
@@ -152,10 +148,10 @@
             <div class="uix_copyrightBlock">
                 <div class="p-footer-copyright">
                     <a href="https://xenforo.com" class="u-concealed" dir="ltr" target="_blank"
-                        rel="sponsored noopener">Community platform by XenForo<sup>®</sup> <span
-                            class="copyright">© 2010-2022 XenForo Ltd.</span></a>
-                    <div><a style="color: red" href="https://customers.addonslab.com/"
-                            target="_blank">Thread Thumbnail by AddonsLab: invalid license detected.</a>
+                        rel="sponsored noopener">Community platform by XenForo<sup>®</sup> <span class="copyright">©
+                            2010-2022 XenForo Ltd.</span></a>
+                    <div><a style="color: red" href="https://customers.addonslab.com/" target="_blank">Thread
+                            Thumbnail by AddonsLab: invalid license detected.</a>
                     </div>
                     <span class="thBranding"><span class="thBranding__pipe"> | </span><a
                             href="https://www.themehouse.com/?utm_source=xcheckerviet.biz&amp;utm_medium=xf2product&amp;utm_campaign=product_branding"
@@ -181,7 +177,7 @@
                     class="u-srOnly">Bottom</span></span></a>
     </div>
     <div class="p-title-pageAction">
-        <a href="/whats-new/posts/" class="button button--icon button--icon--bolt rippleButton"><span
+        <a href="/whats-new/news-post" class="button button--icon button--icon--bolt rippleButton"><span
                 class="button-text">
                 Bài viết mới
             </span></a>

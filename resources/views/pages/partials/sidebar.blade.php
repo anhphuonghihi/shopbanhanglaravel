@@ -30,7 +30,7 @@
                         </div>
                         <div data-menu="false" class="uix_sidebarNav__subNav">
                             <div class="uix_sidebarNav__subNavInner">
-                                <a href="/whats-new/posts/"
+                                <a href="/whats-new/news-post"
                                     class="menu-linkRow u-ripple u-indentDepth0 js-offCanvasCopy  rippleButton"
                                     data-nav-id="newPosts"><span>Bài viết mới</span></a>
                             </div>

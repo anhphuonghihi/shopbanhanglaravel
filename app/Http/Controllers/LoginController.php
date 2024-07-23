@@ -16,7 +16,7 @@ class LoginController extends Controller
 {   
     public function login_user(Request $request){
     $data = $request->validate([
-        //validation laravel 
+   
         'username' => 'required',
         'password' => 'required',
     ],
@@ -24,25 +24,29 @@ class LoginController extends Controller
         'username.required'=> 'Vui lòng nhập tên tài khoản', // custom message
         'password.required'=> 'Vui lòng nhập mật khẩu' // custom message
     ]);
-
+ 
     $username = $data['username'];
     $password = md5($data['password']);
     $login = User::where(function($query) use ($username) {
              $query->where('email', '=', $username)
-             ->orWhere('username', '=',$username); })->where('password',$password)->first();
-
-    if($login){
-        $login_count = $login->count();
-        if($login_count>0){
-            Session::put('username',$login->username);
-            Session::put('user_id',$login->id);
-            return Redirect::to('/');
-        }
+             ->orWhere('username', '=',$username); })->where('password',$password);
+    
+        
+    if($login->count() > 0){
+        $login = User::where(function($query) use ($username) {
+            $query->where('email', '=', $username)
+            ->orWhere('username', '=',$username); })->where('password',$password)->first();
+             Session::put('username',$login->username);
+             Session::put('user_id',$login->id);
+             Session::put('ma_gioi_thieu',$login->ma_gioi_thieu);
+             return Redirect::to('/');        
     }else{
             Session::put('message','Mật khẩu hoặc tài khoản bị sai.Làm ơn nhập lại');
-            return Redirect::to('/');
+            Session::flash('ok', "Special message goes here");
+            return Redirect::back();
         }
     }
+  
     public function register_user(Request $request){
         $data = $request->validate([
             //validation laravel 
@@ -58,7 +62,6 @@ class LoginController extends Controller
                 'required',
                 'min:6',
             ],
-            'password_confirmation' => 'required|same:password'
         ],
         [
             'username.required'=> 'Vui lòng nhập tên tài khoản', // custom message
@@ -67,23 +70,47 @@ class LoginController extends Controller
             'email.regex'=> 'Vui lòng nhập đúng định dạng email', // custom message
             'password.required'=> 'Vui lòng nhập mật khẩu', // custom message
             'password.min'=> 'Mật khẩu không được dưới 6 kí tự', // custom message
-            'password_confirmation.required'=> 'Vui lòng nhập mật khẩu xác nhận', // custom message
-            'password_confirmation.same'=> 'Mật khẩu xác nhận không trùng khớp' // custom message
+        
         ]);
         $data_user = array();
-    	$data_user['email'] = $data['username'];
-    	$data_user['username'] = $data['email'];
+    	$data_user['email'] = $data['email'];
+    	$data_user['username'] = $data['username'];
     	$data_user['password'] = md5($data['password']);
-        $user_id = DB::table('users')->insertGetId($data_user);
-     
-        if ($user_id < 0) {
-            Session::put('message','Đăng kí tài khoản không thành công');
-            return Redirect::to('/');
-        }else{
-            Session::put('username',$data['username']);
-            Session::put('email',$data['email']);
-            Session::put('user_id',$user_id);
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < 10; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+ 
+        $data_user['ma_gioi_thieu'] = $randomString;
+        $username = $data['username'];
+        $username = User::where(function($query) use ($username) {
+            $query->where('username', '=', $username); });
+
+        if($username->count() > 0){
+            Session::put('message','Tên người dùng đã tồn tại');
+            Session::flash('dki', "Special message goes here");
             return Redirect::to('/');
         }
+        else
+        {
+            $user_id = DB::table('users')->insertGetId($data_user);
+            
+            if ($user_id < 0) {
+                Session::put('message','Đăng kí tài khoản không thành công');
+                return Redirect::to('/');
+            }else{
+                Session::put('username',$data['username']);
+                Session::put('email',$data['email']);
+                Session::put('user_id',$user_id);
+                $login = User::where(function($query) use ($username) {
+                    $query->where('email', '=', $username)
+                    ->orWhere('username', '=',$username); })->where('password',$password)->first();
+                Session::put('ma_gioi_thieu',$login->ma_gioi_thieu);
+                return Redirect::to('/');
+            }
+        }
     }
+  
 }

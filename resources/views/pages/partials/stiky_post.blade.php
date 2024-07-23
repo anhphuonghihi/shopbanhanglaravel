@@ -133,7 +133,9 @@
         @if ($count_binh_luan_by_id_post > 0)
             <a href="/threads/{{ $stiky_post_item->post_slug }}.{{ $stiky_post_item->id }}" rel="nofollow"><time
                     class="structItem-latestDate u-dt" dir="auto">@php
-                        $date2 = new DateTime($tbl_binh_luan[0]->created_at);
+                        if ($tbl_binh_luan[0]) {
+                            $date2 = new DateTime($tbl_binh_luan[0]->created_at);
+                        }
                     @endphp
                     @include('pages.partials.time')</time></a>
             <div class="structItem-minor">

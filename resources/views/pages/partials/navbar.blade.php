@@ -41,65 +41,73 @@
                 </a>
 
             </div>
-            @include('pages.partials.search')
-
+            @if (!empty(Session::get('username')))
+                @include('pages.partials.search')
+            @endif
 
             <div class="p-nav-opposite">
-                <div class="p-nav-opposite">
+                @if (!empty(Session::get('username')))
+                    <div class="p-nav-opposite">
 
 
 
 
 
-                    <div class="p-navgroup p-account p-navgroup--member is-menuOpen">
+                        <div class="p-navgroup p-account p-navgroup--member is-menuOpen">
 
 
 
-                        <a href="/account/" data-badge="0"
-                            class="p-navgroup-link u-ripple p-navgroup-link--iconic p-navgroup-link--user js-uix_badge--totalUnread badgeContainer rippleButton is-menuOpen"
-                            data-xf-click="menu" data-xf-key="m" data-menu-pos-ref="< .p-navgroup"
-                            title="phuonghole1212" aria-expanded="true" aria-haspopup="true"
-                            aria-controls="js-XFUniqueId11">
-                            <span class="avatar avatar--xxs avatar--default avatar--default--dynamic"
-                                data-user-id="516184" style="background-color: #f44336; color: #ff8a80">
-                                <span class="avatar-u516184-s" role="img" aria-label="phuonghole1212">P</span>
-                            </span>
-                            <span class="p-navgroup-linkText">phuonghole1212</span>
-                            <div class="ripple-container"></div>
+                            <a href="/account/" data-badge="0"
+                                class="p-navgroup-link u-ripple p-navgroup-link--iconic p-navgroup-link--user js-uix_badge--totalUnread badgeContainer rippleButton is-menuOpen"
+                                data-xf-click="menu" data-xf-key="m" data-menu-pos-ref="< .p-navgroup"
+                                title={{ Session::get('username') }} aria-expanded="true" aria-haspopup="true"
+                                aria-controls="js-XFUniqueId11">
+                                <span class="avatar avatar--xxs avatar--default avatar--default--dynamic"
+                                    data-user-id="516184" style="background-color: #f44336; color: #ff8a80">
+                                    <span class="avatar-u516184-s" role="img"
+                                        aria-label="{{ Session::get('username') }}">@php
+
+                                            $user_name = Session::get('username');
+                                            echo strtoupper(substr($user_name, 0, -(strlen($user_name) - 1)));
+                                        @endphp</span>
+                                </span>
+                                <span class="p-navgroup-linkText">{{ Session::get('username') }}</span>
+                                <div class="ripple-container"></div>
+                            </a>
+
+                        </div>
+
+
+
+
+
+                    </div>
+                @else
+                    <div class="p-navgroup p-account p-navgroup--guest">
+
+                        <a href="/login/"
+                            class="p-navgroup-link u-ripple p-navgroup-link--textual p-navgroup-link--logIn rippleButton rippleButton"
+                            data-xf-click="overlay" data-follow-redirects="on">
+                            <i></i>
+                            <span class="p-navgroup-linkText">Đăng nhập</span>
+                        </a>
+
+                        <a href="/register/"
+                            class="p-navgroup-link u-ripple p-navgroup-link--textual p-navgroup-link--register rippleButton rippleButton"
+                            data-xf-click="overlay" data-follow-redirects="on">
+                            <i></i>
+                            <span class="p-navgroup-linkText">Đăng Ký</span>
+                        </a>
+                    </div>
+                    <div class="p-navgroup p-discovery p-discovery--noSearch">
+                        <a href="/whats-new/" class="p-navgroup-link p-navgroup-link--iconic p-navgroup-link--whatsnew"
+                            title="Có gì mới?">
+                            <i aria-hidden="true"></i>
+                            <span class="p-navgroup-linkText">Có gì mới?</span>
                         </a>
 
                     </div>
-
-
-
-
-
-                </div>
-                <div class="p-navgroup p-account p-navgroup--guest">
-
-                    <a href="/login/"
-                        class="p-navgroup-link u-ripple p-navgroup-link--textual p-navgroup-link--logIn rippleButton rippleButton"
-                        data-xf-click="overlay" data-follow-redirects="on">
-                        <i></i>
-                        <span class="p-navgroup-linkText">Đăng nhập</span>
-                    </a>
-
-                    <a href="/register/"
-                        class="p-navgroup-link u-ripple p-navgroup-link--textual p-navgroup-link--register rippleButton rippleButton"
-                        data-xf-click="overlay" data-follow-redirects="on">
-                        <i></i>
-                        <span class="p-navgroup-linkText">Đăng Ký</span>
-                    </a>
-                </div>
-                <div class="p-navgroup p-discovery p-discovery--noSearch">
-                    <a href="/whats-new/" class="p-navgroup-link p-navgroup-link--iconic p-navgroup-link--whatsnew"
-                        title="Có gì mới?">
-                        <i aria-hidden="true"></i>
-                        <span class="p-navgroup-linkText">Có gì mới?</span>
-                    </a>
-
-                </div>
-
+                @endif
                 <a aria-label="Toggle sidebar" href="javascript:;"
                     class="uix_sidebarTrigger__component uix_sidebarTrigger p-navgroup-link" data-xf-init="tooltip"
                     rel="nofollow" data-original-title="Sidebar" id="js-XFUniqueId1">
@@ -107,6 +115,8 @@
                     <span class="uix_sidebarTrigger--phrase">Toggle sidebar</span>
                 </a>
             </div>
+
+
 
         </div>
 

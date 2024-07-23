@@ -213,6 +213,29 @@ class CategoryProduct extends Controller
         //--seo
     }
     
+    public function serve(Request $request){
+        //seo 
+        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
+        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_title = "Bài viết mới";
+        $url_canonical = $request->url();
+        return view('pages.serve')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        //--seo
+    }
+    
+    public function show_post(Request $request,$slug_post){
+        $number = strripos($slug_post,".");
+        $danh_muc_id =  substr($slug_post,$number+1);
+
+        //seo 
+        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
+        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_title = "Bài viết mới";
+        $url_canonical = $request->url();
+        return view('pages.post')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        //--seo
+    }
+    
     public function latest_activity(Request $request){
         //seo 
         $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
@@ -221,4 +244,87 @@ class CategoryProduct extends Controller
         $url_canonical = $request->url();
         //--seo
     }
+
+    public function logout(){
+
+        Session::put('username',null);
+        Session::put('user_id',null);
+        return Redirect::to('/');
+    }
+
+    public function gioi_thieu($slug_gioi_thieu){
+    
+        if (!empty(Session::get('username'))) {
+            if (!empty(Session::get('user_id'))){
+                $user =DB::table('users')->where('id',Session::get('user_id'))->first();
+                $gioi_thieu =DB::table('users')->where('ma_gioi_thieu',$slug_gioi_thieu)->get();
+                if ($gioi_thieu->count() > 0) {
+                    # code...
+                    if ($slug_gioi_thieu != $user->ma_gioi_thieu) {
+                        DB::table('users')->where('id',Session::get('user_id'))->update(array(
+                            'duoc_gioi_thieu'=>$slug_gioi_thieu,
+                        ));
+                        Session::put('message_gioi_thieu','Thêm mã giới thiệu thành công');
+                    }
+                }
+                else{
+                    Session::put('message_gioi_thieu','Mã giới thiệu không tồn tại');
+                }
+            }
+           
+      
+        };
+      
+    }
+
+    public function gioi_thieu_post(Request $request){
+        
+        $slug_gioi_thieu = $request['code'];
+        
+        if (!empty(Session::get('username'))) {
+            if (!empty(Session::get('user_id'))){
+                $user =DB::table('users')->where('id',Session::get('user_id'))->first();
+                $gioi_thieu =DB::table('users')->where('ma_gioi_thieu',$slug_gioi_thieu)->get();
+                if ($gioi_thieu->count() > 0) {
+                    # code...
+                    if ($slug_gioi_thieu != $user->ma_gioi_thieu) {
+                        DB::table('users')->where('id',Session::get('user_id'))->update(array(
+                            'duoc_gioi_thieu'=>$slug_gioi_thieu,
+                        ));
+                        Session::put('message_gioi_thieu','Thêm mã giới thiệu thành công');
+                        return Redirect::to('/referral-code');
+                    }
+                }
+                else{
+                    Session::put('message_gioi_thieu','Mã giới thiệu không tồn tại');
+                    return Redirect::to('/referral-code');
+                }
+            
+            }
+           
+      
+        };
+      
+    }
+
+    public function create_post(Request $request){
+        
+        
+     
+      
+    }
+    
+    public function view_create_post(Request $request){
+        
+        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
+        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_title = "Bài viết mới";
+        $url_canonical = $request->url();
+      
+        //--seo
+        // return view('pages.create_post')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+     
+      
+    }
+    
 }

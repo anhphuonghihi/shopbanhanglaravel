@@ -17,8 +17,7 @@
 
         $hours = $hours + $diff->days * 24;
         $hour_week = 24 * 7;
-        $thu = $date2->format('N');
-
+        $thu = (int) $date2->format('N');
         if ($hour_week > $hours) {
             if ($hours < 48) {
                 if ($hours < 12) {
@@ -55,7 +54,23 @@
                     echo $date2->format('i');
                 }
             } else {
-                echo $vietnamese_days[$thu];
+                if ($thu == 6) {
+                    echo $vietnamese_days[6];
+                } elseif ($thu == 5) {
+                    echo $vietnamese_days[5];
+                } elseif ($thu == 4) {
+                    echo $vietnamese_days[4];
+                } elseif ($thu == 3) {
+                    echo $vietnamese_days[3];
+                } elseif ($thu == 2) {
+                    echo $vietnamese_days[2];
+                } elseif ($thu == 1) {
+                    echo $vietnamese_days[1];
+                } elseif ($thu == 0) {
+                    echo $vietnamese_days[0];
+                } else {
+                    echo $vietnamese_days[6];
+                }
                 echo ' lúc ';
                 echo $date2->format('H');
                 echo ':';

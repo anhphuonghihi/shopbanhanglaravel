@@ -16,9 +16,15 @@
                                         <span class="avatarWrapper">
                                             <span class="avatar avatar--l avatar--default avatar--default--dynamic"
                                                 data-user-id="516184" style="background-color: #f44336; color: #ff8a80"
-                                                title="phuonghole1212">
+                                                title="{{ Session::get('username') }}">
                                                 <span class="avatar-u516184-l" role="img"
-                                                    aria-label="phuonghole1212">P</span>
+                                                    aria-label="{{ Session::get('username') }}">@php
+
+                                                        $user_name = Session::get('username');
+                                                        echo strtoupper(
+                                                            substr($user_name, 0, -(strlen($user_name) - 1)),
+                                                        );
+                                                    @endphp</span>
                                             </span>
 
                                         </span>
@@ -29,7 +35,7 @@
                                         <h1 class="memberHeader-name">
                                             <span class="memberHeader-nameWrapper">
                                                 <span class="username " dir="auto" data-user-id="516184"><span
-                                                        class="username--style2">phuonghole1212</span></span>
+                                                        class="username--style2">{{ Session::get('username') }}</span></span>
                                             </span>
 
                                         </h1>
