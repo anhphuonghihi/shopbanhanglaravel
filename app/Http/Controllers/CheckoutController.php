@@ -276,14 +276,14 @@ class CheckoutController extends Controller
         Session::save();
 
     }
-    public function manage_order(){
+    public function manage_payment(){
         
         $this->AuthLogin();
         $all_order = DB::table('tbl_order')
         ->join('tbl_customers','tbl_order.customer_id','=','tbl_customers.customer_id')
         ->select('tbl_order.*','tbl_customers.customer_name')
         ->orderby('tbl_order.order_id','desc')->get();
-        $manager_order  = view('admin.manage_order')->with('all_order',$all_order);
-        return view('admin_layout')->with('admin.manage_order', $manager_order);
+        $manager_order  = view('admin.manage_payment')->with('all_order',$all_order);
+        return view('admin_layout')->with('admin.manage_payment', $manager_order);
     }
 }

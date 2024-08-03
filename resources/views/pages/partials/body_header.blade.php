@@ -58,19 +58,20 @@
 
 
                 <div class="p-title-pageAction">
-
                     <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}/reply"
                         class="button--cta uix_quickReply--button button button--icon button--icon--write rippleButton"><span
                             class="button-text">Trả lời</span></a>
-                    <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}/reply"
-                        class="button--cta uix_quickReply--button button button--icon button--icon--write rippleButton"><span
-                            class="button-text">Sửa</span></a>
-                    <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}/reply"
-                        class="button--cta uix_quickReply--button button button--icon button--icon--write rippleButton"><span
-                            class="button-text">Xóa</span></a>
-                    <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}/reply"
-                        class="button--cta uix_quickReply--button button button--icon button--icon--write rippleButton"><span
-                            class="button-text">Ghim</span></a>
+                    @if ($post[0]->user_id == Session::get('user_id'))
+                        <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}/reply"
+                            class="button--cta uix_quickReply--button button button--icon button--icon--write rippleButton"><span
+                                class="button-text">Sửa</span></a>
+                        <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}/reply"
+                            class="button--cta uix_quickReply--button button button--icon button--icon--write rippleButton"><span
+                                class="button-text">Xóa</span></a>
+                        <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}/stiky"
+                            class="button--cta uix_quickReply--button button button--icon button--icon--write rippleButton"><span
+                                class="button-text">Ghim</span></a>
+                    @endif
                 </div>
 
 

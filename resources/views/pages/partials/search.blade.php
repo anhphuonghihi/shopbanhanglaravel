@@ -1,6 +1,7 @@
 <div class="uix_searchBar">
     <div class="uix_searchBarInner">
-        <form action="/search" method="post" class="uix_searchForm" data-xf-init="quick-search">
+        <form action="/search-result" method="get" class="uix_searchForm">
+            @csrf
             <a class="uix_search--close">
                 <i class="fa--xf far fa-window-close" aria-hidden="true"></i>
             </a>
@@ -14,7 +15,6 @@
             <span class=" uix_searchIcon">
                 <i class="fa--xf far fa-search" aria-hidden="true"></i>
             </span>
-            <input type="hidden" name="_xfToken" value="1721660490,b2474ab21c41ae790c7f3dac46963e6b">
         </form>
     </div>
 
@@ -34,7 +34,8 @@
 
 
     <div class="menu menu--structural menu--wide" data-menu="menu" aria-hidden="true">
-        <form action="/search/search" method="post" class="menu-content" data-xf-init="quick-search">
+        <form action="/search-result" method="get" class="menu-content">
+            @csrf
             <h3 class="menu-header">Tìm kiếm</h3>
 
             <div class="menu-row">
@@ -74,15 +75,13 @@
                     <a href="/search/" class="button rippleButton"><span class="button-text">Tìm nâng cao…</span></a>
                 </span>
             </div>
-
-            <input type="hidden" name="_xfToken" value="1721660490,b2474ab21c41ae790c7f3dac46963e6b">
         </form>
     </div>
 
 
     <div class="menu menu--structural menu--wide uix_searchDropdown__menu" aria-hidden="true">
-        <form action="/search" method="post" class="menu-content" data-xf-init="quick-search">
-
+        <form action="/search-result method="get" class="menu-content">
+            @csrf
 
             <input name="keywords" class="js-uix_syncValue" data-uixsync="search" placeholder="Tìm kiếm…"
                 aria-label="Tìm kiếm" type="hidden">
@@ -119,8 +118,6 @@
                             class="button-text">Advanced…</span></a>
                 </span>
             </div>
-
-            <input type="hidden" name="_xfToken" value="1721660490,b2474ab21c41ae790c7f3dac46963e6b">
         </form>
     </div>
 </div>

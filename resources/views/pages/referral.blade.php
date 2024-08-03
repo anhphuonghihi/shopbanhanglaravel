@@ -64,15 +64,13 @@
                                     <div class="shareButtons-buttons shareButtons-buttons-ma-gioi-thieu">
 
                                         <a class="shareButtons-button shareButtons-button--link"
-                                            data-clipboard="@php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']. "/" . Session::get('ma_gioi_thieu'); @endphp"
-                                            id="js-XFUniqueId98">
+                                            data-clipboard="@php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']. "/" . Session::get('ma_gioi_thieu'); @endphp">
 
                                             <p>@php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']. "/" . Session::get('ma_gioi_thieu'); @endphp</p>
                                         </a>
 
                                         <a class="shareButtons-button shareButtons-button--link"
-                                            data-clipboard="@php echo Session::get('ma_gioi_thieu'); @endphp"
-                                            id="js-XFUniqueId98">
+                                            data-clipboard="@php echo Session::get('ma_gioi_thieu'); @endphp">
 
                                             <p>@php echo Session::get('ma_gioi_thieu'); @endphp</p>
                                         </a>

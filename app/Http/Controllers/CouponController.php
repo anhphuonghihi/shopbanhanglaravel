@@ -25,11 +25,11 @@ class CouponController extends Controller
     	$coupon = Coupon::find($coupon_id);
     	$coupon->delete();
     	Session::put('message','Xóa mã giảm giá thành công');
-        return Redirect::to('list-coupon');
+        return Redirect::to('withdraw-money');
     }
-    public function list_coupon(){
+    public function list_withdraw_money(){
     	$coupon = Coupon::orderby('coupon_id','DESC')->paginate(2);
-    	return view('admin.coupon.list_coupon')->with(compact('coupon'));
+    	return view('admin.coupon.list_withdraw_money')->with(compact('coupon'));
     }
     public function insert_coupon_code(Request $request){
     	$data = $request->all();

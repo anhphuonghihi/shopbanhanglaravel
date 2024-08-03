@@ -10,7 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Frontend 
+
+
+
+
+// Start
+
 Route::get('/home','HomeController@index2' );
 Route::get('/trang-chu','HomeController@index');
 // Route::get('/404','HomeController@error_page');
@@ -81,7 +86,10 @@ Route::get('users',
 			// 'roles' => ['admin','author']
 		]);
 Route::get('add-users','UserController@add_users');
-Route::post('store-users','UserController@store_users');
+
+Route::get('/api-payment','AdminController@payment');
+  
+Route::post('store-users','UserController@payment');
 Route::post('assign-roles','UserController@assign_roles');
 
 
@@ -99,9 +107,11 @@ Route::post('/check-coupon','CartController@check_coupon');
 Route::get('/unset-coupon','CouponController@unset_coupon');
 Route::get('/insert-coupon','CouponController@insert_coupon');
 Route::get('/delete-coupon/{coupon_id}','CouponController@delete_coupon');
-Route::get('/list-coupon','CouponController@list_coupon');
-Route::post('/insert-coupon-code','CouponController@insert_coupon_code');
-
+Route::get('/withdraw-money','AdminController@list_withdraw_money');
+Route::get('/agree-withdraw/{withdraw_id}','AdminController@list_withdraw_money_agree');
+Route::get('/refused-withdraw/{withdraw_id}','AdminController@list_withdraw_money_refused');
+Route::post('/change-password','AdminController@change_password');
+Route::get('/change-password','AdminController@change_password_view');
 //Cart
 Route::post('/update-cart-quantity','CartController@update_cart_quantity');
 Route::post('/update-cart','CartController@update_cart');
@@ -131,7 +141,7 @@ Route::post('/confirm-order','CheckoutController@confirm_order');
 //Order
 Route::get('/delete-order/{order_code}','OrderController@order_code');
 Route::get('/print-order/{checkout_code}','OrderController@print_order');
-Route::get('/manage-order','OrderController@manage_order');
+Route::get('/manage-payment','AdminController@manage_payment');
 Route::get('/view-order/{order_code}','OrderController@view_order');
 Route::post('/update-order-qty','OrderController@update_order_qty');
 Route::post('/update-qty','OrderController@update_qty');
@@ -155,9 +165,6 @@ Route::get('/active-slide/{slide_id}','SliderController@active_slide');
 
 
 
-
-// Start
-
 Route::get('/','HomeController@trang_chu' );
 
 
@@ -176,7 +183,9 @@ Route::get('/whats-new/news-post','CategoryProduct@news_post');
 
 Route::get('/whats-new/latest-activity','CategoryProduct@latest_activity');
 
-Route::get('/whats-new/search','CategoryProduct@search');
+Route::get('/search','CategoryProduct@search');
+
+Route::get('/search-result','CategoryProduct@search_result');
 
 Route::get('/account','CategoryProduct@account');
 
@@ -198,3 +207,10 @@ Route::post('/referral-code','CategoryProduct@gioi_thieu_post');
 Route::get('/create-thread','CategoryProduct@view_create_post');
 
 Route::post('/create-thread','CategoryProduct@create_post');
+
+Route::post('/comment','CategoryProduct@create_comment');
+
+Route::post('/threads/{slug_post}/stiky','CategoryProduct@stiky');
+
+
+Route::post('/momo','CategoryProduct@checkMomo');

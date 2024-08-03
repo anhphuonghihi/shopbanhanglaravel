@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 26, 2020 lúc 07:11 PM
--- Phiên bản máy phục vụ: 10.1.40-MariaDB
--- Phiên bản PHP: 7.3.5
+-- Máy chủ: localhost:3306
+-- Thời gian đã tạo: Th7 23, 2024 lúc 03:54 PM
+-- Phiên bản máy phục vụ: 8.0.30
+-- Phiên bản PHP: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,12 +24,185 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `admin_roles`
+--
+
+CREATE TABLE `admin_roles` (
+  `id_admin_roles` int NOT NULL,
+  `admin_admin_id` int UNSIGNED NOT NULL,
+  `roles_id_roles` int UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Đang đổ dữ liệu cho bảng `admin_roles`
+--
+
+INSERT INTO `admin_roles` (`id_admin_roles`, `admin_admin_id`, `roles_id_roles`) VALUES
+(30, 8, 3),
+(38, 2, 2),
+(39, 2, 3),
+(40, 2, 1),
+(47, 1, 2),
+(48, 1, 3),
+(49, 3, 3),
+(50, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `danh_muc`
+--
+
+CREATE TABLE `danh_muc` (
+  `id` int NOT NULL,
+  `id_danh_muc_cha` int NOT NULL DEFAULT '0',
+  `ten_danh_muc` varchar(255) NOT NULL,
+  `mau_chu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `new` tinyint(1) DEFAULT '0',
+  `danh_muc_slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `menu` int DEFAULT '0',
+  `read_danh_muc` tinyint(1) NOT NULL DEFAULT '0',
+  `icon_menu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `mau_chu_menu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `danh_muc`
+--
+
+INSERT INTO `danh_muc` (`id`, `id_danh_muc_cha`, `ten_danh_muc`, `mau_chu`, `icon`, `new`, `danh_muc_slug`, `menu`, `read_danh_muc`, `icon_menu`, `mau_chu_menu`, `description`) VALUES
+(1, 0, 'BAN ĐIỀU HÀNH', NULL, NULL, 0, 'ban-dieu-hanh', 0, 0, '', '', NULL),
+(2, 1, 'Thông báo', 'red ', 'check-circle', 1, 'thong-bao', 0, 0, '', '', NULL),
+(3, 2, 'Phòng tuyển quân', 'red ', NULL, 0, 'phong-tuyen-quan', 0, 0, '', '', NULL),
+(4, 2, 'Phòng nhân sự', 'red ', NULL, 0, 'phong-nhan-su', 0, 0, '', '', NULL),
+(5, 2, 'Góp ý phát triển diễn đàn', 'red ', NULL, 0, 'gop-y-phat-trien-dien-dan', 0, 0, '', '', NULL),
+(6, 2, 'Luật diễn đàn', 'red ', NULL, 0, 'luat-dien-dan', 0, 0, '', '', NULL),
+(7, 1, 'HƯỚNG DẪN CHECKER', NULL, NULL, 0, 'huong-dan-checker', 0, 0, '', '', NULL),
+(8, 7, 'Hướng dẫn sử dụng', NULL, NULL, 0, 'huong-dan-su-dung', 0, 0, '', '', NULL),
+(9, 7, 'Hướng dẫn check hàng', NULL, NULL, 0, 'huong-dan-check-hang', 0, 0, '', '', NULL),
+(10, 7, 'Hướng dẫn tìm người làm bài', NULL, NULL, 0, 'huong-dan-tim-nguoi-lam-bai', 0, 0, '', '', NULL),
+(11, 1, 'PHÒNG TRUYỀN THỐNG', NULL, NULL, 1, 'phong-truyen-thong', 0, 0, '', '', NULL),
+(12, 11, 'Event 2021', NULL, NULL, 0, 'event-2021', 0, 0, '', '', NULL),
+(13, 11, 'Event 2023', NULL, NULL, 0, 'event-2023', 0, 0, '', '', NULL),
+(14, 11, 'Event 2019', NULL, NULL, 0, 'event-2019', 0, 0, '', '', NULL),
+(15, 11, 'Event 2017', NULL, NULL, 0, 'event-2017', 0, 0, '', '', NULL),
+(16, 11, 'Event 2016', NULL, NULL, 0, 'event-2016', 0, 0, '', '', NULL),
+(17, 11, 'Event 2022', NULL, NULL, 0, 'event-2022', 0, 0, '', '', NULL),
+(18, 11, 'Event 2024', NULL, NULL, 0, 'event-2024', 0, 0, '', '', NULL),
+(19, 11, 'Event 2020', NULL, NULL, 0, 'event-2020', 0, 0, '', '', NULL),
+(20, 11, 'Event 2018', NULL, NULL, 0, 'event-2018', 0, 0, '', '', NULL),
+(21, 11, 'Event 2015', NULL, NULL, 0, 'event-2015', 0, 0, '', '', NULL),
+(22, 1, 'Giải quyết tố cáo và khiếu nại', NULL, NULL, 0, 'giai-quyet-to-cao-va-khieu-nai', 0, 0, '', '', NULL),
+(23, 23, 'Tòa án tối cao', NULL, NULL, 0, 'toa-an-toi-cao', 0, 0, '', '', NULL),
+(24, 1, 'Đối thoại cùng nhà cung cấp', NULL, NULL, 0, 'doi-thoai-cung-nha-cung-cap', 0, 1, '', '', NULL),
+(25, 1, 'Khu bang hội', NULL, NULL, 0, 'khu-bang-hoi', 0, 0, '', '', NULL),
+(26, 25, 'CLB Checker thông thái', NULL, NULL, 0, 'clb-checker-thong-thai', 0, 0, '', '', NULL),
+(27, 25, 'CLB Lô đề - Bóng đá', NULL, NULL, 0, 'clb-lo-de-bong-da', 0, 0, '', '', NULL),
+(28, 25, 'CLB Gái xinh Việt Nam (non-sex)', NULL, NULL, 0, 'clb-gai-xinh-viet-nam', 0, 0, '', '', NULL),
+(29, 25, 'Phòng khám: bác sĩ tâm lý - tình dục', NULL, NULL, 0, 'phong-kham-bac-si-tam-ly-tinh-duc', 0, 0, '', '', NULL),
+(30, 25, 'CLB Some - Swing', NULL, NULL, 0, 'clb-some-swing', 0, 0, '', '', NULL),
+(31, 0, 'TÂM SỰ CÙNG CHECKERVIET', NULL, NULL, 0, 'tam-su-cung-checkerviet', 0, 0, '', '', NULL),
+(32, 31, 'Nhật ký 69', NULL, NULL, 0, 'nhat-ky-69', 0, 0, '', '', NULL),
+(33, 0, 'CHECKER HÀ NỘI', NULL, NULL, 0, 'checker-ha-noi', 0, 0, '', '', NULL),
+(34, 33, 'Gái Gọi Hà Nội Cao Cấp', NULL, NULL, 0, 'gai-goi-ha-noi-cao-cap', 1, 0, 'star-circle', 'red', NULL),
+(35, 34, 'Gái Gọi Tây Hà Nội', NULL, NULL, 0, 'gai-goi-tay-ha-noi', 0, 0, '', '', NULL),
+(36, 33, 'Hàng lởm - Treo bím Hà Nội', NULL, NULL, 0, 'hang-lom-treo-bim-ha-noi', 0, 0, '', '', NULL),
+(37, 33, 'Gái Gọi Hà Nội Kiểm Định', 'orange', NULL, 0, 'gai-goi-ha-noi-kiem-dinh', 1, 0, '', 'green', 'Danh sách các em hàng gái gọi hà nội đã được xác minh và kiểm định chất lượng, cam kết hàng chuẩn đúng ảnh, ko tráo hàng được sét duyệt vào box gái gọi uy tín.'),
+(38, 37, 'Cave Nguyễn Khánh Toàn kiểm định', NULL, NULL, 0, 'cave-nguyen-khanh-toan-kiem-dinh', 0, 0, '', '', NULL),
+(39, 37, 'Cave Xã Đàn - Hoàng Cầu kiểm định', NULL, NULL, 0, 'cave-xa-dan-hoang-cau-kiem-dinh', 0, 0, '', '', NULL),
+(40, 37, 'Cave Trần Duy Hưng kiểm định', NULL, NULL, 0, 'cave-tran-duy-hung-kiem-dinh', 0, 0, '', '', NULL),
+(41, 37, 'Cave Kiểm Định Phố Cổ, Giảng Võ', NULL, NULL, 0, 'cave-kiem-dinh-pho-co-giang-vo', 0, 0, '', '', NULL),
+(42, 33, 'GÁI GỌI HÀ NỘI', 'yellow', NULL, 0, 'gai-goi-ha-noi', 1, 0, '', 'orange', NULL),
+(43, 42, 'Gái gọi Xã Đàn - Kim Liên - Hoàng Cầu		', NULL, NULL, 0, 'gai-goi-xa-dan-kim-lien-ha-noi', 2, 0, '', '', NULL),
+(44, 42, 'Gái gọi Nguyễn Khánh Toàn - Đào Tấn', NULL, NULL, 0, 'gai-goi-nguyen-khanh-toan-dao-tan', 2, 0, '', '', NULL),
+(45, 42, 'Gái gọi Phố Cổ - Giảng Võ - Hai Bà Trưng', NULL, NULL, 0, 'gai-goi-pho-co-giang-vo-hai-ba-trung', 2, 0, '', '', NULL),
+(46, 42, 'Gái Gọi Quận Hoàn Kiếm', NULL, NULL, 0, 'gai-goi-quan-hoan-kiem', 2, 0, '', '', NULL),
+(47, 42, 'Gái Gọi Quận Ba Đình', NULL, NULL, 0, 'gai-goi-quan-ba-dinh', 2, 0, '', '', NULL),
+(48, 42, 'Gái Gọi Quận Cầu Giấy', NULL, NULL, 0, 'gai-goi-quan-cau-giay', 2, 0, '', '', NULL),
+(49, 42, 'Gái Gọi Quận Tây Hồ', NULL, NULL, 0, 'gai-goi-quan-tay-ho', 2, 0, '', '', NULL),
+(50, 42, 'Gái Gọi Quận Hoàng Mai', NULL, NULL, 0, 'gai-goi-quan-hoang-mai', 2, 0, '', '', NULL),
+(51, 42, 'Gái Gọi Quận Từ Liêm', NULL, NULL, 0, 'gai-goi-quan-tu-liem', 2, 0, '', '', NULL),
+(52, 42, 'Gái gọi Trần Duy Hưng - Láng', NULL, NULL, 0, '0gai-goi-tran-duy-hung', 2, 0, '', '', NULL),
+(53, 42, 'Gái gọi Cầu Giấy - Hoàng Quốc Việt', NULL, NULL, 0, '0gai-goi-cau-giay-hoang-quoc-viet', 2, 0, '', '', NULL),
+(54, 42, 'Gái gọi Mỹ Đình - Hồ Tùng Mậu', NULL, NULL, 0, 'gai-goi-my-dinh-ho-tung-mau', 2, 0, '', '', NULL),
+(55, 42, 'Gái Gọi Q. Hai Bà Trưng', NULL, NULL, 0, 'gai-goi-quan-hai-ba-trung', 2, 0, '', '', NULL),
+(56, 42, 'Gái Gọi Quận Đống Đa', NULL, NULL, 0, 'gai-goi-quan-dong-da', 2, 0, '', '', NULL),
+(57, 42, 'Gái Gọi Quận Tây Hồ', NULL, NULL, 0, 'gai-goi-quan-tay-ho', 2, 0, '', '', NULL),
+(58, 42, 'Gái Gọi Thanh Xuân - Ngã tư sở - Chùa Bộc', NULL, NULL, 0, 'gai-goi-quan-thanh-xuan-nga-tu-so-chua-boc', 2, 0, '', '', NULL),
+(59, 42, 'Gái Gọi Quận Long Biên', NULL, NULL, 0, 'gai-goi-quan-long-bien', 2, 0, '', '', NULL),
+(60, 42, 'Gái Gọi Quận Hà Đông', NULL, NULL, 0, 'gai-goi-quan-ha-dong', 2, 0, '', '', NULL),
+(61, 42, 'Gái Gọi Huyện Đông Anh\n', NULL, NULL, 0, 'gai-goi-huyen-dong-anh', 2, 0, '', '', NULL),
+(62, 33, 'Hội checker Hà Nội', NULL, NULL, 1, 'hoi-checker-ha-noi', 0, 0, '', '', NULL),
+(63, 33, 'Gái gọi Hà Nội giá rẻ', NULL, NULL, 1, 'gai-goi-ha-noi-gia-re', 1, 0, '', 'lightblue', NULL),
+(64, 33, 'Nhà Nghỉ - Khách sạn Hà Nội', NULL, NULL, 1, 'nha-nghi-khach-san-ha-noi', 0, 0, '', '', NULL),
+(65, 0, 'CHECKER SÀI GÒN', NULL, NULL, 1, 'checker-sai-gon', 0, 0, '', '', NULL),
+(66, 65, 'Gái Gọi Sài Gòn  Cao Cấp', NULL, 'crown ', 0, 'gai-goi-sai-gon-cao-cap', 1, 0, 'star-circle', 'red', NULL),
+(67, 65, 'Hàng lởm - Treo bím Sài Gòn', NULL, NULL, 0, 'hang-lom-treo-bim-sai-gon', 0, 1, '', '', NULL),
+(68, 65, 'Gái Gọi Sài Gòn Kiểm Định', 'orange', 'check-circle', 0, 'gai-goi-sai-gon-kiem-dinh', 0, 0, '', '', NULL),
+(69, 65, 'GÁI GỌI SÀI GÒN', 'yellow', NULL, 0, 'gai-goi-sai-gon', 1, 0, '', 'orange', NULL),
+(70, 65, 'Hội checker Sài Gòn', NULL, NULL, 0, 'hoi-checker-sai-gon', 0, 1, '', '', NULL),
+(71, 69, 'Gái Gọi Quận 1', NULL, NULL, 0, 'gai-goi-quan-1', 2, 0, '', '', NULL),
+(72, 69, 'Gái Gọi Quận 10', NULL, NULL, 0, 'gai-goi-quan-10', 2, 0, '', '', NULL),
+(73, 69, 'Gái Gọi Quận Phú Nhuận', NULL, NULL, 0, 'gai-goi-quan-phu-thuan', 2, 0, '', '', NULL),
+(74, 69, 'Gái Gọi Quận 6', NULL, NULL, 0, 'gai-goi-quan-6', 2, 0, '', '', NULL),
+(75, 69, 'Gái Gọi Quận Bình Thạch\n', NULL, NULL, 0, 'gai-goi-quan-binh-thach', 2, 0, '', '', NULL),
+(76, 69, 'Gái Gọi Quận Bình Tân', NULL, NULL, 0, 'gai-goi-quan-binh-tan', 2, 0, '', '', NULL),
+(77, 69, 'Gái Gọi Quận 2', NULL, NULL, 0, 'gai-goi-quan-2', 2, 0, '', '', NULL),
+(78, 69, 'Gái Gọi Quận 4', NULL, NULL, 0, 'gai-goi-quan-4', 2, 0, '', '', NULL),
+(79, 69, 'Gái Gọi Quận 7', NULL, NULL, 0, 'gai-goi-quan-7', 2, 0, '', '', NULL),
+(80, 69, 'Gái Gọi Quận 12', NULL, NULL, 0, 'gai-goi-quan-12', 2, 0, '', '', NULL),
+(81, 69, 'Gái Gọi Quận 8', NULL, NULL, 0, 'gai-goi-quan-8', 2, 0, '', '', NULL),
+(82, 69, 'Gái Gọi Quận Tân Bình', NULL, NULL, 0, 'gai-goi-quan-tan-binh', 2, 0, '', '', NULL),
+(83, 69, 'Gái Gọi Quận Gò Vấp', NULL, NULL, 0, 'gai-goi-quan-go-vap', 2, 0, '', '', NULL),
+(84, 69, 'Gái Gọi Quận 9', NULL, NULL, 0, 'gai-goi-quan-9', 2, 0, '', '', NULL),
+(85, 69, 'Gái Gọi Quận Tân Phú', NULL, NULL, 0, 'gai-goi-quan-tan-phu', 2, 0, '', '', NULL),
+(86, 69, 'Gái Gọi Quận Thủ Đức', NULL, NULL, 0, 'gai-goi-quan-thu-duc', 2, 0, '', '', NULL),
+(87, 69, 'Gái Gọi Quận 3', NULL, NULL, 0, 'gai-goi-quan-3', 2, 0, '', '', NULL),
+(88, 69, 'Gái Gọi Quận 5', NULL, NULL, 0, 'gai-goi-quan-5', 2, 0, '', '', NULL),
+(89, 69, 'Gái Gọi Quận 11', NULL, NULL, 0, 'gai-goi-quan-11', 2, 0, '', '', NULL),
+(90, 65, 'Gái gọi Sài Gòn giá rẻ', NULL, NULL, 0, 'gai-goi-sai-gon-gia-re', 1, 0, '', 'lightblue', NULL),
+(101, 0, 'GÁI GỌI VIỆT NAM', NULL, NULL, 0, 'gai-goi-viet-nam', 0, 0, '', '', NULL),
+(102, 101, 'Gái Gọi Hải Phòng', NULL, NULL, 0, 'gai-goi-hai-phong', 1, 0, '', 'lightgreen', NULL),
+(103, 101, 'Gái Gọi Đà Nẵng', NULL, NULL, 0, 'gai-goi-da-nang', 1, 0, '', 'red', NULL),
+(104, 101, 'Gái Gọi Nha Trang - Khánh Hoà', NULL, NULL, 0, 'gai-goi-nha-trang-khanh-hoa', 0, 1, '', '', NULL),
+(105, 101, 'Gái Gọi Bình Dương', NULL, NULL, 0, 'gia-goi-binh-duong', 0, 1, '', '', NULL),
+(106, 101, 'Gái Gọi Bà Rịa - Vũng Tàu', NULL, NULL, 0, 'gai-goi-ba-ria-vung-tau', 0, 1, '', '', NULL),
+(129, 65, 'Nhà nghỉ - Khách sạn Sài Gòn', NULL, NULL, 0, 'nha-nghi-khach-san-sai-gon', 0, 1, '', '', NULL),
+(135, 0, 'TỔNG HỘI CHECKER VIỆT NAM', NULL, NULL, 0, 'tong-hoi-checker-viet-nam', 0, 0, '', '', NULL),
+(137, 135, 'HỘI CHECKER MIỀN BẮC Mới', NULL, NULL, 1, 'tong-hoi-checker-mien-bac', 0, 0, '', '', NULL),
+(138, 137, 'HỘI CHECKER Cao', NULL, NULL, 1, 'tong-hoi-checker-cao-bang', 0, 0, '', '', NULL),
+(139, 137, 'HỘI CHECKER Lạng Sơn', NULL, NULL, 1, 'tong-hoi-checker-lang-son', 0, 0, '', '', NULL),
+(140, 137, 'HỘI CHECKER Quảng Ninh', NULL, NULL, 1, 'tong-hoi-checker-quang-ninh', 0, 0, '', '', NULL),
+(141, 137, 'HỘI CHECKER Thái Bình', NULL, NULL, 1, 'tong-hoi-checker-thai-binh', 0, 0, '', '', NULL),
+(142, 137, 'HỘI CHECKER Nam Định', NULL, NULL, 1, 'tong-hoi-checker-nam-dinh', 0, 0, '', '', NULL),
+(143, 137, 'HỘI CHECKER Phú Thọ', NULL, NULL, 1, 'tong-hoi-checker-phu-tho', 0, 0, '', '', NULL),
+(144, 137, 'HỘI CHECKER Thái Nguyên', NULL, NULL, 1, 'tong-hoi-checker-thai-nguyen', 0, 0, '', '', NULL),
+(145, 137, 'HỘI CHECKER Tuyên Quang', NULL, NULL, 1, 'tong-hoi-checker-tuyen-quang', 0, 0, '', '', NULL),
+(146, 137, 'HỘI CHECKER Hà Giang', NULL, NULL, 1, 'tong-hoi-checker-ha-giang', 0, 0, '', '', NULL),
+(147, 137, 'HỘI CHECKER Lào Cai', NULL, NULL, 1, 'tong-hoi-checker-lao-cai', 0, 0, '', '', NULL),
+(148, 137, 'HỘI CHECKER Sơn La', NULL, NULL, 1, 'tong-hoi-checker-son-la', 0, 0, '', '', NULL),
+(149, 137, 'HỘI CHECKER Điện Biên', NULL, NULL, 1, 'tong-hoi-checker-dien-bien', 0, 0, '', '', NULL),
+(150, 137, 'HỘI CHECKER Hoà Bình', NULL, NULL, 1, 'tong-hoi-checker-hoa-binh', 0, 0, '', '', NULL),
+(151, 137, 'HỘI CHECKER Hải Dương', NULL, NULL, 1, 'tong-hoi-checker-hai-duong', 0, 0, '', '', NULL),
+(152, 137, 'HỘI CHECKER Ninh Bình', NULL, NULL, 1, 'tong-hoi-checker-ninh-binh', 0, 0, '', '', NULL),
+(153, 137, 'HỘI CHECKER Vĩnh Phúc', NULL, NULL, 1, 'tong-hoi-checker-vinh-phu', 0, 0, '', '', NULL),
+(154, 137, 'HỘI CHECKER Cao', NULL, NULL, 1, 'tong-hoi-checker-cao-bang', 0, 0, '', '', NULL),
+(155, 137, 'HỘI CHECKER Hưng Yên', NULL, NULL, 1, 'tong-hoi-checker-hung-yen', 0, 0, '', '', NULL),
+(156, 137, 'HỘI CHECKER Hà Nam', NULL, NULL, 1, 'tong-hoi-checker-ha-nam', 0, 0, '', '', NULL),
+(157, 137, 'HỘI CHECKER Bắc Giang', NULL, NULL, 1, 'tong-hoi-checker-bac-giang', 0, 0, '', '', NULL),
+(158, 137, 'HỘI CHECKER Bắc Ninh', NULL, NULL, 1, 'tong-hoi-checker-bac-ninh', 0, 0, '', '', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `password_resets`
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -41,11 +213,11 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `tbl_admin` (
-  `admin_id` int(10) UNSIGNED NOT NULL,
-  `admin_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `admin_password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `admin_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `admin_phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `admin_id` int UNSIGNED NOT NULL,
+  `admin_email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `admin_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `admin_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `admin_phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -55,7 +227,38 @@ CREATE TABLE `tbl_admin` (
 --
 
 INSERT INTO `tbl_admin` (`admin_id`, `admin_email`, `admin_password`, `admin_name`, `admin_phone`, `created_at`, `updated_at`) VALUES
-(1, 'admin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'hieu tan', '0932023992', NULL, NULL);
+(1, 'hieutan@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'hieutan', '0932023991', NULL, NULL),
+(2, 'hieutan123@gmail.com', '959269b6378d0ae8ea63a5960839c028', 'hieutan123', '0932023992', NULL, NULL),
+(3, 'hieutan456@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'hieutan456', '0932023993', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tbl_binh_luan`
+--
+
+CREATE TABLE `tbl_binh_luan` (
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `noi_dung_danh_gia` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `post_id` int NOT NULL,
+  `danh_muc_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_binh_luan`
+--
+
+INSERT INTO `tbl_binh_luan` (`id`, `user_id`, `noi_dung_danh_gia`, `created_at`, `updated_at`, `post_id`, `danh_muc_id`) VALUES
+(1, 2, 'ok', '2024-07-20 13:24:55', '2024-07-20 13:24:55', 3, 2),
+(2, 2, 'ok', '2024-07-20 13:25:01', '2024-07-20 13:25:01', 98, 43),
+(3, 2, 'ok2', '2024-07-20 13:25:14', '2024-07-20 13:25:14', 97, 42),
+(4, 2, 'ok', '2024-07-21 04:01:58', '2024-07-21 04:01:58', 91, 34),
+(5, 5, '<p>vegeeg</p>', '2024-07-23 13:24:46', '2024-07-23 13:24:46', 175, 35),
+(6, 5, '<p>vegeeg</p>', '2024-07-23 13:25:02', '2024-07-23 13:25:02', 175, 35),
+(7, 5, '<p><strong>Comment</strong></p><p>&nbsp;</p>', '2024-07-23 15:27:34', '2024-07-23 15:27:34', 177, 42);
 
 -- --------------------------------------------------------
 
@@ -64,11 +267,11 @@ INSERT INTO `tbl_admin` (`admin_id`, `admin_email`, `admin_password`, `admin_nam
 --
 
 CREATE TABLE `tbl_brand` (
-  `brand_id` int(10) UNSIGNED NOT NULL,
-  `brand_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `brand_slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `brand_desc` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `brand_status` int(11) NOT NULL,
+  `brand_id` int UNSIGNED NOT NULL,
+  `brand_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brand_slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brand_desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `brand_status` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -78,9 +281,15 @@ CREATE TABLE `tbl_brand` (
 --
 
 INSERT INTO `tbl_brand` (`brand_id`, `brand_name`, `brand_slug`, `brand_desc`, `brand_status`, `created_at`, `updated_at`) VALUES
-(1, 'Sony', 'sony', 'Sony', 0, NULL, NULL),
-(2, 'Samsung', 'samsung', 'Samsung ok lắm ,xài rât ổn định', 0, NULL, NULL),
-(3, 'Dell', 'dell', 'Dell ok lắm dùng rất bền', 0, NULL, NULL);
+(1, 'Sony', 'sony', 'Sony là hãng công nghệ hàng đầu thế giới về thiết bị điện tử,gia dụng', 0, NULL, NULL),
+(2, 'Samsung', 'samsung', 'Samsung là hãng công nghệ hàng đầu thế giới về thiết bị điện tử,gia dụng', 0, NULL, NULL),
+(3, 'chanel', 'chanel', 'Chanel là hãng thời trang hàng đầu thế giới cung cấp mặc hàng thời trang và nước hoa,túi sách...', 0, NULL, NULL),
+(4, 'dior', 'dior', 'Dior là hãng thời trang hàng đầu thế giới cung cấp mặc hàng thời trang và nước hoa,túi sách...', 0, NULL, NULL),
+(5, 'Fahasa', 'fahasa', 'Fahasa là nhà sách lớn ,cung cấp các loại sách và thể loại sách mà các bạn cần học', 0, NULL, NULL),
+(6, 'Nhân văn', 'nhan-van', 'Nhân văn là nhà sách lớn ,cung cấp các loại sách và thể loại sách mà các bạn cần học', 0, NULL, NULL),
+(7, 'Pet shop', 'pet-shop', 'Pet shop là  thế giới phụ kiện và thức ăn nhập khẩu dành cho thú cưng', 0, NULL, NULL),
+(8, 'Mật pet family', 'mat-pet-family', 'Mật pet family là nơi cung cấp phụ kiện và dịch vụ cho thú cưng', 0, NULL, NULL),
+(9, 'Apple', 'apple', 'Apple the best', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -89,12 +298,12 @@ INSERT INTO `tbl_brand` (`brand_id`, `brand_name`, `brand_slug`, `brand_desc`, `
 --
 
 CREATE TABLE `tbl_category_product` (
-  `category_id` int(10) UNSIGNED NOT NULL,
-  `meta_keywords` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug_category_product` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_desc` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_status` int(11) NOT NULL,
+  `category_id` int UNSIGNED NOT NULL,
+  `meta_keywords` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug_category_product` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_status` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -104,11 +313,15 @@ CREATE TABLE `tbl_category_product` (
 --
 
 INSERT INTO `tbl_category_product` (`category_id`, `meta_keywords`, `category_name`, `slug_category_product`, `category_desc`, `category_status`, `created_at`, `updated_at`) VALUES
-(1, 'xbox game,mua game xbox ,xbox 360', 'Xbox one', 'xbox-one', 'Xbox 360 là thế hệ thứ 2 của dòng máy chơi game console do Microsoft phát triển, cạnh tranh trực tiếp với Playstation 3 của Sony.', 0, NULL, NULL),
-(2, 'ps4,may choi game ps4', 'Máy PS4', 'may-ps4', 'PS4 là game cầm tay hay nhất mọi thời đại', 0, NULL, NULL),
-(3, 'tay cam ps4,tay cầm ps4', 'Tay cầm chơi game', 'tay-cam-choi-game', 'Tay cầm chơi game hạng nhất từ các hãng sản xuất số 1 hàng đầu châu mỹ', 0, NULL, NULL),
-(5, 'dia-ps4-gaming', 'Đĩa PS4 gaming', 'dia-ps4-gaming', 'Dia cd ps4', 0, NULL, NULL),
-(6, 'Màn hình gaming,gaming', 'Màn hình gaming', 'man-hinh-gaming', 'Màn hình gaming', 0, NULL, NULL);
+(1, 'Tay cầm chơi game', 'Tay cầm chơi game', 'tay-cam-choi-game', 'Tay cầm chơi game', 0, NULL, NULL),
+(2, 'may chơi game,may choi game,máy game,game chinh hãng,máy chơi game chính hãng', 'Máy chơi game', 'may-choi-game', 'Máy chơi game chính hãng nhập từ Mỹ,Úc,Nhật bản', 0, NULL, NULL),
+(3, 'Quần áo cho nam,quan ao nam,mua quan nam,bán quần nam', 'Quần áo cho nam', 'quan-ao-cho-nam', 'Quần áo cho nam nhập từ China ,Hàn quốc,việt nam', 0, NULL, NULL),
+(4, 'Quần áo cho nữ', 'Quần áo cho nữ', 'quan-ao-cho-nu', 'Quần áo cho nữ được nhập từ hàn quốc và nhật bản', 0, NULL, NULL),
+(5, 'sach kinh te,ban sach kinh te,bán sách kinh tế ,sách dạy làm giàu', 'Sách kinh tế', 'sach-kinh-te', 'Bán sách kinh tế dạy đầu tư chính khoáng,đầu tư bất động sản', 0, NULL, NULL),
+(6, 'Sách ngôn tình,sach ngon tinh,sach ngon tinh,sách dạy ngôn tình,sach ngon tinh chính thống', 'Sách ngôn tình', 'sach-ngon-tinh', 'Sách ngôn tình yêu đậm tính nhân văn và giáo dục', 0, NULL, NULL),
+(7, 'ba lo cho chó,ba lo cho chó,ba lo chó,ba lo cho chó mèo', 'Ba lô thú cưng', 'ba-lo-thu-cưng', 'Bán ba lô cho thú cưng nhập khẩu uy tín chất lượng', 0, NULL, NULL),
+(8, 'Thức ăn thú cưng,thuc an cho thu cung,thuc an thu cung,thu cung', 'Thức ăn cho thú cưng', 'thuc-an-cho-thu-cung', 'Bán thức ăn ngon chính hãng cho thú cưng của bạn', 0, NULL, NULL),
+(9, 'Điện thoại samsung,dien thoai samsung,samsung', 'Điện thoại samsung', 'dien-thoai-samsung', 'Điện thoại samsung', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -117,13 +330,13 @@ INSERT INTO `tbl_category_product` (`category_id`, `meta_keywords`, `category_na
 --
 
 CREATE TABLE `tbl_coupon` (
-  `coupon_id` int(11) NOT NULL,
+  `coupon_id` int NOT NULL,
   `coupon_name` varchar(150) NOT NULL,
-  `coupon_time` int(50) NOT NULL,
-  `coupon_condition` int(11) NOT NULL,
-  `coupon_number` int(11) NOT NULL,
+  `coupon_time` int NOT NULL,
+  `coupon_condition` int NOT NULL,
+  `coupon_number` int NOT NULL,
   `coupon_code` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_coupon`
@@ -131,7 +344,7 @@ CREATE TABLE `tbl_coupon` (
 
 INSERT INTO `tbl_coupon` (`coupon_id`, `coupon_name`, `coupon_time`, `coupon_condition`, `coupon_number`, `coupon_code`) VALUES
 (1, 'Giảm giá 30/4', 10, 1, 10, 'HDH375Y'),
-(4, 'Giảm giá Covid', 5, 2, 100000, 'COVID99');
+(6, 'Giảm giá Covid', 10, 2, 200000, 'COVID99');
 
 -- --------------------------------------------------------
 
@@ -140,11 +353,11 @@ INSERT INTO `tbl_coupon` (`coupon_id`, `coupon_name`, `coupon_time`, `coupon_con
 --
 
 CREATE TABLE `tbl_customers` (
-  `customer_id` int(10) UNSIGNED NOT NULL,
-  `customer_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `customer_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `customer_password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `customer_phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_id` int UNSIGNED NOT NULL,
+  `customer_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -157,7 +370,8 @@ INSERT INTO `tbl_customers` (`customer_id`, `customer_name`, `customer_email`, `
 (4, 'Hiếu Tấn', 'tanhieu@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0932023992', NULL, NULL),
 (5, 'Hoàng thị yến vi', 'yenvi@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0932023992', NULL, NULL),
 (6, 'Trương Ngọc Tấn Hiếu', 'hieu123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0932023992', NULL, NULL),
-(7, 'Anh hieu dep giai 123', 'depgiai123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0932023992', NULL, NULL);
+(7, 'Anh hieu dep giai 123', 'depgiai123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0932023992', NULL, NULL),
+(8, 'a', 'sdf@gmail.com', 'c953af378ef51531ffc32c398c5edffe', 'fwe', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -166,23 +380,25 @@ INSERT INTO `tbl_customers` (`customer_id`, `customer_name`, `customer_email`, `
 --
 
 CREATE TABLE `tbl_feeship` (
-  `fee_id` int(11) NOT NULL,
-  `fee_matp` int(10) NOT NULL,
-  `fee_maqh` int(10) NOT NULL,
-  `fee_xaid` int(10) NOT NULL,
+  `fee_id` int NOT NULL,
+  `fee_matp` int NOT NULL,
+  `fee_maqh` int NOT NULL,
+  `fee_xaid` int NOT NULL,
   `fee_feeship` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_feeship`
 --
 
 INSERT INTO `tbl_feeship` (`fee_id`, `fee_matp`, `fee_maqh`, `fee_xaid`, `fee_feeship`) VALUES
-(1, 1, 1, 1, '50.000'),
+(1, 1, 1, 1, '50000'),
 (2, 1, 1, 16, '60000'),
 (3, 1, 2, 40, '150000'),
 (4, 2, 26, 712, '60000'),
-(5, 79, 760, 26734, '80000');
+(5, 79, 760, 26734, '80000'),
+(6, 8, 74, 2374, '15000'),
+(7, 77, 748, 26548, '60000');
 
 -- --------------------------------------------------------
 
@@ -191,11 +407,11 @@ INSERT INTO `tbl_feeship` (`fee_id`, `fee_matp`, `fee_maqh`, `fee_xaid`, `fee_fe
 --
 
 CREATE TABLE `tbl_order` (
-  `order_id` bigint(20) UNSIGNED NOT NULL,
-  `customer_id` int(11) NOT NULL,
-  `shipping_id` int(11) NOT NULL,
-  `order_status` int(20) NOT NULL,
-  `order_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `order_id` bigint UNSIGNED NOT NULL,
+  `customer_id` int NOT NULL,
+  `shipping_id` int NOT NULL,
+  `order_status` int NOT NULL,
+  `order_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -205,17 +421,7 @@ CREATE TABLE `tbl_order` (
 --
 
 INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `order_status`, `order_code`, `created_at`, `updated_at`) VALUES
-(6, 4, 7, 1, '3790e', '2020-05-01 05:53:31', NULL),
-(7, 4, 8, 1, '699d7', '2020-05-01 05:55:22', NULL),
-(8, 4, 9, 1, '346b1', '2020-05-01 05:57:42', NULL),
-(9, 4, 10, 1, 'b0374', '2020-05-01 06:01:54', NULL),
-(10, 4, 11, 1, '2c7fc', '2020-05-01 06:02:58', NULL),
-(11, 4, 12, 1, 'e8c05', '2020-05-01 06:04:51', NULL),
-(12, 4, 13, 1, 'baca3', '2020-05-01 06:05:59', NULL),
-(13, 4, 14, 1, 'a094f', '2020-05-01 06:07:20', NULL),
-(14, 5, 15, 2, '168cf', '2020-05-26 11:34:17', NULL),
-(15, 6, 16, 1, 'd8ba7', '2020-05-26 16:46:05', NULL),
-(16, 7, 17, 2, '9681f', '2020-05-26 16:55:17', NULL);
+(18, 4, 19, 1, '1778b', '2020-08-08 08:54:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -224,14 +430,14 @@ INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `order_status
 --
 
 CREATE TABLE `tbl_order_details` (
-  `order_details_id` bigint(20) UNSIGNED NOT NULL,
-  `order_code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `product_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_price` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_sales_quantity` int(11) NOT NULL,
-  `product_coupon` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_feeship` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `order_details_id` bigint UNSIGNED NOT NULL,
+  `order_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_id` int NOT NULL,
+  `product_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_price` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_sales_quantity` int NOT NULL,
+  `product_coupon` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_feeship` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -241,37 +447,245 @@ CREATE TABLE `tbl_order_details` (
 --
 
 INSERT INTO `tbl_order_details` (`order_details_id`, `order_code`, `product_id`, `product_name`, `product_price`, `product_sales_quantity`, `product_coupon`, `product_feeship`, `created_at`, `updated_at`) VALUES
-(16, '3790e', 11, 'Tay cầm chơi game PS4 màu trắng', '500000', 2, 'COVID99', '50000', NULL, NULL),
-(17, '3790e', 10, 'Tay cầm chơi game PS4 màu đỏ', '60000', 2, 'COVID99', '50000', NULL, NULL),
-(18, '3790e', 9, 'Máy PS4 màu đỏ', '5000000', 1, 'COVID99', '50000', NULL, NULL),
-(19, '3790e', 7, 'Tay cầm chơi game PS4 màu đỏ', '60000', 2, 'COVID99', '50000', NULL, NULL),
-(20, '3790e', 8, 'Tay cầm chơi game PS4 màu trắng', '500000', 2, 'COVID99', '50000', NULL, NULL),
-(21, '699d7', 11, 'Tay cầm chơi game PS4 màu trắng', '500000', 2, 'COVID99', '50000', NULL, NULL),
-(22, '699d7', 10, 'Tay cầm chơi game PS4 màu đỏ', '60000', 6, 'COVID99', '50000', NULL, NULL),
-(23, '699d7', 9, 'Máy PS4 màu đỏ', '5000000', 4, 'COVID99', '50000', NULL, NULL),
-(24, '699d7', 7, 'Tay cầm chơi game PS4 màu đỏ', '60000', 3, 'COVID99', '50000', NULL, NULL),
-(25, '699d7', 8, 'Tay cầm chơi game PS4 màu trắng', '500000', 2, 'COVID99', '50000', NULL, NULL),
-(26, '346b1', 11, 'Tay cầm chơi game PS4 màu trắng', '500000', 1, 'HDH375Y', '10000', NULL, NULL),
-(27, '346b1', 12, 'Máy PS4 màu đỏ', '5000000', 1, 'HDH375Y', '10000', NULL, NULL),
-(28, 'b0374', 11, 'Tay cầm chơi game PS4 màu trắng', '500000', 1, 'no', '10000', NULL, NULL),
-(29, 'b0374', 10, 'Tay cầm chơi game PS4 màu đỏ', '60000', 1, 'no', '10000', NULL, NULL),
-(30, '2c7fc', 11, 'Tay cầm chơi game PS4 màu trắng', '500000', 1, 'no', '10000', NULL, NULL),
-(31, 'baca3', 11, 'Tay cầm chơi game PS4 màu trắng', '500000', 1, 'no', '10000', NULL, NULL),
-(32, 'baca3', 12, 'Máy PS4 màu đỏ', '5000000', 1, 'no', '10000', NULL, NULL),
-(33, 'a094f', 10, 'Tay cầm chơi game PS4 màu đỏ', '60000', 1, 'no', '10000', NULL, NULL),
-(34, 'a094f', 8, 'Tay cầm chơi game PS4 màu trắng', '500000', 1, 'no', '10000', NULL, NULL),
-(35, '168cf', 14, 'Xbox 11233', '1500000', 1, 'COVID99', '50000', NULL, NULL),
-(36, '168cf', 12, 'Máy PS4 màu đỏ', '5000000', 1, 'COVID99', '50000', NULL, NULL),
-(37, '168cf', 11, 'Tay cầm chơi game PS4 màu trắng', '500000', 1, 'COVID99', '50000', NULL, NULL),
-(38, 'd8ba7', 2, 'Tay cầm chơi game PS4 màu trắng', '500000', 10, 'COVID99', '25000', NULL, NULL),
-(39, 'd8ba7', 11, 'Tay cầm chơi game PS4 màu trắng', '500000', 3, 'COVID99', '25000', NULL, NULL),
-(40, 'd8ba7', 14, 'Xbox 11233', '1500000', 5, 'COVID99', '25000', NULL, NULL),
-(41, 'd8ba7', 7, 'Tay cầm chơi game PS4 màu đỏ', '60000', 4, 'COVID99', '25000', NULL, NULL),
-(42, 'd8ba7', 9, 'Máy PS4 màu đỏ', '5006000', 8, 'COVID99', '25000', NULL, NULL),
-(43, '9681f', 2, 'Tay cầm chơi game PS4 màu trắng', '500000', 6, 'HDH375Y', '50000', NULL, NULL),
-(44, '9681f', 1, 'Tay cầm chơi game PS4 màu đỏ', '60000', 5, 'HDH375Y', '50000', NULL, NULL),
-(45, '9681f', 7, 'Tay cầm chơi game PS4 màu đỏ', '60000', 10, 'HDH375Y', '50000', NULL, NULL),
-(46, '9681f', 5, 'Tay cầm chơi game PS4 màu trắng', '500000', 5, 'HDH375Y', '50000', NULL, NULL);
+(47, '3fc48', 6, 'Royal Canin Urinary Canine Dog 2kg - Dành cho chó bị sỏi thận-10kg', '431000', 5, 'COVID99', '50000', NULL, NULL),
+(48, '3fc48', 7, 'Thức ăn cho chó nhỏ trưởng thành Farmina N&D PUMPKIN vị heo, bí ngô và táo 3kg', '230000', 1, 'COVID99', '50000', NULL, NULL),
+(49, '3fc48', 8, 'Thức ăn cho chó nhỏ trưởng thành Farmina N&D PUMPKIN vị heo, bí ngô và táo 7kg', '135000', 1, 'COVID99', '50000', NULL, NULL),
+(50, '1778b', 24, 'Sách ngôn tình hồ ly tinh', '500000', 1, 'HDH375Y', '60000', NULL, NULL),
+(51, '1778b', 22, 'Máy PS4 slim Mega pack 2', '7550000', 1, 'HDH375Y', '60000', NULL, NULL),
+(52, '1778b', 20, 'Áo Thun Nam Y2010 Basic AI08', '286000', 1, 'HDH375Y', '60000', NULL, NULL),
+(53, '1778b', 7, 'Thức ăn cho chó nhỏ trưởng thành Farmina N&D PUMPKIN vị heo, bí ngô và táo 3kg', '230000', 1, 'HDH375Y', '60000', NULL, NULL),
+(54, '1778b', 6, 'Royal Canin Urinary Canine Dog 2kg - Dành cho chó bị sỏi thận-10kg', '431000', 1, 'HDH375Y', '60000', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tbl_post`
+--
+
+CREATE TABLE `tbl_post` (
+  `id` int NOT NULL,
+  `ten_bai_viet` varchar(255) NOT NULL,
+  `anh_dai_dien` varchar(255) NOT NULL,
+  `danh_muc_id` int NOT NULL,
+  `nhan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `user_id` int NOT NULL,
+  `tinh_id` int DEFAULT NULL,
+  `huyen_id` int DEFAULT NULL,
+  `xa_id` int DEFAULT NULL,
+  `tag_id` int DEFAULT NULL,
+  `bookmark_user_id` tinyint(1) DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `post_slug` varchar(255) NOT NULL,
+  `view` int NOT NULL DEFAULT '0',
+  `stiky` tinyint(1) NOT NULL DEFAULT '0',
+  `mo_ta_duoi_anh_dai_dien` varchar(255) DEFAULT NULL,
+  `nghe_danh` varchar(255) DEFAULT NULL,
+  `nam_sinh` varchar(255) DEFAULT NULL,
+  `xuat_xu` varchar(255) DEFAULT NULL,
+  `khu_vuc_di_lam` varchar(255) DEFAULT NULL,
+  `so_dien_thoai` varchar(255) DEFAULT NULL,
+  `pass` varchar(255) DEFAULT NULL,
+  `gia` varchar(255) DEFAULT NULL,
+  `gia_nha_nghi` varchar(255) DEFAULT NULL,
+  `thoi_gian_di_lam` varchar(255) DEFAULT NULL,
+  `mo_ta_them` varchar(255) DEFAULT NULL,
+  `chieu_cao` varchar(255) DEFAULT NULL,
+  `can_nang` varchar(255) DEFAULT NULL,
+  `tong_quat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `vong_1` varchar(255) DEFAULT NULL,
+  `vong_2` varchar(255) DEFAULT NULL,
+  `vong_3` varchar(255) DEFAULT NULL,
+  `vong_4` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `phong_cach_phuc_vu` varchar(255) DEFAULT NULL,
+  `service` varchar(255) DEFAULT NULL,
+  `cam_ket` varchar(255) DEFAULT NULL,
+  `khong_cam_ket` varchar(255) DEFAULT NULL,
+  `list_anh` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_post`
+--
+
+INSERT INTO `tbl_post` (`id`, `ten_bai_viet`, `anh_dai_dien`, `danh_muc_id`, `nhan`, `user_id`, `tinh_id`, `huyen_id`, `xa_id`, `tag_id`, `bookmark_user_id`, `created_at`, `updated_at`, `post_slug`, `view`, `stiky`, `mo_ta_duoi_anh_dai_dien`, `nghe_danh`, `nam_sinh`, `xuat_xu`, `khu_vuc_di_lam`, `so_dien_thoai`, `pass`, `gia`, `gia_nha_nghi`, `thoi_gian_di_lam`, `mo_ta_them`, `chieu_cao`, `can_nang`, `tong_quat`, `vong_1`, `vong_2`, `vong_3`, `vong_4`, `phong_cach_phuc_vu`, `service`, `cam_ket`, `khong_cam_ket`, `list_anh`) VALUES
+(1, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 2, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:16:25', '2024-07-20 10:16:25', 'hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(2, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 2, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 2, 1, 1, 1, 11, 0, '2024-07-20 10:20:33', '2024-07-20 10:20:33', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(3, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 2, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 2, 1, 1, 1, 11, 0, '2024-07-20 10:20:41', '2024-07-20 10:20:41', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(4, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 2, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 2, 1, 1, 1, 11, 0, '2024-07-20 10:20:41', '2024-07-20 10:20:41', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(5, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 2, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:20:41', '2024-07-20 10:20:41', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(6, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 2, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:20:41', '2024-07-20 10:20:41', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(7, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 2, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:20:41', '2024-07-20 10:20:41', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(8, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 2, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:20:41', '2024-07-20 10:20:41', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(9, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 2, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:20:41', '2024-07-20 10:20:41', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(10, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 2, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:20:41', '2024-07-20 10:20:41', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(11, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 2, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:20:41', '2024-07-20 10:20:41', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(12, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 2, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:20:41', '2024-07-20 10:20:41', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(13, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 3, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:34:29', '2024-07-20 10:34:29', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(14, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG ', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 34, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:35:43', '2024-07-20 10:35:43', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(15, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 31', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 31, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(16, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 32', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 32, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(17, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 33', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 33, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(18, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 34', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 34, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(19, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 35', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 35, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(20, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 36', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 36, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(21, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 37', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 37, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(22, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 38', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 38, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(23, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 39', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 39, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(24, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 41', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 41, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(25, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 42', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 42, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(26, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 43', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 43, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(27, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 44', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 44, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(28, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 45', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 45, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(29, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 46', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 46, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(30, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 47', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 47, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(31, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 48', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 48, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(32, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 49', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 49, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(33, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 51', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 51, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(34, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 52', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 52, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(35, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 53', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 53, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:20', '2024-07-20 10:39:20', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(36, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 54', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 54, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(37, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 55', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 55, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(38, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 56', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 56, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(39, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 57', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 57, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(40, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 58', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 58, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(41, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 59', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 59, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(42, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 51', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 51, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(43, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 52', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 52, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(44, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 53', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 53, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(45, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 54', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 54, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(46, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 55', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 55, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(47, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 56', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 56, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(48, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 57', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 57, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(49, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 58', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 58, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(50, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 59', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 59, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:21', '2024-07-20 10:39:21', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(51, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 31', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 31, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:24', '2024-07-20 10:39:24', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(52, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 32', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 32, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:24', '2024-07-20 10:39:24', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(53, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 33', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 33, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:24', '2024-07-20 10:39:24', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(54, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 34', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 34, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:24', '2024-07-20 10:39:24', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(55, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 35', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 35, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:24', '2024-07-20 10:39:24', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(56, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 36', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 36, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:24', '2024-07-20 10:39:24', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(57, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 37', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 37, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:24', '2024-07-20 10:39:24', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(58, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 38', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 38, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:24', '2024-07-20 10:39:24', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(59, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 39', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 39, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:24', '2024-07-20 10:39:24', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(60, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 41', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 41, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(61, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 42', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 42, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(62, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 43', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 43, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(63, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 44', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 44, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(64, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 45', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 45, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(65, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 46', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 46, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(66, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 47', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 47, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(67, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 48', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 48, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(68, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 49', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 49, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(69, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 51', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 51, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(70, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 52', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 52, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(71, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 53', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 53, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(72, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 54', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 54, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(73, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 55', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 55, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(74, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 56', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 56, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(75, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 57', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 57, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(76, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 58', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 58, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(77, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 59', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 59, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(78, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 51', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 51, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(79, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 52', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 52, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(80, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 53', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 53, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(81, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 54', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 54, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(82, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 55', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 55, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(83, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 56', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 56, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(84, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 57', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 57, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(85, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 58', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 58, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(86, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 59', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 59, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:39:25', '2024-07-20 10:39:25', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(87, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 131', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 31, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(88, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 132', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 32, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(89, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 133', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 33, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(90, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 134', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 34, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(91, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 135', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 35, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(92, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 136', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 36, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(93, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 137', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 37, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(94, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 138', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 38, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(95, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 139', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 39, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(96, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 141', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 41, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(97, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 142', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 42, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(98, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 143', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 43, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(99, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 144', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 44, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(100, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 145', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 45, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1hot-girl-linh-sam-den-thuong-de-cung-phat-them-full-sv-cia-wc-liem-lap-full-body', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(101, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 146', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 46, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(102, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 147', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 47, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(103, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 148', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 48, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:00', '2024-07-20 10:42:00', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(104, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 149', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 49, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(105, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 151', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 51, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(106, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 152', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 52, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(107, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 153', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 53, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(108, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 154', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 54, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(109, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 155', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 55, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(110, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 156', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 56, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(111, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 157', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 57, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(112, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 158', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 58, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(113, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 159', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 59, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(114, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 151', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 51, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(115, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 152', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 52, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(116, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 153', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 53, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(117, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 154', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 54, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(118, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 155', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 55, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(119, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 156', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 56, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(120, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 157', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 57, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(121, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 158', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 58, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(122, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 159', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 59, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:01', '2024-07-20 10:42:01', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(123, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1331', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 71, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(124, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1332', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 72, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(125, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1333', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 73, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(126, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1334', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 74, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(127, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1335', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 75, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(128, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1336', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 76, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(129, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1337', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 77, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(130, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1338', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 78, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '');
+INSERT INTO `tbl_post` (`id`, `ten_bai_viet`, `anh_dai_dien`, `danh_muc_id`, `nhan`, `user_id`, `tinh_id`, `huyen_id`, `xa_id`, `tag_id`, `bookmark_user_id`, `created_at`, `updated_at`, `post_slug`, `view`, `stiky`, `mo_ta_duoi_anh_dai_dien`, `nghe_danh`, `nam_sinh`, `xuat_xu`, `khu_vuc_di_lam`, `so_dien_thoai`, `pass`, `gia`, `gia_nha_nghi`, `thoi_gian_di_lam`, `mo_ta_them`, `chieu_cao`, `can_nang`, `tong_quat`, `vong_1`, `vong_2`, `vong_3`, `vong_4`, `phong_cach_phuc_vu`, `service`, `cam_ket`, `khong_cam_ket`, `list_anh`) VALUES
+(131, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1339', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 79, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(132, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1341', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 71, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(133, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1342', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 72, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(134, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1343', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 73, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(135, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1344', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 74, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(136, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1345', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 75, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(137, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1346', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 76, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(138, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1347', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 77, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(139, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1348', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 78, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(140, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1349', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 79, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(141, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1351', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 71, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(142, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1352', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 72, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(143, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1353', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 73, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(144, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1354', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 74, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(145, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1355', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 75, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(146, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1356', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 76, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(147, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1357', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 77, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(148, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1358', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 78, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(149, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1359', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 79, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(150, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1351', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 71, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(151, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1352', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 72, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(152, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1353', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 73, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(153, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1354', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 74, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(154, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1355', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 75, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(155, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1356', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 76, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(156, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1357', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 77, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(157, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1358', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 78, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(158, 'HOT GIRL DIỆP ANH _ ĐÁNG YÊU DỄ THƯƠNG 1359', 'https://upload69.com/images/2024/07/06/IMG_41863cf195e142a0114c.jpg', 79, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 1, 1, 1, 1, 11, 0, '2024-07-20 10:42:31', '2024-07-20 10:42:31', '1', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', ''),
+(159, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khá', 'am-tu-vu-to-dep-cang-tran-ban-nang-', 3, 'ông bá', 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:22:33', '2024-07-23 09:22:33', '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(160, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'a', 34, NULL, 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:30:07', '2024-07-23 09:30:07', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(161, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'a', 34, NULL, 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:30:30', '2024-07-23 09:30:30', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(162, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper5358.pdf', 34, 'Thông báo', 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:31:48', '2024-07-23 09:31:48', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(163, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper1686.pdf', 34, 'Thông báo', 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:32:02', '2024-07-23 09:32:02', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8h', NULL, NULL, NULL, 'mịn màng căng tràn', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3 a', 'mô tả vòng 4', 'a', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'FPTS-JD-JuniorDeveloper40190.pdf,example (1)97657.html'),
+(164, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper5795.pdf', 34, 'Thông báo', 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:32:23', '2024-07-23 09:32:23', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', '2001', 'Xuất xứ', NULL, '54656', '423', '200k', '200k', '8h', NULL, NULL, NULL, 'mịn màng căng tràn', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3 a', 'mô tả vòng 4', 'a', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'FPTS-JD-JuniorDeveloper93514.pdf,example (1)66587.html'),
+(165, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper9044.pdf', 34, 'Thông báo', 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:35:18', '2024-07-23 09:35:18', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', '2001', 'Xuất xứ', NULL, '54656', '423', '200k', '200k', '8h', NULL, NULL, NULL, 'mịn màng căng tràn', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3 a', 'mô tả vòng 4', 'a', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'FPTS-JD-JuniorDeveloper97267.pdf,example (1)26931.html'),
+(166, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper4629.pdf', 34, 'Thông báo', 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:35:36', '2024-07-23 09:35:36', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', '2001', 'Xuất xứ', NULL, '54656', '423', '200k', '200k', '8h', NULL, NULL, NULL, 'mịn màng căng tràn', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3 a', 'mô tả vòng 4', 'a', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'FPTS-JD-JuniorDeveloper87070.pdf,example (1)46412.html'),
+(167, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper3618.pdf', 34, 'Thông báo', 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:35:59', '2024-07-23 09:35:59', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', '2001', 'Xuất xứ', NULL, '54656', '423', '200k', '200k', '8h', NULL, NULL, NULL, 'mịn màng căng tràn', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3 a', 'mô tả vòng 4', 'a', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'FPTS-JD-JuniorDeveloper80977.pdf,example (1)46005.html'),
+(168, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper841.pdf', 103, NULL, 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:36:43', '2024-07-23 09:36:43', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', NULL, NULL, NULL, '54656', NULL, '200k', NULL, NULL, NULL, NULL, NULL, 'mịn màng căng tràn', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3', 'mô tả vòng 4 a', 'a', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'example (1)9914.html'),
+(169, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper8333.pdf', 103, NULL, 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:37:39', '2024-07-23 09:37:39', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', NULL, NULL, NULL, '54656', NULL, '200k', NULL, NULL, NULL, NULL, NULL, 'mịn màng căng tràn', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3', 'mô tả vòng 4 a', 'a', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'example (1)24118.html'),
+(170, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper1320.pdf', 103, NULL, 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:37:55', '2024-07-23 09:37:55', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', NULL, NULL, NULL, '54656', NULL, '200k', NULL, NULL, NULL, NULL, NULL, 'mịn màng căng tràn', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3', 'mô tả vòng 4 a', 'a', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'example (1)96520.html'),
+(171, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper4711.pdf', 103, NULL, 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:38:27', '2024-07-23 09:38:27', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', NULL, NULL, NULL, '54656', NULL, '200k', NULL, NULL, NULL, NULL, NULL, 'mịn màng căng tràn', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3', 'mô tả vòng 4 a', 'a', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'example (1)27757.html'),
+(172, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper572.pdf', 103, NULL, 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:38:40', '2024-07-23 09:38:40', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', NULL, NULL, NULL, '54656', NULL, '200k', NULL, NULL, NULL, NULL, NULL, 'mịn màng căng tràn', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3', 'mô tả vòng 4 a', 'a', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'example (1)71858.html'),
+(173, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper9255.pdf', 103, NULL, 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:39:00', '2024-07-23 09:39:00', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', NULL, NULL, NULL, '54656', NULL, '200k', NULL, NULL, NULL, NULL, NULL, 'mịn màng căng tràn', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3', 'mô tả vòng 4 a', 'a', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'example (1)27799.html'),
+(174, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper756.pdf', 103, NULL, 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:39:24', '2024-07-23 09:39:24', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', NULL, NULL, NULL, '54656', NULL, '200k', NULL, NULL, NULL, NULL, NULL, 'mịn màng căng tràn', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3', 'mô tả vòng 4 a', 'a', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'example (1)82962.html'),
+(175, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'FPTS-JD-JuniorDeveloper3390.pdf', 35, '✪ ĐỘC QUYỀN ✪,1.500K,Hoàng Cầu', 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 09:39:50', '2024-07-23 09:39:50', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', NULL, NULL, 'Xã Đàn - Kim Liên\n', '0358605169', ' Bạn anh xcheckerviet.biz', '600K', NULL, '9h00 sáng đến 01h sáng', NULL, NULL, NULL, 'mịn màng căng tràn,vẻ mặt xinh xắn\n                                                                nhưng vô cùng dâm đãng', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3', 'mô tả vòng 4 a', 'a', 'Hôn môi tình cảm', 'Hôn môi tình cảm', 'Hôn môi tình cảm,a', 'anh9657.png,anh9657.png'),
+(176, 'Cẩm Tú - Vú To Đẹp Căng Tràn - Bản Năng Tình Dục Cuồng Nhiệt Cháy Bỏng - Khát Khao Lên Đỉnh Cùng Em', 'anh9657.png', 34, 'Mới', 5, NULL, NULL, NULL, NULL, 0, '2024-07-23 11:27:51', '2024-07-23 11:27:51', 'cam-tu-vu-to-dep-cang-tran-ban-nang-tinh-duc-cuong-nhiet-chay-bong-khat-khao-len-dinh-cung-em', 0, 0, NULL, 'Nghệ danh', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8h', NULL, NULL, NULL, 'mịn màng căng tràn', 'eo con kiến chuẩn căng', 'mô tả vòng 2', 'mô tả vòng 3', 'mô tả vòng 4', 'a', 'Hôn môi tình cảm', 'vét mương tẹt ga', 'tắm chung tắm chim', 'anh355.png');
 
 -- --------------------------------------------------------
 
@@ -280,18 +694,18 @@ INSERT INTO `tbl_order_details` (`order_details_id`, `order_code`, `product_id`,
 --
 
 CREATE TABLE `tbl_product` (
-  `product_id` int(10) UNSIGNED NOT NULL,
-  `product_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_quantity` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_sold` int(11) NOT NULL,
-  `product_slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `brand_id` int(11) NOT NULL,
-  `product_desc` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_content` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_status` int(11) NOT NULL,
+  `product_id` int UNSIGNED NOT NULL,
+  `product_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_quantity` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_sold` int DEFAULT NULL,
+  `product_slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_id` int UNSIGNED NOT NULL,
+  `brand_id` int UNSIGNED NOT NULL,
+  `product_desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_price` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_status` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -301,19 +715,25 @@ CREATE TABLE `tbl_product` (
 --
 
 INSERT INTO `tbl_product` (`product_id`, `product_name`, `product_quantity`, `product_sold`, `product_slug`, `category_id`, `brand_id`, `product_desc`, `product_content`, `product_price`, `product_image`, `product_status`, `created_at`, `updated_at`) VALUES
-(1, 'Tay cầm chơi game PS4 màu đỏ', '5', 5, 'tay-cam-ps4-1', 3, 1, 'Tay cầm chơi game PS4 màu đỏ', 'Tay cầm chơi game PS4 màu đỏ', '60000', 'Tay-cầm-PS4-Slim-Chính-Hãng-Màu-Đỏ-Dualshock-4-red-GameStation8.jpg', 0, NULL, NULL),
-(2, 'Tay cầm chơi game PS4 màu trắng', '44', 6, 'tay-cam-choi-game-ps4-mau-trang-1', 3, 1, 'Tay cầm chơi game PS4 màu trắng', 'Tay cầm chơi game PS4 màu trắng', '500000', 'Tay-cầm-PS4-Slim-Chính-Hãng-Màu-Trắng-Dualshock-4-white-GameStation89.jpg', 0, NULL, NULL),
-(3, 'Máy PS4 màu đỏ', '30', 0, 'may-ps4-mau-do', 2, 1, 'Máy PS4 màu đỏ', 'Máy PS4 màu đỏ', '3500000', 'sony-tung-ra-thi-truong-may-ps4-pro-marvels-spider-man-phien-ban-gioi-han-anh-382.jpg', 0, NULL, NULL),
-(4, 'Tay cầm chơi game PS4 màu đỏ', '30', 0, 'tay-cam-ps4-2', 3, 1, 'Tay cầm chơi game PS4 màu đỏ', 'Tay cầm chơi game PS4 màu đỏ', '60000', 'Tay-cầm-PS4-Slim-Chính-Hãng-Màu-Đỏ-Dualshock-4-red-GameStation8.jpg', 0, NULL, NULL),
-(5, 'Tay cầm chơi game PS4 màu trắng', '15', 5, 'tay-cam-choi-game-ps4-mau-trang-2', 3, 1, 'Tay cầm chơi game PS4 màu trắng', 'Tay cầm chơi game PS4 màu trắng', '500000', 'Tay-cầm-PS4-Slim-Chính-Hãng-Màu-Trắng-Dualshock-4-white-GameStation89.jpg', 0, NULL, NULL),
-(6, 'Máy PS4 màu đỏ', '70', 0, 'may-ps4-mau-do', 2, 1, 'Máy PS4 màu đỏ', 'Máy PS4 màu đỏ', '5600000', 'sony-tung-ra-thi-truong-may-ps4-pro-marvels-spider-man-phien-ban-gioi-han-anh-382.jpg', 0, NULL, NULL),
-(7, 'Tay cầm chơi game PS4 màu đỏ', '70', 127, 'tay-cam-ps4-3', 3, 1, 'Tay cầm chơi game PS4 màu đỏ', 'Tay cầm chơi game PS4 màu đỏ', '60000', 'Tay-cầm-PS4-Slim-Chính-Hãng-Màu-Đỏ-Dualshock-4-red-GameStation8.jpg', 0, NULL, NULL),
-(8, 'Tay cầm chơi game PS4 màu trắng', '50', 20, 'tay-cam-choi-game-ps4-mau-trang-3', 3, 1, 'Tay cầm chơi game PS4 màu trắng', 'Tay cầm chơi game PS4 màu trắng', '500000', 'Tay-cầm-PS4-Slim-Chính-Hãng-Màu-Trắng-Dualshock-4-white-GameStation89.jpg', 0, NULL, NULL),
-(9, 'Máy PS4 màu đỏ', '30', 27, 'may-ps4-mau-do', 2, 1, 'Máy PS4 màu đỏ', 'Máy PS4 màu đỏ', '5006000', 'sony-tung-ra-thi-truong-may-ps4-pro-marvels-spider-man-phien-ban-gioi-han-anh-382.jpg', 0, NULL, NULL),
-(10, 'Tay cầm chơi game PS4 màu đỏ', '20', 30, 'tay-cam-ps4-4', 3, 1, 'Tay cầm chơi game PS4 màu đỏ', 'Tay cầm chơi game PS4 màu đỏ', '60000', 'Tay-cầm-PS4-Slim-Chính-Hãng-Màu-Đỏ-Dualshock-4-red-GameStation8.jpg', 0, NULL, NULL),
-(11, 'Tay cầm chơi game PS4 màu trắng', '9', 11, 'tay-cam-choi-game-ps4-mau-trang-4', 3, 1, 'Tay cầm chơi game PS4 màu trắng', 'Tay cầm chơi game PS4 màu trắng', '500000', 'Tay-cầm-PS4-Slim-Chính-Hãng-Màu-Trắng-Dualshock-4-white-GameStation89.jpg', 0, NULL, NULL),
-(12, 'Máy PS4 màu đỏ', '49', 1, 'may-ps4-mau-do', 2, 1, 'Máy PS4 màu đỏ', 'Máy PS4 màu đỏ', '5000000', 'sony-tung-ra-thi-truong-may-ps4-pro-marvels-spider-man-phien-ban-gioi-han-anh-382.jpg', 0, NULL, NULL),
-(14, 'Xbox 11233', '19', 1, 'xbox-1-1', 1, 1, '<p>dasdasd</p>', '<p>asdasd</p>', '1500000', '471937-microsoft-xbox-one-x69.jpg', 0, NULL, NULL);
+(6, 'Royal Canin Urinary Canine Dog 2kg - Dành cho chó bị sỏi thận-10kg', '40', 10, 'royal-canin-urinary-canine-dog-2kg-danh-cho-cho-bi-soi-than-10kg', 8, 8, '<p>&nbsp;</p>\r\n\r\n<p>Royal Canin Urinary Canine Dog 2kg - D&agrave;nh cho ch&oacute; bị sỏi thận</p>', '<p><strong>Nguy&ecirc;n liệu</strong></p>\r\n\r\n<p>Bột bắp, gạo, chất b&eacute;o động vật, protein gia cầm, gluten bắp, kho&aacute;ng chất, protein động vật, xơ thực vật, dầu đậu n&agrave;nh, dầu c&aacute;, fructo-oligo-sacarit, monoglycerit v&agrave; diglycerit của axit palmitic v&agrave; stearic từ phản ứng este h&oacute;a với axit citric, chiết xuất c&uacute;c vạn thọ (nguồn lutein).<br />\r\nNguồn protein: protein gia cầm, gluten bắp, protein động vật.</p>\r\n\r\n<p>Phụ gia dinh dưỡng: Vitamin A, Vitamin D3, E1(Sắt), E2 (I ốt), E4 (Đồng), E5 (Mangan), E6 (Kẽm), E8 (Selen), Chất axit h&oacute;a nước tiểu: Canxi Sunfat (0.88%). Chất chống oxi h&oacute;a.</p>\r\n\r\n<p><strong>Th&agrave;nh phần dinh dưỡng</strong></p>\r\n\r\n<p><img alt=\"\" src=\"https://www.petcity.vn/media/lib/4372_Thnhphndinhdng.jpg\" /></p>\r\n\r\n<p><strong>Đặc t&iacute;nh nổi bật</strong></p>\r\n\r\n<p><img alt=\"\" src=\"https://www.petcity.vn/media/lib/4372_ctnhnibt.jpg\" /></p>\r\n\r\n<p><strong>Khẩu phần ăn chuẩn</strong>&nbsp;</p>\r\n\r\n<p><img alt=\"\" src=\"https://www.petcity.vn/media/lib/4372_Bngnthamkho.jpg\" /></p>', '431000', '250_4341_ava66.jpg', 0, NULL, NULL),
+(7, 'Thức ăn cho chó nhỏ trưởng thành Farmina N&D PUMPKIN vị heo, bí ngô và táo 3kg', '98', 2, 'thuc-an-cho-cho-nho-truong-thanh-farmina-nd-pumpkin-vi-heo-bi-ngo-va-tao-3kg', 8, 8, '<p>Thức ăn cho ch&oacute; nhỏ trưởng th&agrave;nh Farmina N&amp;D PUMPKIN vị heo, b&iacute; ng&ocirc; v&agrave; t&aacute;o 3kg</p>', '<h3>Farmina - N&amp;D PUMPKIN DOG boar, apple mini adult</h3>\r\n\r\n<p>(d&agrave;nh cho ch&oacute; nhỏ tr&ecirc;n 10 th&aacute;ng tuổi)</p>\r\n\r\n<p>Vị heo, b&iacute; ng&ocirc; v&agrave; t&aacute;o</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/78cb3d06-bf55-435e-bdf7-33be79a67da8\" width=\"250\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p><strong>Th&agrave;nh phần&nbsp;</strong></p>\r\n\r\n<p>Thịt lợn rừng kh&ocirc;ng xương (24%), protein thịt lợn mất nước (22%), tinh bột đậu (20%), mỡ g&agrave;, b&iacute; ng&ocirc; khử nước (5%), trứng khử nước, dầu c&aacute;, chất xơ thực vật, c&agrave; rốt kh&ocirc;, cỏ linh lăng kh&ocirc;, inulin, fructooligosacarit, mannanoligosacarit, t&aacute;o khử nước (0,5%), bột rau bina, psyllium (0,3%), bột lựu, bột blackcurrant, cam ngọt, nước ngọt , chondroitin sulphate, chiết xuất c&uacute;c vạn thọ (nguồn lutein)</p>', '230000', '250_4343_ava69.jpg', 0, NULL, NULL),
+(8, 'Thức ăn cho chó nhỏ trưởng thành Farmina N&D PUMPKIN vị heo, bí ngô và táo 7kg', '98', 2, 'thuc-an-cho-cho-nho-truong-thanh-farmina-nd-pumpkin-vi-heo-bi-ngo-va-tao-7kg', 8, 8, '<p>Thức ăn cho ch&oacute; nhỏ trưởng th&agrave;nh Farmina N&amp;D PUMPKIN vị heo, b&iacute; ng&ocirc; v&agrave; t&aacute;o 7kg</p>', '<h3>Farmina - N&amp;D PUMPKIN DOG boar, apple mini adult</h3>\r\n\r\n<p>(d&agrave;nh cho ch&oacute; nhỏ tr&ecirc;n 10 th&aacute;ng tuổi)</p>\r\n\r\n<p>Vị heo, b&iacute; ng&ocirc; v&agrave; t&aacute;o</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/78cb3d06-bf55-435e-bdf7-33be79a67da8\" width=\"250\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p><strong>Th&agrave;nh phần&nbsp;</strong></p>\r\n\r\n<p>Thịt lợn rừng kh&ocirc;ng xương (24%), protein thịt lợn mất nước (22%), tinh bột đậu (20%), mỡ g&agrave;, b&iacute; ng&ocirc; khử nước (5%), trứng khử nước, dầu c&aacute;, chất xơ thực vật, c&agrave; rốt kh&ocirc;, cỏ linh lăng kh&ocirc;, inulin, fructooligosacarit, mannanoligosacarit, t&aacute;o khử nước (0,5%), bột rau bina, psyllium (0,3%), bột lựu, bột blackcurrant, cam ngọt, nước ngọt , chondroitin sulphate, chiết xuất c&uacute;c vạn thọ (nguồn lutein)</p>', '135000', '250_4343_ava69.jpg', 0, NULL, NULL),
+(9, 'Royal Canin Urinary Canine Dog 2kg - Dành cho chó bị sỏi thận', '60', NULL, 'royal-canin-urinary-canine-dog-2kg-danh-cho-cho-bi-soi-than', 8, 8, '<p>Royal Canin Urinary Canine Dog 2kg - D&agrave;nh cho ch&oacute; bị sỏi thận</p>', '<h3>Farmina - N&amp;D PUMPKIN DOG boar, apple mini adult</h3>\r\n\r\n<p>(d&agrave;nh cho ch&oacute; nhỏ tr&ecirc;n 10 th&aacute;ng tuổi)</p>\r\n\r\n<p>Vị heo, b&iacute; ng&ocirc; v&agrave; t&aacute;o</p>\r\n\r\n<p><strong>Th&agrave;nh phần&nbsp;</strong></p>\r\n\r\n<p>Thịt lợn rừng kh&ocirc;ng xương (24%), protein thịt lợn mất nước (22%), tinh bột đậu (20%), mỡ g&agrave;, b&iacute; ng&ocirc; khử nước (5%), trứng khử nước, dầu c&aacute;, chất xơ thực vật, c&agrave; rốt kh&ocirc;, cỏ linh lăng kh&ocirc;, inulin, fructooligosacarit, mannanoligosacarit, t&aacute;o khử nước (0,5%), bột rau bina, psyllium (0,3%), bột lựu, bột blackcurrant, cam ngọt, nước ngọt , chondroitin sulphate, chiết xuất c&uacute;c vạn thọ (nguồn lutein)</p>\r\n\r\n<p><strong>Bảng ăn tham khảo</strong></p>\r\n\r\n<p><img alt=\"\" src=\"https://www.petcity.vn/media/lib/4284_bngn.png\" /></p>', '450000', '1444_SmartheartPuppy54.jpg', 0, NULL, NULL),
+(10, 'Thức ăn cho chó nhỏ trưởng thành Farmina - N&D PUMPKIN vị gà, bí ngô, công thức lựu', '100', NULL, 'thuc-an-cho-cho-nho-truong-thanh-farmina-nd-pumpkin-vi-ga-bi-ngo-cong-thuc-luu', 8, 8, '<p>Thức ăn cho ch&oacute; nhỏ trưởng th&agrave;nh Farmina - N&amp;D PUMPKIN vị g&agrave;, b&iacute; ng&ocirc;, c&ocirc;ng thức lựu&nbsp;</p>', '<h3>Farmina - N&amp;D PUMPKIN DOG chicken mini adult</h3>\r\n\r\n<p>(d&agrave;nh cho ch&oacute; nhỏ tr&ecirc;n 10 th&aacute;ng tuổi)</p>\r\n\r\n<p>Vị g&agrave;, b&iacute; ng&ocirc;, c&ocirc;ng thức lựu</p>\r\n\r\n<p><strong>Th&agrave;nh phần</strong></p>\r\n\r\n<p>G&agrave; kh&ocirc;ng xương (24%), protein g&agrave; mất nước (22%), tinh bột đậu (20%), mỡ g&agrave;, b&iacute; ng&ocirc; khử nước (5%), trứng khử nước, c&aacute; tr&iacute;ch, protein c&aacute; tr&iacute;ch mất nước, dầu c&aacute;, xơ thực vật, sấy kh&ocirc; c&agrave; rốt, cỏ linh lăng kh&ocirc;, inulin, fructooligosacarit, mannanoligosacarit, bột lựu (0,5%), t&aacute;o khử nước, bột rau bina, psyllium (0,3%), bột blackcurrant, cam kh&ocirc;, bột ngọt 0,2%), glucosamine, chondroitin sulphate, chiết xuất c&uacute;c vạn thọ (nguồn lutein)</p>\r\n\r\n<p><strong>Bảng ăn tham khảo</strong></p>\r\n\r\n<p>&nbsp;<img alt=\"\" src=\"https://www.petcity.vn/media/lib/4283_ntk.png\" /></p>', '125000', '12315.jpg', 0, NULL, NULL),
+(11, 'Thức ăn ướt Me-o Delite vị cá ngừ và thịt gà xé 70gr', '100', NULL, 'thuc-an-uot-me-o-delite-vi-ca-ngu-va-thit-ga-xe-70gr', 8, 8, '<p>Thức ăn ướt Me-o Delite vị c&aacute; ngừ v&agrave; thịt g&agrave; x&eacute; 70gr</p>', '<p><strong>Thức ăn ướt Me-o Delite vị c&aacute; ngừ v&agrave; thịt g&agrave; x&eacute;</strong></p>\r\n\r\n<p><strong>Nguy&ecirc;n Liệu Ch&iacute;nh:</strong>&nbsp;C&aacute; ngừ tươi, thịt g&agrave; x&eacute;, chất tạo đ&ocirc;ng, chất điều vị, taurin, c&aacute;c vitamin v&agrave; kho&aacute;ng chất.</p>\r\n\r\n<p><strong>Th&agrave;nh phần dinh dưỡng&nbsp;</strong></p>\r\n\r\n<p>Chất đạm : 8%</p>\r\n\r\n<p>Chất b&eacute;o : 0.3%&nbsp;</p>\r\n\r\n<p>Chất xơ : 1%</p>\r\n\r\n<p>Độ ẩm : 90%</p>\r\n\r\n<p><strong>Điểm nổi bật&nbsp;</strong></p>\r\n\r\n<ul>\r\n	<li>Được l&agrave;m từ c&aacute; thật</li>\r\n	<li>Taurine: Tăng cường hệ miễn dịch v&agrave; thị gi&aacute;c.</li>\r\n	<li>Biotin/ Zinc: Gi&uacute;p l&agrave;n da v&agrave; bộ long khỏe mạnh.</li>\r\n	<li>Vitamin C: Gi&uacute;p tăng cường hệ miễn dịch.</li>\r\n</ul>\r\n\r\n<p><strong>Bảo quản:</strong>&nbsp;Nơi kh&ocirc; r&aacute;o tho&aacute;ng m&aacute;t</p>', '25000', '12342.jpg', 0, NULL, NULL),
+(12, 'Whiskas - Pate Tuna junior 85g', '90', NULL, 'whiskas-pate-tuna-junior-85g', 8, 8, '<p>Whiskas - Pate Tuna junior 85g</p>', '<p>Whiskas - Pate Tuna junior 85g</p>', '10000', '1251_790_royal_canin_indoor_2726.jpg', 0, NULL, NULL),
+(13, 'Súp thưởng Ciao vị cá ngừ và sò điệp cho mèo (14g*20)', '100', NULL, 'sup-thuong-ciao-vi-ca-ngu-va-so-diep-cho-meo-14g20', 8, 8, '<p>S&uacute;p thưởng Ciao vị c&aacute; ngừ v&agrave; s&ograve; điệp cho m&egrave;o (14g*20)</p>', '<p><strong>S&uacute;p thưởng Ciao vị c&aacute; ngừ v&agrave; s&ograve; điệp</strong></p>\r\n\r\n<p><strong>Th&agrave;nh phần</strong></p>\r\n\r\n<p>C&aacute; ngừ, s&ograve; điệp, tinh bột biến t&iacute;nh, chất tạo m&ugrave;i, Guar Gum, chiết xuất s&ograve; điệp, Vitamin E, Carrageenan, bột tr&agrave; xanh, Fructooligosaccharides.</p>\r\n\r\n<p><strong>Th&agrave;nh phần dinh dưỡng&nbsp;</strong></p>\r\n\r\n<p>Độ ẩm &le; 93,0 %; Protein th&ocirc; &ge; 7,0 %; B&eacute;o th&ocirc; &ge; 0,2 %; Xơ th&ocirc; &le; 1,0 %; Kho&aacute;ng tổng số &le; 2,0 %</p>\r\n\r\n<p><strong>Sử dụng</strong></p>\r\n\r\n<p>Cho ăn trực tiếp &ndash; D&ugrave;ng như b&aacute;nh thưởng.</p>\r\n\r\n<p>Khẩu phần: 56g/ ng&agrave;y.</p>\r\n\r\n<p>Sản phẩm n&agrave;y kh&ocirc;ng d&ugrave;ng thay thế bữa ăn ch&iacute;nh. Lu&ocirc;n giữ cung cấp nước sạch thường xuy&ecirc;n.</p>', '138000', '250_4370_ciao_g_____c___ng___7.png', 0, NULL, NULL),
+(14, 'Áo Thun Nam Y2010 Basic AI05', '60', NULL, 'ao-thun-nam-y2010-basic-ai05', 3, 4, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '135000', 'd84OO5_simg_de2fe0_500x500_maxb59.jpg', 0, NULL, NULL),
+(15, 'Áo Thun Nam Y2010 Basic AI01', '60', NULL, 'ao-thun-nam-y2010-basic-ai01', 3, 8, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '145000', 'ao787.jpg', 0, NULL, NULL),
+(16, 'Áo Thun Nam Y2010 Basic AI02', '70', NULL, 'ao-thun-nam-y2010-basic-ai02', 3, 4, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '195000', 'd84OO5_simg_de2fe0_500x500_maxb59.jpg', 0, NULL, NULL),
+(17, 'Áo Thun Nam Y2010 Basic AI03', '80', NULL, 'ao-thun-nam-y2010-basic-ai03', 3, 8, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '295000', 'ao423.jpg', 0, NULL, NULL),
+(18, 'Áo Thun Nam Y2010 Basic AI04', '80', NULL, 'ao-thun-nam-y2010-basic-ai04', 3, 8, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '395000', 'ao345.jpg', 0, NULL, NULL),
+(19, 'Áo Thun Nam Y2010 Basic AI06', '25', NULL, 'ao-thun-nam-y2010-basic-ai06', 3, 8, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '285000', 'ao214.jpg', 0, NULL, NULL),
+(20, 'Áo Thun Nam Y2010 Basic AI08', '36', NULL, 'ao-thun-nam-y2010-basic-ai08', 3, 8, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '286000', 'ao163.jpg', 0, NULL, NULL),
+(21, 'Playstation 4 Pro 1TB USED', '60', NULL, 'playstation-4-pro-1tb-used', 2, 8, '<p>Playstation 4 Pro 1TB đ&atilde; qua sử dụng</p>\r\n\r\n<div class=\"ddict_btn\" style=\"left:185px; top:28px\"><img src=\"chrome-extension://bpggmmljdiliancllaapiggllnkbjocb/icon/16.png\" /></div>', '<table>\r\n	<thead>\r\n		<tr>\r\n			<td colspan=\"2\"><strong>CẤU H&Igrave;NH CHI TIẾT</strong></td>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>M&atilde; sản phẩm</td>\r\n			<td>CUH-7218B series</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Chi tiết CPU</td>\r\n			<td>x86-64 AMD &quot;Jaguar&quot;, 8 nh&acirc;n</td>\r\n		</tr>\r\n		<tr>\r\n			<td>GPU</td>\r\n			<td>4.20 TFLOPS, đồ họa nền tảng AMD Radeon</td>\r\n		</tr>\r\n		<tr>\r\n			<td>RAM</td>\r\n			<td>GDDR5 8GB</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Bộ nhớ trong</td>\r\n			<td>1TB</td>\r\n		</tr>\r\n	</tbody>\r\n	<thead>\r\n		<tr>\r\n			<td colspan=\"2\"><strong>KẾT NỐI DỮ LIỆU</strong></td>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>Ổ đĩa BD/DVD (chỉ đọc)</td>\r\n			<td>BD x 6 CAV, DVD x 8 CAV</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Đường v&agrave;o / ra</td>\r\n			<td>3x Cổng USB tốc độ cao (USB 3.1 thế hệ 1), 1x Cổng AUX</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Cổng ra AV</td>\r\n			<td>HDMI out port (hỗ trợ 4K/HDR), Cổng quang (OPTICAL port)</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Kết nối mạng</td>\r\n			<td>C&aacute;p mạng Ethernet (10BASE-T, 100BASE-TX, 1000BASE-T)x1 Wi-Fi IEEE 802.11 a/b/g/n/ac. Bluetooth 4.0 (năng lượng thấp)</td>\r\n		</tr>\r\n	</tbody>\r\n	<thead>\r\n		<tr>\r\n			<td colspan=\"2\"><strong>TH&Ocirc;NG SỐ VẬT L&Yacute;</strong></td>\r\n		</tr>\r\n	</thead>\r\n	<tbody>\r\n		<tr>\r\n			<td>M&agrave;u sắc sản phẩm</td>\r\n			<td>Jet Black</td>\r\n		</tr>\r\n		<tr>\r\n			<td>K&iacute;ch thước</td>\r\n			<td>295 x 55 x 327 mm (rộng x d&agrave;i x cao)</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Trọng lượng</td>\r\n			<td>3.3 kg</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Nguồn điện</td>\r\n			<td>Xoay chiều, 100-240V, 50/60Hz</td>\r\n		</tr>\r\n		<tr>\r\n			<td>C&ocirc;ng suất ti&ecirc;u thụ</td>\r\n			<td>Tối đa 310W</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Nhiệt độ l&agrave;m việc</td>\r\n			<td>5&ordm;C - 35&ordm;C</td>\r\n		</tr>\r\n	</tbody>\r\n</table>', '6800000', 'mayps179.jpg', 0, NULL, NULL),
+(22, 'Máy PS4 slim Mega pack 2', '90', NULL, 'may-ps4-slim-mega-pack-2', 2, 1, '<p>M&aacute;y PS4 slim Mega pack 2</p>', '<p>M&aacute;y PS4 slim mega pack h&agrave;ng ch&iacute;nh h&atilde;ng Sony Việt Nam. Bảo h&agrave;nh h&atilde;ng 01 năm. Miễn ph&iacute; lắp đặt n&ocirc;i th&agrave;nh H&agrave; nội. Ship COD to&agrave;n quốc. Hỗ trợ trả g&oacute;p l&atilde;i xuất 0%</p>\r\n\r\n<p>Bộ sản phẩm gồm :</p>\r\n\r\n<p>- 01 bộ m&aacute;y PS4 slim ổ cứng 1T đời mới nhất cuh 2218 ( đ&atilde; c&oacute; 01 tay theo m&aacute;y )</p>\r\n\r\n<p>- 03 đĩa game mới nguy&ecirc;n seal: God of war 4, Horizon complete edition v&agrave; GTA 5</p>\r\n\r\n<p>KH&Ocirc;NG LẤY QU&Agrave; TẶNG VUI L&Ograve;NG INBOX SHOP HOẶC GỌI HOTLINE 0936011022</p>\r\n\r\n<p><img alt=\"Máy PS4 slim mega pack hàng chính hãng Sony Việt Nam\" src=\"https://bucket.nhanh.vn/store/24046/psCT/20191126/18323327/ps4_slim_mega_pack_.jpg\" /></p>', '7550000', 'mayps381.jpg', 0, NULL, NULL),
+(23, 'Combo Máy PS4 slim 1T kèm 2 tay và đĩa PES 20', '90', NULL, 'combo-may-ps4-slim-1t-kem-2-tay-va-dia-pes-20', 2, 8, '<p>Combo M&aacute;y PS4 slim 1T k&egrave;m 2 tay v&agrave; đĩa PES 20</p>', '<p>M&aacute;y Ps4 pro b&aacute;n bởi Hotgamestore - Đại l&yacute; ch&iacute;nh h&atilde;ng Playstation của Sony tại Việt Nam - l&agrave; m&aacute;y nhập khẩu ch&iacute;nh h&atilde;ng, bảo h&agrave;nh tại Trung t&acirc;m hỗ trợ bảo h&agrave;nh Sony to&agrave;n Việt Nam. M&aacute;y Ps4 pro được k&iacute;ch hoạt bảo h&agrave;nh ngay khi kh&aacute;ch h&agrave;ng&nbsp;mua m&aacute;y, qu&yacute; kh&aacute;ch kh&ocirc;ng cần bất cứ giấy tờ g&igrave; khi mang m&aacute;y Ps4 pro đi bảo h&agrave;nh .</p>', '8090000', '12344468.jpg', 0, NULL, NULL),
+(24, 'Sách ngôn tình hồ ly tinh', '10', NULL, 'sach-ngon-tinh-ho-ly-tinh', 6, 6, '<p>S&aacute;ch ng&ocirc;n t&igrave;nh hồ ly tinh</p>', '<p>S&aacute;ch ng&ocirc;n t&igrave;nh hồ ly tinh&nbsp;</p>\r\n\r\n<p>&nbsp;</p>', '500000', 'sachngontinh68.jpg', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -322,10 +742,10 @@ INSERT INTO `tbl_product` (`product_id`, `product_name`, `product_quantity`, `pr
 --
 
 CREATE TABLE `tbl_quanhuyen` (
-  `maqh` varchar(5) CHARACTER SET utf8 NOT NULL,
-  `name_quanhuyen` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `type` varchar(30) CHARACTER SET utf8 NOT NULL,
-  `matp` int(10) NOT NULL
+  `maqh` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `name_quanhuyen` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `type` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `matp` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1050,17 +1470,112 @@ INSERT INTO `tbl_quanhuyen` (`maqh`, `name_quanhuyen`, `type`, `matp`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `tbl_roles`
+--
+
+CREATE TABLE `tbl_roles` (
+  `id_roles` int NOT NULL,
+  `name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_roles`
+--
+
+INSERT INTO `tbl_roles` (`id_roles`, `name`) VALUES
+(1, 'admin'),
+(2, 'author'),
+(3, 'user');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tbl_select`
+--
+
+CREATE TABLE `tbl_select` (
+  `id` int NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `loai` varchar(255) NOT NULL,
+  `color` varchar(255) NOT NULL DEFAULT 'red'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_select`
+--
+
+INSERT INTO `tbl_select` (`id`, `name`, `loai`, `color`) VALUES
+(1, 'mịn màng căng tràn', 'tong_quat', 'red'),
+(2, 'kiểu gái tơ', 'tong_quat', 'red'),
+(3, 'mát mịn', 'tong_quat', 'red'),
+(4, 'bú bóp thoải mái', 'tong_quat', 'red'),
+(5, 'gọn gàng săn chắc', 'vong_1\r\n', 'red'),
+(6, 'eo con kiến chuẩn căng', 'vong_1', 'red'),
+(7, 'mô tả vòng 2', 'vong_2', 'red'),
+(8, 'mô tả vòng 2', 'vong_2', 'red'),
+(9, 'mô tả vòng 2', 'vong_2', 'red'),
+(10, 'mô tả vòng 2', 'vong_2', 'red'),
+(11, 'mô tả vòng 2', 'vong_2', 'red'),
+(12, 'mô tả vòng 2ok', 'vong_2', 'red'),
+(13, 'mô tả vòng 2ok', 'vong_2', 'red'),
+(14, 'mô tả vòng 2ak', 'vong_2', 'red'),
+(15, 'mô tả vòng 2rekmk', 'vong_2', 'red'),
+(16, 'mô tả vòng 3', 'vong_3', 'red'),
+(17, 'mô tả vòng 3 a', 'vong_3', 'red'),
+(18, 'mô tả vòng 3 c', 'vong_3', 'red'),
+(19, 'mô tả vòng 3 x', 'vong_3', 'red'),
+(20, 'mô tả vòng 3 ưd', 'vong_3', 'red'),
+(21, 'mô tả vòng 4', 'vong_4', 'red'),
+(22, 'mô tả vòng 4 a', 'vong_4', 'red'),
+(23, 'mô tả vòng 4c', 'vong_4', 'red'),
+(24, 'mô tả vòng 4f', 'vong_4', 'red'),
+(25, 'Hôn môi tình cảm', 'service', 'red'),
+(26, 'Hôn môi tình cảm', 'service', 'red'),
+(27, 'vét mương tẹt ga', 'service', 'red'),
+(28, 'HJ', 'service', 'red'),
+(29, 'BJ', 'service', 'red'),
+(30, 'tắm chung tắm chim', 'service', 'red'),
+(31, 'đá bi', 'service', 'red'),
+(32, 'mút cà', 'service', 'red'),
+(33, 'múa cột', 'service', 'red'),
+(34, 'nhiều chiêu lạ để chiều anh em luôn nha', 'service', 'red'),
+(35, 'rất tình cảm hợp tác các tư thế', 'service', 'red'),
+(36, 'Hôn môi tình cảm', 'cam_ket', 'red'),
+(37, 'vét mương tẹt ga', 'cam_ket', 'red'),
+(38, 'HJ', 'cam_ket', 'red'),
+(39, 'BJ', 'cam_ket', 'red'),
+(40, 'tắm chung tắm chim', 'cam_ket', 'red'),
+(41, 'đá bi', 'cam_ket', 'red'),
+(42, 'mút cà', 'cam_ket', 'red'),
+(43, 'múa cột', 'cam_ket', 'red'),
+(44, 'nhiều chiêu lạ để chiều anh em luôn nha', 'cam_ket', 'red'),
+(45, 'rất tình cảm hợp tác các tư thế', 'cam_ket', 'red'),
+(46, 'Hôn môi tình cảm', 'khong_cam_ket', 'red'),
+(47, 'vét mương tẹt ga', 'khong_cam_ket', 'red'),
+(48, 'HJ', 'khong_cam_ket', 'red'),
+(49, 'BJ', 'khong_cam_ket', 'red'),
+(50, 'tắm chung tắm chim', 'khong_cam_ket', 'red'),
+(51, 'đá bi', 'khong_cam_ket', 'red'),
+(52, 'mút cà', 'khong_cam_ket', 'red'),
+(53, 'múa cột', 'khong_cam_ket', 'red'),
+(54, 'nhiều chiêu lạ để chiều anh em luôn nha', 'khong_cam_ket', 'red'),
+(55, 'rất tình cảm hợp tác các tư thế', 'khong_cam_ket', 'red'),
+(56, 'a', 'phong_cach_phuc_vu', 'red');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `tbl_shipping`
 --
 
 CREATE TABLE `tbl_shipping` (
-  `shipping_id` int(10) UNSIGNED NOT NULL,
-  `shipping_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_notes` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shipping_method` int(11) NOT NULL,
+  `shipping_id` int UNSIGNED NOT NULL,
+  `shipping_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shipping_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shipping_phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shipping_email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shipping_notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shipping_method` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1070,7 +1585,9 @@ CREATE TABLE `tbl_shipping` (
 --
 
 INSERT INTO `tbl_shipping` (`shipping_id`, `shipping_name`, `shipping_address`, `shipping_phone`, `shipping_email`, `shipping_notes`, `shipping_method`, `created_at`, `updated_at`) VALUES
-(17, 'Hieu Tấn', '245 Nguyễn Văn Khạ, Tân An Hội .Thị trấn Củ Chi,TPHCM', '0932023992', 'Hieu dep giai', 'Nhanh nha mày', 1, NULL, NULL);
+(17, 'Hieu Tấn', '245 Nguyễn Văn Khạ, Tân An Hội .Thị trấn Củ Chi,TPHCM', '0932023992', 'Hieu dep giai', 'Nhanh nha mày', 1, NULL, NULL),
+(18, 'Hieu tấn', '123/123', '0932023992', 'dsadas@gmail.com', 'dasdasdasdas', 1, NULL, NULL),
+(19, 'Hieu tấn', '123/123', '0932023992', 'dsadas@gmail.com', 'dasdasdasdas', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1079,22 +1596,22 @@ INSERT INTO `tbl_shipping` (`shipping_id`, `shipping_name`, `shipping_address`, 
 --
 
 CREATE TABLE `tbl_slider` (
-  `slider_id` int(11) NOT NULL,
+  `slider_id` int NOT NULL,
   `slider_name` varchar(255) NOT NULL,
-  `slider_status` int(11) NOT NULL,
+  `slider_status` int NOT NULL,
   `slider_image` varchar(100) NOT NULL,
   `slider_desc` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_slider`
 --
 
 INSERT INTO `tbl_slider` (`slider_id`, `slider_name`, `slider_status`, `slider_image`, `slider_desc`) VALUES
-(1, 'Slider 1', 1, 'slider149.jpg', 'Thông tin khuyến mãi nạp thẻ game'),
-(2, 'Slider 1', 1, 'slider188.jpg', 'dasdasdasdasdasd'),
 (3, 'Slider 2', 1, 'slider275.jpg', 'dsadasdas'),
-(4, 'Slider 3', 0, 'slider318.jpg', 'dasdasdasd');
+(6, 'Slider quan áo', 1, '091216-casualfalloutifts-slider-2png18.png', 'Slider quan áo'),
+(7, 'Slider Thú cưng', 1, 'banner-template-concept-pet-shop_23-214843688821.jpg', 'Slider Thú cưng'),
+(8, 'Book slider', 1, 'bookslider43.jpg', 'Book slider');
 
 -- --------------------------------------------------------
 
@@ -1103,11 +1620,11 @@ INSERT INTO `tbl_slider` (`slider_id`, `slider_name`, `slider_status`, `slider_i
 --
 
 CREATE TABLE `tbl_social` (
-  `user_id` int(11) NOT NULL,
+  `user_id` int NOT NULL,
   `provider_user_id` varchar(100) NOT NULL,
   `provider` varchar(100) NOT NULL,
-  `user` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `user` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_social`
@@ -1115,7 +1632,45 @@ CREATE TABLE `tbl_social` (
 
 INSERT INTO `tbl_social` (`user_id`, `provider_user_id`, `provider`, `user`) VALUES
 (6, '221605442317143', 'facebook', 6),
-(13, '111257400060277532733', 'GOOGLE', 12);
+(13, '111257400060277532733', 'GOOGLE', 12),
+(14, '111264198467826812391', 'GOOGLE', 2),
+(15, '108162077516942840028', 'GOOGLE', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tbl_tag`
+--
+
+CREATE TABLE `tbl_tag` (
+  `id` int NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `la_label` tinyint(1) NOT NULL DEFAULT '0',
+  `color` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_tag`
+--
+
+INSERT INTO `tbl_tag` (`id`, `name`, `la_label`, `color`) VALUES
+(1, 'Mới', 1, 'orange'),
+(2, 'Thông báo', 1, 'royalBlue'),
+(3, '300K', 1, 'orange'),
+(4, '500K', 1, 'orange'),
+(5, 'Q.Cầu Giấy', 1, NULL),
+(6, 'Hải An', 1, 'green'),
+(7, 'Qua đêm', 1, 'royalBlue'),
+(8, 'Q.Long Biên', 1, 'royalBlue'),
+(9, 'Nhà cung cấp lởm', 1, 'red'),
+(10, 'Video', 1, 'red'),
+(11, 'Trực tết', 1, 'red'),
+(12, 'Chú ý', 1, 'red'),
+(13, '✪ ĐỘC QUYỀN ✪', 1, 'red'),
+(14, 'Láng', 1, 'red'),
+(15, 'Trực đêm', 1, 'red'),
+(16, 'Hàng đã nghỉ', 1, 'red'),
+(17, '1.500K', 1, 'orange');
 
 -- --------------------------------------------------------
 
@@ -1124,9 +1679,9 @@ INSERT INTO `tbl_social` (`user_id`, `provider_user_id`, `provider`, `user`) VAL
 --
 
 CREATE TABLE `tbl_tinhthanhpho` (
-  `matp` varchar(5) CHARACTER SET utf8 NOT NULL,
-  `name_city` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `type` varchar(30) CHARACTER SET utf8 NOT NULL
+  `matp` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `name_city` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `type` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
@@ -1205,10 +1760,10 @@ INSERT INTO `tbl_tinhthanhpho` (`matp`, `name_city`, `type`) VALUES
 --
 
 CREATE TABLE `tbl_xaphuongthitran` (
-  `xaid` varchar(5) CHARACTER SET utf8 NOT NULL,
-  `name_xaphuong` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `type` varchar(30) CHARACTER SET utf8 NOT NULL,
-  `maqh` int(10) NOT NULL
+  `xaid` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `name_xaphuong` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `type` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `maqh` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -12394,25 +12949,60 @@ INSERT INTO `tbl_xaphuongthitran` (`xaid`, `name_xaphuong`, `type`, `maqh`) VALU
 --
 
 CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `username` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `background_color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ma_gioi_thieu` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `duoc_gioi_thieu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vi_tien` int NOT NULL,
+  `rank` int NOT NULL,
+  `uy_tin` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `background_color`, `ma_gioi_thieu`, `duoc_gioi_thieu`, `vi_tien`, `rank`, `uy_tin`) VALUES
+(1, 'phuong', 'phuonghole121201', NULL, 'a6fe6dffba939308f00f7f74f5acc9fe', NULL, NULL, NULL, 'red', '', 'oAjlNjDelH', 0, 0, 0),
+(2, 'hhuonghole12', 'phuonghole121201', NULL, 'a6fe6dffba939308f00f7f74f5acc9fe', NULL, NULL, NULL, 'green', '', '0', 0, 0, 0),
+(3, 'chuonghole12120', 'phuonghole121201', NULL, 'a6fe6dffba939308f00f7f74f5acc9fe', NULL, NULL, NULL, 'blue', 'a', '0', 0, 0, 0),
+(4, 'phuonghole12120', 'phuonghole121201@gmail.com', NULL, '550bde47087b22c77656efb737121d64', NULL, '2024-07-23 03:31:21', '2024-07-23 03:31:21', NULL, '', '0', 0, 0, 0),
+(5, 'phuonghole', 'phuonghole@gmail.com', NULL, 'eedfb17c7cfd2ce1cc1a2b1787c8cd5e', NULL, '2024-07-23 03:58:45', '2024-07-23 03:58:45', NULL, 'oAjlNjDelH', 'a', 0, 8, 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
 --
 
 --
+-- Chỉ mục cho bảng `admin_roles`
+--
+ALTER TABLE `admin_roles`
+  ADD PRIMARY KEY (`id_admin_roles`);
+
+--
+-- Chỉ mục cho bảng `danh_muc`
+--
+ALTER TABLE `danh_muc`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
   ADD PRIMARY KEY (`admin_id`);
+
+--
+-- Chỉ mục cho bảng `tbl_binh_luan`
+--
+ALTER TABLE `tbl_binh_luan`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `tbl_brand`
@@ -12457,6 +13047,12 @@ ALTER TABLE `tbl_order_details`
   ADD PRIMARY KEY (`order_details_id`);
 
 --
+-- Chỉ mục cho bảng `tbl_post`
+--
+ALTER TABLE `tbl_post`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `tbl_product`
 --
 ALTER TABLE `tbl_product`
@@ -12467,6 +13063,18 @@ ALTER TABLE `tbl_product`
 --
 ALTER TABLE `tbl_quanhuyen`
   ADD PRIMARY KEY (`maqh`);
+
+--
+-- Chỉ mục cho bảng `tbl_roles`
+--
+ALTER TABLE `tbl_roles`
+  ADD PRIMARY KEY (`id_roles`);
+
+--
+-- Chỉ mục cho bảng `tbl_select`
+--
+ALTER TABLE `tbl_select`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `tbl_shipping`
@@ -12485,6 +13093,12 @@ ALTER TABLE `tbl_slider`
 --
 ALTER TABLE `tbl_social`
   ADD PRIMARY KEY (`user_id`);
+
+--
+-- Chỉ mục cho bảng `tbl_tag`
+--
+ALTER TABLE `tbl_tag`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `tbl_tinhthanhpho`
@@ -12509,82 +13123,124 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT cho bảng `admin_roles`
+--
+ALTER TABLE `admin_roles`
+  MODIFY `id_admin_roles` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT cho bảng `danh_muc`
+--
+ALTER TABLE `danh_muc`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
+
+--
 -- AUTO_INCREMENT cho bảng `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `admin_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT cho bảng `tbl_binh_luan`
+--
+ALTER TABLE `tbl_binh_luan`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_brand`
 --
 ALTER TABLE `tbl_brand`
-  MODIFY `brand_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `brand_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_category_product`
 --
 ALTER TABLE `tbl_category_product`
-  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `category_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_coupon`
 --
 ALTER TABLE `tbl_coupon`
-  MODIFY `coupon_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `coupon_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_customers`
 --
 ALTER TABLE `tbl_customers`
-  MODIFY `customer_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `customer_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_feeship`
 --
 ALTER TABLE `tbl_feeship`
-  MODIFY `fee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `fee_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `order_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_order_details`
 --
 ALTER TABLE `tbl_order_details`
-  MODIFY `order_details_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `order_details_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+
+--
+-- AUTO_INCREMENT cho bảng `tbl_post`
+--
+ALTER TABLE `tbl_post`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_product`
 --
 ALTER TABLE `tbl_product`
-  MODIFY `product_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `product_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT cho bảng `tbl_roles`
+--
+ALTER TABLE `tbl_roles`
+  MODIFY `id_roles` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT cho bảng `tbl_select`
+--
+ALTER TABLE `tbl_select`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_shipping`
 --
 ALTER TABLE `tbl_shipping`
-  MODIFY `shipping_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `shipping_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_slider`
 --
 ALTER TABLE `tbl_slider`
-  MODIFY `slider_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `slider_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_social`
 --
 ALTER TABLE `tbl_social`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT cho bảng `tbl_tag`
+--
+ALTER TABLE `tbl_tag`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

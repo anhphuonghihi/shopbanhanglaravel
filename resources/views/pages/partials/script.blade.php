@@ -624,6 +624,7 @@
 
 
         $(document).ready(function() {
+            $("[name='_token']").remove();
             $('#list').select2({
                 placeholder: 'Nhãn',
                 allowClear: true,
@@ -681,6 +682,15 @@
         $(document).ready(function() {
 
             $("#dang_ki").toggleClass('is-active');
+
         });
     </script>
 @endif
+<script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>

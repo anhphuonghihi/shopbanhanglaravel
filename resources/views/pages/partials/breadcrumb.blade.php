@@ -24,7 +24,7 @@
             <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
                 <a href="/forums/#checker-ha-noi.114" itemprop="item">
 
-                    <span itemprop="name">{{ $meta_title }}</span>
+                    <span itemprop="name">{{ $danh_muc[0]->ten_danh_muc }}</span>>
 
                 </a>
                 <meta itemprop="position" content="2">
@@ -41,7 +41,7 @@
             <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
                 <a href="/forums/#checker-ha-noi.114" itemprop="item">
 
-                    <span itemprop="name">{{ $meta_title }}</span>
+                    <span itemprop="name">{{ $danh_muc[0]->ten_danh_muc }}</span>
 
                 </a>
                 <meta itemprop="position" content="2">

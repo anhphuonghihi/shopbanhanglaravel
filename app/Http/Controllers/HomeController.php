@@ -9,6 +9,7 @@ use App\Http\Requests;
 use Mail;
 use App\Slider;
 use Illuminate\Support\Facades\Redirect;
+
 session_start();
 
 class HomeController extends BaseController 

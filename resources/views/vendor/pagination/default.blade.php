@@ -186,7 +186,7 @@
                 @else
                 @endif
                 <a href="{{ $paginator->url($paginator->total()) }}" class="pageNavSimple-el pageNavSimple-el--last"
-                    data-xf-init="tooltip" data-original-title="Last" id="js-XFUniqueId6">
+                    data-xf-init="tooltip" data-original-title="Last">
                     <i aria-hidden="true"></i> <span class="u-srOnly">Last</span>
                 </a>
 

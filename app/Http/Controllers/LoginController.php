@@ -106,7 +106,7 @@ class LoginController extends Controller
                 Session::put('user_id',$user_id);
                 $login = User::where(function($query) use ($username) {
                     $query->where('email', '=', $username)
-                    ->orWhere('username', '=',$username); })->where('password',$password)->first();
+                    ->orWhere('username', '=',$username); })->first();
                 Session::put('ma_gioi_thieu',$login->ma_gioi_thieu);
                 return Redirect::to('/');
             }

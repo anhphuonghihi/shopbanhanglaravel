@@ -41,17 +41,44 @@
 
 
                                     </div>
+                                    <form action="/momo" method="post"
+                                        class="block-outer block-outer--after block js-quickReply" ">
+                                        @csrf
+                                                <div>
+                                                
+                                                </div>
+
+                                                <div class="message message--quickReply block-topRadiusContent block-bottomRadiusContent">
+                                                    <div class="message-inner">
+
+                                                        <div class="message-cell message-cell--main">
+                                                            <div class="formButtonGroup ">
+                                                                <div class="formButtonGroup-primary">
+                                                                    <button type="submit" class="button--primary button button--icon button--icon--reply rippleButton rippleButton"><span class="button-text">
+                                                                            Gửi trả lời
+                                                                        </span></button>
+                                                                </div>
+
+                                      
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+
+
+
+
                                 </div>
                             </div>
-
-
-
-
                         </div>
                     </div>
+                    <!-- BELOW MAIN CONTENT -->
                 </div>
             </div>
-            <!-- BELOW MAIN CONTENT -->
-        </div>
-    </div>
 @endsection

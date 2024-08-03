@@ -3,8 +3,9 @@
         <div class="overlay-title"><a class="overlay-titleCloser js-overlayClose" role="button" tabindex="0"
                 aria-label="Đóng"></a>Đăng nhập</div>
         <?php
+   
         $message = Session::get('message');
-        if ($message) {
+        if (!empty($message)) {
             echo '<span class="text-alert">' . $message . '</span>';
             Session::put('message', null);
         }
