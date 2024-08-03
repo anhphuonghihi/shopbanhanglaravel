@@ -7,6 +7,9 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}"> 
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!---------Seo--------->
     <meta name="keywords" content="{{ $meta_keywords }}" />
@@ -440,7 +443,7 @@
                             @include('pages.partials.breadcrumb')
                         </div>
                     @endif
-            
+
                     <div uix_component="MainContainer" class="uix_contentWrapper">
                         <a href="/threads/v-v-trien-khai-kenh-telegram-cho-checkerviet.125378/"><img
                                 src="https://upload69.com/images/2024/04/22/bottele5a3e725ad9a0c41b.jpg"></a>

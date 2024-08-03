@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\CategoryProductModel;
+use App\Post;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class ExcelExports implements FromCollection
@@ -12,6 +12,6 @@ class ExcelExports implements FromCollection
     */
     public function collection()
     {
-        return CategoryProductModel::all();
+        return Post::all();
     }
 }

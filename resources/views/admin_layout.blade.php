@@ -37,7 +37,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('/backend/js/jquery2.0.3.min.js') }}"></script>
     <script src="{{ asset('/backend/js/raphael-min.js') }}"></script>
     <script src="{{ asset('/backend/js/morris.js') }}"></script>
-
+    <style>
+        .table>tbody>tr>td:last-child {
+            display: flex;
+            gap: 0.75rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -126,9 +131,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Danh mục bài viết</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-category-product') }}">Thêm danh mục bài viết</a></li>
-                                <li><a href="{{ URL::to('/all-category-product') }}">Liệt kê danh mục bài viết</a></li>
-
+                                <li><a href="{{ URL::to('/add-category-post') }}">Thêm danh mục bài viết</a></li>
+                                <li><a href="{{ URL::to('/all-category-post') }}">Liệt kê danh mục bài viết</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
@@ -138,7 +142,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/add-product') }}">Thêm bài viết</a></li>
-                                <li><a href="{{ URL::to('/all-product') }}">Liệt kê bài viết</a></li>
+                                <li><a href="{{ URL::to('/all-post') }}">Liệt kê bài viết</a></li>
 
                             </ul>
                         </li>
@@ -149,6 +153,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/all-comment') }}">Liệt kê bình luận</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Dịch vụ</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-service') }}">Liệt kê dịch vụ</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
@@ -222,6 +235,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             //In slug ra textbox có id “slug”
             document.getElementById('convert_slug').value = slug;
         }
+    </script>
+    <script type="text/javascript">
+        $('.update_quantity_order').click(function() {
+            var order_product_id = $(this).data('product_id');
+            var order_qty = $('.order_qty_' + order_product_id).val();
+            var order_code = $('.order_code').val();
+            var _token = $('input[name="_token"]').val();
+            // alert(order_product_id);
+            // alert(order_qty);
+            // alert(order_code);
+            $.ajax({
+                url: '{{ url('/update-qty') }}',
+
+                method: 'POST',
+
+                data: {
+                    _token: _token,
+                    order_product_id: order_product_id,
+                    order_qty: order_qty,
+                    order_code: order_code
+                },
+                // dataType:"JSON",
+                success: function(data) {
+
+                    alert('Cập nhật số lượng thành công');
+
+                    location.reload();
+
+
+
+
+                }
+            });
+
+        });
     </script>
     <script type="text/javascript">
         $('.update_quantity_order').click(function() {
@@ -534,7 +582,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script type="text/javascript" src="{{ asset('/backend/js/monthly.js') }}"></script>
     <script type="text/javascript">
         $(window).load(function() {
+            document.querySelector('input[list]').addEventListener('input', function(e) {
+                var input = e.target,
+                    list = input.getAttribute('list'),
+                    options = document.querySelectorAll('#' + list + ' option'),
+                    hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
+                    inputValue = input.value;
 
+                hiddenInput.value = inputValue;
+
+                for (var i = 0; i < options.length; i++) {
+                    var option = options[i];
+                    if (option.innerText.trim() == inputValue.trim()) {
+                        hiddenInput.value = option.getAttribute('data-value');
+                        break;
+                    }
+                }
+
+            });
             $('#mycalendar').monthly({
                 mode: 'event',
 
@@ -563,30 +628,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
     <script>
         // Get the modal
-        var modal = document.getElementById("myModal");
-
-        // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks the button, open the modal 
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
     </script>
     <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -594,7 +635,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
     <!-- //calendar -->
+    <script></script>
+
 </body>
 
 </html>

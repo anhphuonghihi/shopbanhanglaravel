@@ -35,8 +35,8 @@
 
                         <div id="js-lbImage-105263" class="lbContainer-zoomer"
                             data-src="{{ $stiky_post_item->anh_dai_dien }}" aria-label="Zoom"></div>
-                        <span class="heightHelper"></span><img data-src="{{ $stiky_post_item->anh_dai_dien }}"
-                            src="{{ $stiky_post_item->anh_dai_dien }}"
+                        <span class="heightHelper"></span><img data-src="/public/uploads/product/{{ $stiky_post_item->anh_dai_dien }}"
+                            src="/public/uploads/product/{{ $stiky_post_item->anh_dai_dien }}"
                             datahref="/threads/{{ $stiky_post_item->post_slug }}.{{ $stiky_post_item->id }}"
                             class="lbTrigger bbImage alignThumbnail" data-zoom-target="1" alt="" loading="lazy"
                             data-fancybox="lb-lb-thread-105263"

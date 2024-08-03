@@ -3,7 +3,7 @@
         <div class="overlay-title"><a class="overlay-titleCloser js-overlayClose" role="button" tabindex="0"
                 aria-label="Đóng"></a>Đăng nhập</div>
         <?php
-   
+        
         $message = Session::get('message');
         if (!empty($message)) {
             echo '<span class="text-alert">' . $message . '</span>';
@@ -12,13 +12,13 @@
         ?>
         <div class="overlay-content">
             <div class="blocks">
-                {{ csrf_field() }}
+
                 @foreach ($errors->all() as $val)
                     <ul>
                         <li>{{ $val }}</li>
                     </ul>
                 @endforeach
-                <form action="{{ URL::to('/login') }}" method="post" class="block">
+                <form action="{{ URL::to('/login') }}" method="post" class="block" id="loginform">
                     @csrf
                     <div class="block-container">
                         <div class="block-body">
@@ -241,7 +241,6 @@
             </div>
 
 
-            {{ csrf_field() }}
             @foreach ($errors->all() as $val)
                 <ul>
                     <li>{{ $val }}</li>
@@ -341,7 +340,7 @@
                                         </div>
                                     </div>
 
-                                    {{-- <span class="js-strengthText meterBarLabel">Entering a password is required.</span> --}}
+
 
 
                                 </div>

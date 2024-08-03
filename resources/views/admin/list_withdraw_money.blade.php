@@ -26,7 +26,7 @@
                 <table class="table table-striped b-t b-light">
                     <thead>
                         <tr>
-
+                            <th style="width:100px;">Thứ tự</th>
                             <th>Tên mã giảm giá</th>
                             <th>Mã giảm giá</th>
                             <th>Số lượng giảm giá</th>
@@ -36,9 +36,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $i = 0;
+                        @endphp
                         @foreach ($moneys as $key => $money)
                             <tr>
-
+                                @php
+                                    $i++;
+                                @endphp
+                                <td><i>{{ $i }}</i></td>
                                 <td>{{ $money->stk }}</td>
                                 <td>{{ $money->ten_tai_khoan_ngan_hang }}</td>
                                 <td>{{ $money->so_tien }}</td>
@@ -48,20 +54,23 @@
                                     @elseif ($money->status == 1)
                                         Đã chuyển khoản
                                     @else
-                                        <a class="active styling-edit" data-toggle="modal" data-target="#exampleModal">
+                                        <a class="active styling-edit" data-toggle="modal"
+                                            data-target="#exampleModal{{ $i }}">
                                             <i class="fa fa-check-circle-o" aria-hidden="true"></i>
                                         </a>
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="exampleModal{{ $i }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="exampleModalLabel{{ $i }}"
+                                            aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc chắn xác
+                                                        <h5 class="modal-title" id="exampleModalLabel{{ $i }}">
+                                                            Bạn có chắc chắn xác
                                                             nhận chuyển khoản không</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
+                                                            aria-label="Đóng">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
@@ -72,7 +81,7 @@
                                                         <form action="{{ URL::to('/agree-withdraw/' . $money->id) }}"
                                                             method="get">
                                                             <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close</button>
+                                                                data-dismiss="modal">Đóng</button>
                                                             <button type="submit" class="btn btn-primary">
                                                                 Xác nhận
                                                             </button>
@@ -81,19 +90,23 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a class="active styling-edit" data-toggle="modal" data-target="#exampleModal2">
+                                        <a class="active styling-edit" data-toggle="modal"
+                                            data-target="#exampleModal2{{ $i }}">
                                             <i class="fa fa-times text-danger text"></i>
                                         </a>
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                        <div class="modal fade" id="exampleModal2{{ $i }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="exampleModalLabel2{{ $i }}"
+                                            aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel2">Bạn có chắc chắn từ chối chuyển khoản không</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel2{{ $i }}">
+                                                            Bạn có chắc chắn từ
+                                                            chối chuyển khoản không</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
+                                                            aria-label="Đóng">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
@@ -104,7 +117,7 @@
                                                         <form action="{{ URL::to('/refused-withdraw/' . $money->id) }}"
                                                             method="get">
                                                             <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close</button>
+                                                                data-dismiss="modal">Đóng</button>
                                                             <button type="submit" class="btn btn-primary">
                                                                 Xác nhận
                                                             </button>

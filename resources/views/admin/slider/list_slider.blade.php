@@ -47,7 +47,7 @@
                             <th>Mô tả</th>
                             <th>Tình trạng</th>
 
-                            <th style="width:30px;"></th>
+                            <th style="width:100px;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,8 +77,8 @@
                                 <td>
 
                                     <a onclick="return confirm('Bạn có chắc là muốn xóa slide này ko?')"
-                                        href="{{ URL::to('/delete-slide/' . $slide->slider_id) }}" class="active styling-edit"
-                                        ui-toggle-class="">
+                                        href="{{ URL::to('/delete-slide/' . $slide->slider_id) }}"
+                                        class="active styling-edit" ui-toggle-class="">
                                         <i class="fa fa-times text-danger text"></i>
                                     </a>
 

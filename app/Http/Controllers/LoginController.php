@@ -73,6 +73,8 @@ class LoginController extends Controller
         
         ]);
         $data_user = array();
+        $rand = str_pad(dechex(rand(0x000000, 0xFFFFFF)), 6, 0, STR_PAD_LEFT);
+        $data_user['background_color'] = ('#' . $rand);
     	$data_user['email'] = $data['email'];
     	$data_user['username'] = $data['username'];
     	$data_user['password'] = md5($data['password']);

@@ -46,7 +46,7 @@
                             <th>Brand Slug</th>
                             <th>Hiển thị</th>
 
-                            <th style="width:30px;"></th>
+                            <th style="width:100px;"></th>
                         </tr>
                     </thead>
                     <tbody>

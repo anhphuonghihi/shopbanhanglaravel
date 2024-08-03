@@ -181,30 +181,36 @@ class AdminController extends Controller
     }
 
     public function manage_payment(){
+        $this->AuthLogin();
     	$payments = DB::table('tbl_payment')->orderby('created_at','DESC')->paginate(20);
     	return view('admin.manage_payment')->with(compact('payments'));
     }
 
     public function list_withdraw_money(){
+        $this->AuthLogin();
     	$moneys = DB::table('tbl_withdraw_money')->orderby('id','DESC')->paginate(20);
     	return view('admin.list_withdraw_money')->with(compact('moneys'));
     }
 
     public function list_withdraw_money_agree(Request $request){
+        $this->AuthLogin();
         DB::table('tbl_withdraw_money')->where('id', '=', $request->withdraw_id)->update(['status'=>1]);
         Session::put('message','Cập nhật thành công');
         return Redirect::to('/withdraw-money');
     }
     public function list_withdraw_money_refused(Request $request){
+        $this->AuthLogin();
         DB::table('tbl_withdraw_money')->where('id', '=', $request->withdraw_id)->update(['status'=>2]);
         Session::put('message','Cập nhật thành công');
         return Redirect::to('/withdraw-money');
     }
 
     public function change_password_view(Request $request){
+        $this->AuthLogin();
     	return view('admin.change_password');
     }
     public function change_password(Request $request) {
+        $this->AuthLogin();
         $admin_id =   Session::get('admin_id');
         $admin_user = DB::table('tbl_admin')->where('admin_id', '=',$admin_id)->get();
         
@@ -229,5 +235,176 @@ class AdminController extends Controller
 
 
         return redirect()->back()->with("success","Đổi mật khẩu thành công");
+    }
+
+    public function all_user(Request $request) {
+        $this->AuthLogin();
+        $search = $request->input('search');
+        $admin = DB::table('users')->where('username', 'LIKE', "%{$search}%")->orWhere('email', 'LIKE', "%{$search}%")->orderby('created_at','DESC')->paginate(20);
+        return view('admin.all_users')->with(compact('admin'));
+    }
+    public function all_user_id(Request $request) {
+        $this->AuthLogin();
+        $admin = DB::table('users')->where('id', '=', $request->user_id)->paginate(1);
+        return view('admin.all_users')->with(compact('admin'));
+    }
+    public function lock_account(Request $request) {
+        $this->AuthLogin();
+        DB::table('users')->where('id', '=', $request->user_id)->update(['lock'=>1]);
+        Session::put('message','Cập nhật thành công');
+        return Redirect::to('/users');
+    }
+    public function open_account(Request $request) {
+        $this->AuthLogin();
+        DB::table('users')->where('id', '=', $request->user_id)->update(['lock'=>0]);
+        Session::put('message','Cập nhật thành công');
+        return Redirect::to('/users');
+    }
+    public function service(Request $request) {
+        $this->AuthLogin();
+        $services = DB::table('tbl_dich_vu')->paginate(20);
+        return view('admin.all_services')->with(compact('services'));
+    }
+    
+    public function service_edit(Request $request) {
+        $this->AuthLogin();
+        $services = DB::table('tbl_dich_vu')->paginate(20);
+        $edit= 'true';
+        return view('admin.all_services')->with(compact('edit'))->with(compact('services'));
+    }
+
+    public function service_edit_id(Request $request) {
+        $this->AuthLogin();
+        DB::table('tbl_dich_vu')->where('id', '=', $request->service_id)->update(['gia'=>$request->gia]);
+        Session::put('message','Cập nhật thành công');
+        var_dump($request->service_id);
+return Redirect::to('/all-service');
+    }
+
+    public function all_comments(Request $request) {
+        $this->AuthLogin();
+        $comments = DB::table('tbl_binh_luan')->paginate(20);
+        return view('admin.all_comments')->with(compact('comments'));
+    }
+    public function edit_comments(Request $request) {
+        $this->AuthLogin();
+        $comments = DB::table('tbl_binh_luan')->where('id', '=', $request->comment_id)->update(['diem_uy_tin'=>$request->number]);
+        Session::put('message','Cập nhật thành công');
+        return Redirect::to('/all-comment');
+    }
+
+    public function all_category_post(Request $request){
+        $this->AuthLogin();
+        $search = $request->input('search');
+    	$all_category_post = DB::table('danh_muc')->where('ten_danh_muc', 'LIKE', "%{$search}%")->paginate(20);
+        return view('admin.all_category_post')->with(compact('all_category_post'));
+    }
+    
+
+    public function unactive_category_post_menu($category_post_id){
+        $this->AuthLogin();
+        DB::table('danh_muc')->where('id',$category_post_id)->update(['menu'=>0]);
+        Session::put('message','Ẩn danh mục trên menu thành công');
+        return Redirect::to('all-category-post');
+
+    }
+    public function active_category_post_menu($category_post_id){
+        $this->AuthLogin();
+        DB::table('danh_muc')->where('id',$category_post_id)->update(['menu'=>1]);
+        Session::put('message','Hiện thị danh mục trên menu thành công');
+        return Redirect::to('all-category-post');
+    }
+    public function unactive_category_post_home($category_post_id){
+        $this->AuthLogin();
+        DB::table('danh_muc')->where('id',$category_post_id)->update(['show_trang_chu'=>0]);
+        Session::put('message','Ẩn danh mục lên trang chủ thành công');
+        return Redirect::to('all-category-post');
+
+    }
+    public function active_category_post_home($category_post_id){
+        $this->AuthLogin();
+        DB::table('danh_muc')->where('id',$category_post_id)->update(['show_trang_chu'=>1]);
+        Session::put('message','Hiện thị danh mục lên trang chủ thành công');
+        return Redirect::to('all-category-post');
+    }
+
+    public function add_category_product(){
+        $this->AuthLogin();
+        $danh_muc=DB::table('danh_muc')->get();       
+        return view('admin.add_category_product')->with(compact('danh_muc'));
+
+    }
+
+    public function edit_category_post($category_post_id){
+        $this->AuthLogin();
+        $danh_muc=DB::table('danh_muc')->get();   
+        $danh_muc_item=DB::table('danh_muc')->where('id',$category_post_id)->get();   
+        return view('admin.edit_category_product')->with(compact('danh_muc_item'))->with(compact('category_post_id'))->with(compact('danh_muc'));
+    }
+    
+    public function delete_category_post($category_post_id){
+        $this->AuthLogin();
+        DB::table('danh_muc')->where('id',$category_post_id)->delete();
+        Session::put('message','Xóa danh mục sản phẩm thành công');
+        return Redirect::to('all-category-post');
+    }
+    
+    public function save_category_post(Request $request){
+        $this->AuthLogin();
+    	$data = array();
+
+    	$data['ten_danh_muc'] = $request->ten_danh_muc;
+    	$data['mau_chu'] = $request->mau_chu;
+        $data['danh_muc_slug'] = $request->danh_muc_slug;
+        $data['description'] = $request->description;
+        $data['icon'] = $request->icon;
+        $data['new'] = $request->new;
+        $data['id_danh_muc_cha'] = $request->id_danh_muc_cha;
+        $data['menu'] = $request->menu;
+        $data['icon_menu'] = $request->icon_menu;
+        $data['mau_chu_menu'] = $request->mau_chu_menu;
+        $data['show_trang_chu'] = $request->show_trang_chu;
+    	 DB::table('danh_muc')->insert($data);
+    	Session::put('message','Thêm danh mục sản phẩm thành công');
+    	return Redirect::to('all-category-post');
+    }
+    public function update_category_post(Request $request,$category_post_id){
+        $this->AuthLogin();
+        $data = array();
+        $data['ten_danh_muc'] = $request->ten_danh_muc;
+    	$data['mau_chu'] = $request->mau_chu;
+        $data['danh_muc_slug'] = $request->danh_muc_slug;
+        $data['description'] = $request->description;
+        $data['icon'] = $request->icon;
+        $data['new'] = $request->new;
+        $data['id_danh_muc_cha'] = $request->id_danh_muc_cha;
+        $data['menu'] = $request->menu;
+        $data['icon_menu'] = $request->icon_menu;
+        $data['mau_chu_menu'] = $request->mau_chu_menu;
+        $data['show_trang_chu'] = $request->show_trang_chu;
+        
+        DB::table('danh_muc')->where('id',$category_post_id)->update($data);
+        Session::put('message','Cập nhật danh mục sản phẩm thành công');
+        return Redirect::to('all-category-post');
+    }
+
+    public function all_post(Request $request){
+        $this->AuthLogin();
+        $search = $request->input('search');
+    	$all_post = DB::table('tbl_post')
+        ->join('danh_muc','danh_muc.id','=','tbl_post.danh_muc_id')
+        ->join('users','users.id','=','tbl_post.user_id')
+        ->where('ten_bai_viet', 'LIKE', "%{$search}%")
+        ->orderby('tbl_post.id','desc')->paginate(20);
+        return view('admin.all_posts')->with(compact('all_post'));
+
+
+    }
+
+    public function delete_product($post_id){
+        $this->AuthLogin();
+        DB::table('tbl_post')->where('id',$post_id)->delete();
+        Session::put('message','Xóa sản phẩm thành công');
+        return Redirect::to('all-post');
     }
 }

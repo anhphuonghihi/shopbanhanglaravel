@@ -21,10 +21,6 @@ Route::get('/trang-chu','HomeController@index');
 // Route::get('/404','HomeController@error_page');
 Route::post('/tim-kiem','HomeController@search');
 
-//Danh muc san pham trang chu
-Route::get('/danh-muc/{slug_category_product}','CategoryProduct@show_category_home');
-Route::get('/thuong-hieu/{brand_slug}','BrandProduct@show_brand_home');
-Route::get('/chi-tiet/{product_slug}','ProductController@details_product');
 
 //Backend
 Route::get('/admin','AdminController@index');
@@ -34,17 +30,16 @@ Route::post('/admin-dashboard','AdminController@dashboard');
 
 
 //Category Product
-Route::get('/add-category-product','CategoryProduct@add_category_product');
-Route::get('/edit-category-product/{category_product_id}','CategoryProduct@edit_category_product');
-Route::get('/delete-category-product/{category_product_id}','CategoryProduct@delete_category_product');
-Route::get('/all-category-product','CategoryProduct@all_category_product');
-
+Route::get('/add-category-post','AdminController@add_category_product');
+Route::get('/edit-category-post/{category_post_id}','AdminController@edit_category_post');
+Route::get('/delete-category-post/{category_post_id}','AdminController@delete_category_post');
+Route::get('/all-category-post','AdminController@all_category_post');
+Route::get('/unactive-category-menu/{category_post_id}','AdminController@unactive_category_post_menu');
+Route::get('/active-category-menu/{category_post_id}','AdminController@active_category_post_menu');
+Route::get('/unactive-category-home/{category_post_id}','AdminController@unactive_category_post_home');
+Route::get('/active-category-home/{category_post_id}','AdminController@active_category_post_home');
 Route::post('/export-csv','CategoryProduct@export_csv');
 Route::post('/import-csv','CategoryProduct@import_csv');
-
-
-Route::get('/unactive-category-product/{category_product_id}','CategoryProduct@unactive_category_product');
-Route::get('/active-category-product/{category_product_id}','CategoryProduct@active_category_product');
 
 //Send Mail 
 Route::get('/send-mail','HomeController@send_mail');
@@ -57,20 +52,8 @@ Route::get('/admin/callback','AdminController@callback_facebook');
 Route::get('/login-google','AdminController@login_google');
 Route::get('/google/callback','AdminController@callback_google');
 
-Route::post('/save-category-product','CategoryProduct@save_category_product');
-Route::post('/update-category-product/{category_product_id}','CategoryProduct@update_category_product');
-
-//Brand Product
-Route::get('/add-brand-product','BrandProduct@add_brand_product');
-Route::get('/edit-brand-product/{brand_product_id}','BrandProduct@edit_brand_product');
-Route::get('/delete-brand-product/{brand_product_id}','BrandProduct@delete_brand_product');
-Route::get('/all-brand-product','BrandProduct@all_brand_product');
-
-Route::get('/unactive-brand-product/{brand_product_id}','BrandProduct@unactive_brand_product');
-Route::get('/active-brand-product/{brand_product_id}','BrandProduct@active_brand_product');
-
-Route::post('/save-brand-product','BrandProduct@save_brand_product');
-Route::post('/update-brand-product/{brand_product_id}','BrandProduct@update_brand_product');
+Route::post('/save-category-post','AdminController@save_category_post');
+Route::post('/update-category-post/{category_post_id}','AdminController@update_category_post');
 
 
 //Product
@@ -80,11 +63,14 @@ Route::post('/update-brand-product/{brand_product_id}','BrandProduct@update_bran
 // });
 Route::get('users',
 		[
-			'uses'=>'UserController@index',
+			'uses'=>'AdminController@all_user',
 			'as'=> 'Users',
-			'middleware'=> 'roles'
-			// 'roles' => ['admin','author']
 		]);
+Route::get('users/{user_id}',
+[
+	'uses'=>'AdminController@all_user_id',
+	'as'=> 'Users',
+]);
 Route::get('add-users','UserController@add_users');
 
 Route::get('/api-payment','AdminController@payment');
@@ -94,8 +80,8 @@ Route::post('assign-roles','UserController@assign_roles');
 
 
 
-Route::get('/delete-product/{product_id}','ProductController@delete_product');
-Route::get('/all-product','ProductController@all_product');
+Route::get('/delete-post/{post_id}','AdminController@delete_product');
+Route::get('/all-post','AdminController@all_post');
 Route::get('/unactive-product/{product_id}','ProductController@unactive_product');
 Route::get('/active-product/{product_id}','ProductController@active_product');
 Route::post('/save-product','ProductController@save_product');
@@ -112,6 +98,13 @@ Route::get('/agree-withdraw/{withdraw_id}','AdminController@list_withdraw_money_
 Route::get('/refused-withdraw/{withdraw_id}','AdminController@list_withdraw_money_refused');
 Route::post('/change-password','AdminController@change_password');
 Route::get('/change-password','AdminController@change_password_view');
+Route::post('/lock-account/{user_id}','AdminController@lock_account');
+Route::post('/open-account/{user_id}','AdminController@open_account');
+Route::get('/all-service','AdminController@service');
+Route::get('/all-service-edit','AdminController@service_edit');
+Route::post('/service-edit/{service_id}','AdminController@service_edit_id');
+Route::get('/all-comment','AdminController@all_comments');
+Route::post('/comment/{comment_id}','AdminController@edit_comments');
 //Cart
 Route::post('/update-cart-quantity','CartController@update_cart_quantity');
 Route::post('/update-cart','CartController@update_cart');
@@ -121,10 +114,10 @@ Route::get('/show-cart','CartController@show_cart');
 Route::get('/gio-hang','CartController@gio_hang');
 Route::get('/delete-to-cart/{rowId}','CartController@delete_to_cart');
 Route::get('/del-product/{session_id}','CartController@delete_product');
-Route::get('/del-all-product','CartController@delete_all_product');
+Route::get('/del-all-post','CartController@delete_all_product');
 
 //Checkout
-Route::get('/dang-nhap','CheckoutController@login_checkout');
+
 Route::get('/del-fee','CheckoutController@del_fee');
 
 Route::get('/logout-checkout','CheckoutController@logout_checkout');

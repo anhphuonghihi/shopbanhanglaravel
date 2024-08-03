@@ -18,14 +18,13 @@
                 <table class="table table-striped b-t b-light">
                     <thead>
                         <tr>
-
-                            <th>Thứ tự</th>
+                            <th style="width:100px;">Thứ tự</th>
                             <th>Email người dùng</th>
                             <th>Tên người dùng</th>
                             <th>Ngày tháng đặt hàng</th>
                             <th>Tình trạng đơn hàng</th>
 
-                            <th style="width:30px;"></th>
+                            <th style="width:100px;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,15 +34,17 @@
                         @foreach ($payments as $key => $payment)
                             @php
                                 $i++;
-                                $user_name = DB::table('users')->where('id',$payment->user_id)->get();
+                                $user_name = DB::table('users')
+                                    ->where('id', $payment->user_id)
+                                    ->get();
 
                             @endphp
                             <tr>
-                                <td><i>{{ $i }}</i></label></td>
-                                <td><i>{{ $user_name[0]->email }}</i></label></td>
-                                <td><i>{{ $user_name[0]->username }}</i></label></td>
-                                <td><i>{{ $payment->so_tien }}</i></label></td>
-                                <td><i>{{ $payment->created_at }}</i></label></td>
+                                <td><i>{{ $i }}</i></td>
+                                <td><i>{{ $user_name[0]->email }}</i></td>
+                                <td><i>{{ $user_name[0]->username }}</i></td>
+                                <td><i>{{ $payment->so_tien }}</i></td>
+                                <td><i>{{ $payment->created_at }}</i></td>
                             </tr>
                         @endforeach
                     </tbody>

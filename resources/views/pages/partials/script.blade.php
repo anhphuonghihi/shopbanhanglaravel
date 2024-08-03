@@ -378,17 +378,7 @@
         }, 100)
     })
 </script>
-<script>
-    $(document).on('ajax:complete', function(e, xhr, status) {
-        var data = xhr.responseJSON;
-        if (!data) {
-            return;
-        }
-        if (data.visitor) {
-            $('.js-uix_badge--totalUnread').data('badge', data.visitor.total_unread);
-        }
-    });
-</script>
+
 <script src="{{ asset('dang_tin/user/js/defer.min.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/deferFab.min.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/defer.min.js') }}"></script>
@@ -396,71 +386,6 @@
 <script src="{{ asset('dang_tin/user/js/deferWidthToggle.min.js') }}"></script>
 <script src="/js/themehouse/uix_dark/defer.min.js?_v=ff3a2254" defer=""></script>
 <script>
-    jQuery.extend(true, XF.config, {
-        // 
-        userId: 0,
-        enablePush: false,
-        pushAppServerKey: '',
-        url: {
-            fullBase: 'http://127.0.0.1:8000/',
-            basePath: '/',
-            css: '/css.php?css=__SENTINEL__&s=12&l=2&d=1720838790',
-            keepAlive: '/login/keep-alive'
-        },
-        cookie: {
-            path: '/',
-            domain: '',
-            prefix: 'xf_',
-            secure: true
-        },
-        cacheKey: '759e247ee94d0d76e3d270317ea7066f',
-        csrf: '1721268225,66b37889f0448b7acc8a04e3ebfbaaf3',
-        js: {
-            "\/js\/xf\/notice.min.js?_v=ff3a2254": true,
-            "\/js\/themehouse\/uix_dark\/ripple.min.js?_v=ff3a2254": true,
-            "\/js\/themehouse\/global\/20210125.min.js?_v=ff3a2254": true,
-            "\/js\/themehouse\/uix_dark\/index.min.js?_v=ff3a2254": true,
-            "\/js\/themehouse\/uix_dark\/vendor\/hover-intent\/jquery.hoverIntent.min.js?_v=ff3a2254": true
-        },
-        css: {
-            "public:altt_thread_thumbnail.less": true,
-            "public:node_list.less": true,
-            "public:notices.less": true,
-            "public:share_controls.less": true,
-            "public:th_nodeStyling_nodes.12.less": true,
-            "public:uix.less": true,
-            "public:uix_extendedFooter.less": true,
-            "public:uix_socialMedia.less": true,
-            "public:uix_welcomeSection.less": true,
-            "public:extra.less": true
-        },
-        time: {
-            now: 1721268225,
-            today: 1721235600,
-            todayDow: 4,
-            tomorrow: 1721322000,
-            yesterday: 1721149200,
-            week: 1720717200
-        },
-        borderSizeFeature: '2px',
-        fontAwesomeWeight: 'r',
-        enableRtnProtect: true,
-        enableFormSubmitSticky: true,
-        uploadMaxFilesize: 167772160,
-        allowedVideoExtensions: ["m4v", "mov", "mp4", "mp4v", "mpeg", "mpg", "ogv", "webm"],
-        allowedAudioExtensions: ["mp3", "opus", "ogg", "wav"],
-        shortcodeToEmoji: true,
-        visitorCounts: {
-            conversations_unread: '0',
-            alerts_unviewed: '0',
-            total_unread: '0',
-            title_count: true,
-            icon_indicator: true
-        },
-        jsState: {},
-        publicMetadataLogoUrl: '',
-        publicPushBadgeUrl: 'http://127.0.0.1:8000/styles/default/xenforo/bell.png'
-    });
     jQuery.extend(XF.phrases, {
         // 
         date_x_at_time_y: "{date} lúc {time}",
@@ -624,7 +549,7 @@
 
 
         $(document).ready(function() {
-            $("[name='_token']").remove();
+            $("#js-XFUniqueId7").remove();
             $('#list').select2({
                 placeholder: 'Nhãn',
                 allowClear: true,
@@ -693,4 +618,13 @@
         .catch(error => {
             console.error(error);
         });
+</script>
+
+
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 </script>

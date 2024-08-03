@@ -6,10 +6,19 @@
                 Liệt kê người dùng
             </div>
             <div class="row w3-res-tb">
+                <div class="col-sm-5 m-b-xs">
+                </div>
                 <div class="col-sm-4">
                 </div>
                 <div class="col-sm-3">
-
+                    <form action="/users" method="get">
+                        <div class="input-group">
+                            <input type="text" class="input-sm form-control" placeholder="Search" name='search'>
+                            <span class="input-group-btn">
+                                <button class="btn btn-sm btn-default" type="submit">Go!</button>
+                            </span>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="table-responsive">
@@ -23,36 +32,58 @@
                 <table class="table table-striped b-t b-light">
                     <thead>
                         <tr>
-
-
-                            <th>Tên user</th>
+                            <th style="width:100px;">Thứ tự</th>
+                            <th>Tên tài khoản</th>
                             <th>Email</th>
-                            <th>Phone</th>
-                            <th>Password</th>
-
-
-                            <th style="width:30px;"></th>
+                            <th>Mã giới thiệu</th>
+                            <th>Được giới thiệu bởi</th>
+                            <th>Ví tiền</th>
+                            <th>Uy tín</th>
+                            <th>Dịch vụ sử dụng</th>
+                            <th style="width:100px;"></th>
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $i = 0;
+                        @endphp
                         @foreach ($admin as $key => $user)
-                            <form action="{{ url('/assign-roles') }}" method="POST">
-                                @csrf
-                                <tr>
+                            <tr>
+                                @php
+                                    $i++;
+                                @endphp
+                                <td><i>{{ $i }}</i></td>
+                                <td>{{ $user->username }}</td>
+                                <td>{{ $user->email }} <input type="hidden" name="admin_email"
+                                        value="{{ $user->email }}">
+                                </td>
 
-
-                                    <td>{{ $user->admin_name }}</td>
-                                    <td>{{ $user->admin_email }} <input type="hidden" name="admin_email"
-                                            value="{{ $user->admin_email }}"></td>
-                                    <td>{{ $user->admin_phone }}</td>
-                                    <td>{{ $user->admin_password }}</td>
-
-                                    <td>
-                                        <input type="submit" value="Khóa tài khoản" class="btn btn-sm btn-default">
-                                    </td>
-
-                                </tr>
-                            </form>
+                                <td>{{ $user->ma_gioi_thieu }}</td>
+                                <td>{{ $user->duoc_gioi_thieu }}</td>
+                                <td>
+                                    {{ number_format($user->vi_tien, 0, ',', '.') . 'đ' }}
+                                </td>
+                                <td>{{ $user->uy_tin }}</td>
+                                <td>
+                                    @if ($user->dich_vu_su_dung == 0)
+                                        Chưa đăng kí dịch vụ
+                                    @else
+                                        Đã đăng kí dịch vụ đăng bài
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($user->lock == 0)
+                                        <form action="{{ URL::to('/lock-account/' . $user->id) }}" method="POST">
+                                            @csrf <input type="submit" value="Khóa tài khoản"
+                                                class="btn btn-sm btn-default">
+                                        </form>
+                                    @else
+                                        <form action="{{ URL::to('/open-account/' . $user->id) }}" method="POST">
+                                            @csrf <input type="submit" value="Mở tài khoản" class="btn btn-sm btn-default">
+                                        </form>
+                                    @endif
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
