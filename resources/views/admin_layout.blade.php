@@ -122,6 +122,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Rút tiền</span>
                             </a>
                             <ul class="sub">
+                                <li><a href="{{ URL::to('/rose') }}">Phần trăm hoa hồng</a></li>
                                 <li><a href="{{ URL::to('/withdraw-money') }}">Liệt kê đơn xin rút tiền</a></li>
                             </ul>
                         </li>
@@ -162,6 +163,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/all-service') }}">Liệt kê dịch vụ</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Hạng</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-ranks') }}">Liệt kê hạng</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Telegram</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-telegram') }}">Liệt kê telegram</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">

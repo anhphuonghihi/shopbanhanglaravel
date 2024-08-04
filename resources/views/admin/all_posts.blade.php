@@ -67,23 +67,26 @@
                                         data-zoom-target="1" style="" alt="KX7A5715-copy-2575030029cac193e.jpg"
                                         title="" width="" height="" loading="lazy">
                                 </td>
-                                <td>{{ $pro->ten_danh_muc }}</td>
+                                @php
+                                    $danh_muc_item = DB::table('danh_muc')->where('id', $pro->danh_muc_id)->get();
+                                @endphp
+                                <td>{{ $danh_muc_item[0]->ten_danh_muc }}</td>
 
                                 <td>
 
                                     <a class="active styling-edit" data-toggle="modal"
-                                        data-target="#exampleModal{{ $i }}">
+                                        data-target="#exampleModal{{ $pro->id }}">
                                         <i class="fa fa-times text-danger text"></i>
                                     </a>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal{{ $i }}" tabindex="-1"
-                                        role="dialog" aria-labelledby="exampleModalLabel{{ $i }}"
+                                    <div class="modal fade" id="exampleModal{{ $pro->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalLabel{{ $pro->id }}"
                                         aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel{{ $i }}">Bạn
+                                                    <h5 class="modal-title" id="exampleModalLabel{{ $pro->id }}">Bạn
                                                         có
                                                         chắc chắn xóa bài
                                                         viết không</h5>

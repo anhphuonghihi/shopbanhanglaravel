@@ -101,9 +101,15 @@ Route::get('/change-password','AdminController@change_password_view');
 Route::post('/lock-account/{user_id}','AdminController@lock_account');
 Route::post('/open-account/{user_id}','AdminController@open_account');
 Route::get('/all-service','AdminController@service');
+Route::get('/all-ranks','AdminController@ranks');
 Route::get('/all-service-edit','AdminController@service_edit');
+Route::post('/rank-edit/{rank_id}','AdminController@rank_edit');
 Route::post('/service-edit/{service_id}','AdminController@service_edit_id');
 Route::get('/all-comment','AdminController@all_comments');
+Route::get('/rose','AdminController@rose');
+Route::post('/change-rose','AdminController@rose_change');
+Route::get('/all-telegram','AdminController@telegram');
+Route::post('/change-telegram/{telegram_id}','AdminController@telegram_change');
 Route::post('/comment/{comment_id}','AdminController@edit_comments');
 //Cart
 Route::post('/update-cart-quantity','CartController@update_cart_quantity');
@@ -207,3 +213,5 @@ Route::post('/threads/{slug_post}/stiky','CategoryProduct@stiky');
 
 
 Route::post('/momo','CategoryProduct@checkMomo');
+
+Route::get('/lock','CategoryProduct@lock');

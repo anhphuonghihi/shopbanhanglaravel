@@ -23,11 +23,10 @@
                     <thead>
                         <tr>
                             <th style="width:100px;">Thứ tự</th>
-                            <th>Tên người dùng</th>
-                            <th>Nội dung bình luận</th>
-                            <th>
-                                Đánh giá độ uy tín bình luận
-                            </th>
+                            <th>Tên dịch vụ</th>
+                            <th>Giá tiền</th>
+                            <th>Điểm uy tín cần để lên rank</th>
+                            <th>Giới hạn cao nhất</th>
                             <th style="width:100px;"></th>
                         </tr>
                     </thead>
@@ -35,44 +34,41 @@
                         @php
                             $i = 0;
                         @endphp
-                        @foreach ($comments as $key => $comment)
-                            <form action="{{ URL::to('/comment/' . $comment->id) }}" method="post">
-                                @csrf
-                                <tr>
+                        @foreach ($ranks as $key => $rank)
+                            <tr>
+                                <form action="{{ URL::to('/rank-edit/' . $rank->id) }}" method="post" class="update_mony">
                                     @php
                                         $i++;
-                                        $user_name = DB::table('users')
-                                            ->where('id', $comment->user_id)
-                                            ->get();
                                     @endphp
+                                    @csrf
                                     <td><i>{{ $i }}</i></td>
-                                    <td><a href="/users/{{ $user_name[0]->id }}">{{ $user_name[0]->username }}</a></td>
+                                    <td>{{ $rank->name }}</td>
+                                    <td>{{ $rank->color }}</td>
                                     <td>
-                                        @php
-                                            echo htmlspecialchars_decode($comment->noi_dung_danh_gia);
-                                        @endphp
+                                        {{ $rank->gioi_han_min }}
                                     </td>
                                     <td>
-                                        <input type="number" name="number" id="" min="0" max="10"
-                                            value="{{ $comment->diem_uy_tin }}">
+                                        <input type="text" name="rank" min="0"
+                                            value="{{ $rank->gioi_han_max }}">
                                     </td>
                                     <td>
 
                                         <a class="active styling-edit" data-toggle="modal"
-                                            data-target="#exampleModal{{ $comment->id }}">
+                                            data-target="#exampleModal{{ $i }}">
                                             <i class="fa fa-check-circle-o" aria-hidden="true"></i>
                                         </a>
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal{{ $comment->id }}" tabindex="-1"
-                                            role="dialog" aria-labelledby="exampleModalLabel{{ $comment->id }}"
+                                        <div class="modal fade" id="exampleModal{{ $i }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="exampleModalLabel{{ $i }}"
                                             aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel{{ $comment->id }}">
+                                                        <h5 class="modal-title" id="exampleModalLabel{{ $i }}">
                                                             Bạn có chắc chắn
-                                                            đánh giá bình luận này không không</h5>
+                                                            xác
+                                                            mức giới hạn cần để lên hạng không</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Đóng">
                                                             <span aria-hidden="true">&times;</span>
@@ -93,8 +89,8 @@
                                             </div>
                                         </div>
                                     </td>
-                                </tr>
-                            </form>
+                                </form>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>

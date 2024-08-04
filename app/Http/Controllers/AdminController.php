@@ -277,7 +277,6 @@ class AdminController extends Controller
         $this->AuthLogin();
         DB::table('tbl_dich_vu')->where('id', '=', $request->service_id)->update(['gia'=>$request->gia]);
         Session::put('message','Cập nhật thành công');
-        var_dump($request->service_id);
 return Redirect::to('/all-service');
     }
 
@@ -392,8 +391,6 @@ return Redirect::to('/all-service');
         $this->AuthLogin();
         $search = $request->input('search');
     	$all_post = DB::table('tbl_post')
-        ->join('danh_muc','danh_muc.id','=','tbl_post.danh_muc_id')
-        ->join('users','users.id','=','tbl_post.user_id')
         ->where('ten_bai_viet', 'LIKE', "%{$search}%")
         ->orderby('tbl_post.id','desc')->paginate(20);
         return view('admin.all_posts')->with(compact('all_post'));
@@ -407,4 +404,43 @@ return Redirect::to('/all-service');
         Session::put('message','Xóa sản phẩm thành công');
         return Redirect::to('all-post');
     }
+
+    public function ranks(Request $request) {
+        $this->AuthLogin();
+        $ranks = DB::table('tbl_ranks')->paginate(20);
+        return view('admin.all_ranks')->with(compact('ranks'));
+    }
+    
+    public function rank_edit(Request $request) {
+        $this->AuthLogin();
+        DB::table('tbl_ranks')->where('id', '=', $request->rank_id)->update(['gioi_han_max'=>$request->rank]);
+        if ($request->rank_id < 10) {
+            DB::table('tbl_ranks')->where('id', '=', $request->rank_id+1)->update(['gioi_han_min'=>$request->rank+1]);
+        }
+        Session::put('message','Cập nhật thành công');
+        return Redirect::to('/all-ranks');
+    }
+    
+    public function rose(Request $request) {
+        $this->AuthLogin();
+        $rose = DB::table('tbl_he_thong')->where('id',1)->paginate(1);
+        return view('admin.rose')->with(compact('rose'));
+    }
+    public function rose_change(Request $request) {
+        $this->AuthLogin();
+        DB::table('tbl_he_thong')->where('id', '=',1)->update(['hoa_hong'=>$request->get('number_rose')]);
+        return redirect()->back()->with("success","Thay đổi tỉ lệ hoa hồng thành công");
+    }
+
+    public function telegram(Request $request) {
+        $this->AuthLogin();
+        $telegrams = DB::table('table_telegram')->paginate(20);
+        return view('admin.telegram')->with(compact('telegrams'));
+    }
+    public function telegram_change(Request $request) {
+        $this->AuthLogin();
+        DB::table('table_telegram')->where('id', '=',$request->telegram_id)->update(['link'=>$request->number_telegram]);
+        return redirect()->back()->with("success","Thay đổi đường dẫn telegram thành công");
+    }
+    
 }

@@ -7,7 +7,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}"> 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -435,8 +435,16 @@
 
                 <div class="p-body-inner ">
                     <!--XF:EXTRA_OUTPUT-->
-                    @include('pages.partials.notices')
+                    @php
+                        $table_telegram = DB::table('table_telegram')->get();
+                        $table_telegrams = [];
+                        foreach ($table_telegram as $table_telegram_item) {
+                            $table_telegrams[] = $table_telegram_item->link;
+                        }
+                        $random_keys = array_rand($table_telegrams, 1);
 
+                    @endphp
+                    @include('pages.partials.notices')
                     @include('pages.partials.welcome')
                     @if (!empty($breadcrumb))
                         <div class="breadcrumb">
@@ -445,7 +453,7 @@
                     @endif
 
                     <div uix_component="MainContainer" class="uix_contentWrapper">
-                        <a href="/threads/v-v-trien-khai-kenh-telegram-cho-checkerviet.125378/"><img
+                        <a href="{{$table_telegrams[$random_keys]}}"><img
                                 src="https://upload69.com/images/2024/04/22/bottele5a3e725ad9a0c41b.jpg"></a>
                         <div
                             class="p-body-main                             
@@ -475,7 +483,7 @@
     </div>
     @include('pages.partials.script')
     @include('pages.partials.login')
-
+    @include('pages.partials.lock')
 </body>
 
 </html>

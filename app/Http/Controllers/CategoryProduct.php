@@ -123,7 +123,8 @@ class CategoryProduct extends Controller
         $number = strripos($slug_danh_muc,".");
         $danh_muc_id =  substr($slug_danh_muc,$number+1);
 
-        echo $request->direction;
+   $sidebar_active='forums';
+
         
         $danh_muc = DB::table('danh_muc')->where('id', '=', $danh_muc_id)->get(); 
         
@@ -142,7 +143,7 @@ class CategoryProduct extends Controller
         $post = DB::table('tbl_post')->where('danh_muc_id', '=', $danh_muc_id)->where('stiky', '=', '0')->paginate(3); 
         Session::put('danh_muc_id_ht', $danh_muc_id);
         
-    	return view('pages.show_category')->with('slug_danh_muc',$slug_danh_muc)->with('post',$post)->with('breadcrumb','true')->with('rightbar','true')->with('description',$description)->with('danh_muc_id',$danh_muc_id)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+    	return view('pages.show_category')->with('sidebar_active',$sidebar_active)->with('slug_danh_muc',$slug_danh_muc)->with('post',$post)->with('breadcrumb','true')->with('rightbar','true')->with('description',$description)->with('danh_muc_id',$danh_muc_id)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
 
 
     }
@@ -153,8 +154,9 @@ class CategoryProduct extends Controller
         $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
         $meta_title = "Có gì mới?";
         $url_canonical = $request->url();
+        $sidebar_active='new-post';
         //--seo
-        return view('pages.whats_new')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        return view('pages.whats_new')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
     
     public function news_post(Request $request){
@@ -163,7 +165,8 @@ class CategoryProduct extends Controller
         $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
-        return view('pages.whats_new')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        $sidebar_active='new-post';
+        return view('pages.whats_new')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         //--seo
     }
 
@@ -174,7 +177,8 @@ class CategoryProduct extends Controller
         $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
-        return view('pages.search')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        $sidebar_active='forums';
+        return view('pages.search')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         //--seo
     }
 
@@ -184,7 +188,8 @@ class CategoryProduct extends Controller
         $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
-        return view('pages.search_result')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        $sidebar_active='forums';
+        return view('pages.search_result')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         //--seo
     }
     public function account(Request $request){
@@ -193,7 +198,8 @@ class CategoryProduct extends Controller
         $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
-        return view('pages.account')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        $sidebar_active='home';
+        return view('pages.account')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         //--seo
     }
 
@@ -203,7 +209,8 @@ class CategoryProduct extends Controller
         $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
-        return view('pages.referral')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        $sidebar_active='home';
+        return view('pages.referral')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         //--seo
     }
     
@@ -214,7 +221,8 @@ class CategoryProduct extends Controller
         $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
-        return view('pages.deposit_money')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        $sidebar_active='home';
+        return view('pages.deposit_money')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         //--seo
     }
     
@@ -224,7 +232,8 @@ class CategoryProduct extends Controller
         $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
-        return view('pages.serve')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        $sidebar_active='home';
+        return view('pages.serve')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         //--seo
     }
     
@@ -243,8 +252,8 @@ class CategoryProduct extends Controller
          $user = DB::table('users')->where('id', '=', $post[0]->user_id)->get();
          $danh_muc_id = $post[0]->danh_muc_id;  
          $tbl_binh_luan = DB::table('tbl_binh_luan')->where('post_id', '=', $post_id)->paginate(20); 
-
-        return view('pages.post')->with('tbl_binh_luan',$tbl_binh_luan)->with('danh_muc_id',$danh_muc_id)->with('breadcrumb','true')->with('user',$user)->with('post',$post)->with('post_header',$post_header)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+         $sidebar_active='forums';
+        return view('pages.post')->with('sidebar_active',$sidebar_active)->with('tbl_binh_luan',$tbl_binh_luan)->with('danh_muc_id',$danh_muc_id)->with('breadcrumb','true')->with('user',$user)->with('post',$post)->with('post_header',$post_header)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         //--seo
     }
     
@@ -254,6 +263,7 @@ class CategoryProduct extends Controller
         $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
         $meta_title = "Hoạt động mới nhất";
         $url_canonical = $request->url();
+        
         //--seo
     }
 
@@ -411,10 +421,25 @@ class CategoryProduct extends Controller
         $url_canonical = $request->url();
       
         //--seo
-        return view('pages.view_create_post')->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        $sidebar_active='forums';
+        return view('pages.view_create_post')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+       
+    }
+
+    public function lock(Request $request){
+        
+        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
+        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_title = "Bài viết mới";
+        $url_canonical = $request->url();
+      
+        //--seo
+        $sidebar_active='forums';
+        return view('pages.lock')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
      
       
     }
+    
     public function stiky(Request $request,$slug_post){
         $number = strripos($slug_post,".");
         $post_id =  substr($slug_post,$number+1);

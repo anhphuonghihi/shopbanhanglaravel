@@ -86,9 +86,9 @@ class HomeController extends BaseController
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 
         $search_product = DB::table('tbl_product')->where('product_name','like','%'.$keywords.'%')->get(); 
+        $sidebar_active='forums';
 
-
-        return view('pages.sanpham.search')->with('category',$cate_product)->with('brand',$brand_product)->with('search_product',$search_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('slider',$slider);
+        return view('pages.sanpham.search')->with('sidebar_active',$sidebar_active)->with('category',$cate_product)->with('brand',$brand_product)->with('search_product',$search_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('slider',$slider);
 
     }
     public function forums(Request $request){
@@ -108,8 +108,8 @@ class HomeController extends BaseController
         $nhan = DB::table('tbl_tag')->where('la_label','1')->get(); 
         
         Session::put('nhan',$nhan);
-        
-    	return view('pages.forums')->with('rightbar','true')->with('danh_muc_0',$danh_muc_0)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        $sidebar_active='forums';
+    	return view('pages.forums')->with('sidebar_active',$sidebar_active)->with('rightbar','true')->with('danh_muc_0',$danh_muc_0)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
     public function trang_chu(Request $request){
 
@@ -128,7 +128,7 @@ class HomeController extends BaseController
         $nhan = DB::table('tbl_tag')->where('la_label','1')->get(); 
         
         Session::put('nhan',$nhan);
-        
-    	return view('pages.trang_chu')->with('danh_muc_0',$danh_muc_0)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        $sidebar_active='home';
+    	return view('pages.trang_chu')->with('sidebar_active',$sidebar_active)->with('danh_muc_0',$danh_muc_0)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
 }

@@ -3,10 +3,17 @@
         <div class="uix_sidebar--scroller">
             <ul class="uix_sidebarNavList js-offCanvasNavSource">
                 <li class="uix_sidebarNavList__listItem">
-                    <div class="p-navEl  ">
+                    <div class="p-navEl  @php if (!empty($sidebar_active)){
+                                    if ($sidebar_active=='home') {
+                            echo 'is-selected';
+                        }
+                                }else{
+                                    echo 'is-selected';
+                                } @endphp ">
                         <div class="p-navEl__inner u-ripple rippleButton">
-                            <a href="{{ url('/') }}" class="p-navEl-link  " data-xf-key="1"
-                                data-nav-id="EWRporta"><span>Trang
+                            <a href="{{ url('/') }}"
+                                class="p-navEl-link "
+                                data-xf-key="1" data-nav-id="EWRporta"><span>Trang
                                     chủ</span></a>
                         </div>
                         <div class="uix_sidebarNav__subNav">
@@ -17,7 +24,13 @@
                 </li>
 
                 <li class="uix_sidebarNavList__listItem">
-                    <div class="p-navEl  is-selected" data-has-children="true">
+                    <div class="p-navEl  
+                    @php if (!empty($sidebar_active)){
+                        if ($sidebar_active=='forums') {
+                            echo 'is-selected';
+                        } 
+                        } @endphp"
+                        data-has-children="true">
                         <div class="p-navEl__inner u-ripple rippleButton">
                             <a href="{{ url('/forums') }}" class="p-navEl-link p-navEl-link--splitMenu "
                                 data-nav-id="forums"><span>Diễn đàn</span></a>
@@ -38,7 +51,12 @@
                     </div>
                 </li>
                 <li class="uix_sidebarNavList__listItem">
-                    <div class="p-navEl  ">
+                    <div
+                        class="p-navEl   @php if (!empty($sidebar_active)) {
+                        if ($sidebar_active=='new-post') {
+                            echo 'is-selected';
+                        }
+                    } @endphp">
                         <div class="p-navEl__inner u-ripple rippleButton">
                             <a href="/whats-new/" class="p-navEl-link  " data-xf-key="3" data-nav-id="whatsNew"><span>Có
                                     gì mới?</span></a>

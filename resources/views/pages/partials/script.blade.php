@@ -507,6 +507,13 @@
 
 <script src="{{ asset('dang_tin/user/js/prefix_menu.min.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/select2.full.js') }}"></script>
+@php
+    $user = DB::table('users')->where('id', Session::get('user_id'))->get();
+    $lock = 0;
+    if ($user->count() > 0) {
+        $lock = $user[0]->lock;
+    }
+@endphp
 <script>
     $(document).ready(function() {
         $(".uix_sidebarTrigger").click(function() {
@@ -525,10 +532,27 @@
             event.preventDefault();
             $("#dang_ki").toggleClass('is-active');
         });
+        var userlock = {!! json_encode($lock) !!};
+        console.log(userlock);
+        if (userlock == 1) {
+            $("#lock").toggleClass('is-active');
+            console.log(location.pathname);
+            if (location.pathname == "/lock") {
+
+            } else {
+                setInterval(function() {
+                    window.location.replace("lock");
+                }, 1000);
+            }
+
+        }
+
+
         $(".p-navgroup-link--logIn").click(function(event) {
             event.preventDefault();
-            $("#dang_nhap").toggleClass('is-active');
+            $("#lock").toggleClass('is-active');
         });
+
         $(".overlay-titleCloser.js-overlayClose").click(function() {
             $(".overlay-container").removeClass('is-active');
         });
