@@ -61,12 +61,17 @@
 
 
                                         <dl class="pairs pairs--rows pairs--rows--centered fauxBlockLink">
-                                            <dt>Bài viết</dt>
+                                            <dt>Ví tiền</dt>
                                             <dd>
-                                                <a href="/search/member?user_id=516184"
-                                                    class="fauxBlockLink-linkRow u-concealed">
-                                                    0
-                                                </a>
+                                                @php
+                                                    echo Session::get('vi_tien');
+                                                @endphp
+                                            </dd>
+                                        </dl>
+                                        <dl class="pairs pairs--rows pairs--rows--centered fauxBlockLink">
+                                            <dt>Bài viết</dt>
+                                            <dd id="bai_viet">
+                                                0
                                             </dd>
                                         </dl>
 
@@ -74,19 +79,18 @@
 
                                         <dl class="pairs pairs--rows pairs--rows--centered">
                                             <dt>Uy tín</dt>
-                                            <dd>
+                                            <dd id="uy_tin">
                                                 0
                                             </dd>
                                         </dl>
 
 
                                         <dl class="pairs pairs--rows pairs--rows--centered fauxBlockLink">
-                                            <dt title="Điểm thưởng">Điểm</dt>
+                                            <dt title="Hoa hồng">Hoa hồng</dt>
                                             <dd>
-                                                <a href="/members/phuonghole1212.516184/trophies" data-xf-click="overlay"
-                                                    class="fauxBlockLink-linkRow u-concealed">
-                                                    0
-                                                </a>
+                                                @php
+                                                    echo Session::get('sum_da_tung_nap');
+                                                @endphp
                                             </dd>
                                         </dl>
 
@@ -99,33 +103,7 @@
 
                                 <hr class="memberHeader-separator">
 
-                                <div class="uix_memberHeader__extra">
-                                    <div class="memberHeader-blurb">
-                                        <dl class="pairs pairs--inline">
-                                            <dt>Tham gia ngày</dt>
-                                            <dd><time class="u-dt" dir="auto" datetime="2024-07-22T21:37:13+0700"
-                                                    data-time="1721659033" data-date-string="22/7/24"
-                                                    data-time-string="21:37" title="22/7/24 lúc 21:37">42 phút
-                                                    trước</time></dd>
-                                        </dl>
-                                    </div>
 
-
-                                    <div class="memberHeader-blurb">
-                                        <dl class="pairs pairs--inline">
-                                            <dt>Last seen</dt>
-                                            <dd dir="auto">
-                                                <time class="u-dt" dir="auto" datetime="2024-07-22T22:19:38+0700"
-                                                    data-time="1721661578" data-date-string="22/7/24"
-                                                    data-time-string="22:19" title="22/7/24 lúc 22:19">Vài giây
-                                                    trước</time> <span role="presentation" aria-hidden="true">·</span>
-                                                Đang xem thành viên
-                                            </dd>
-                                        </dl>
-                                    </div>
-
-
-                                </div>
 
                             </div>
 

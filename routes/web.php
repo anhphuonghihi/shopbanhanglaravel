@@ -162,19 +162,27 @@ Route::get('/unactive-slide/{slide_id}','SliderController@unactive_slide');
 Route::get('/active-slide/{slide_id}','SliderController@active_slide');
 
 
-
+Route::get('/uy_tin','CategoryProduct@uy_tin' );
+Route::get('/bai_viet','CategoryProduct@bai_viet' );
 
 Route::get('/','HomeController@trang_chu' );
 
 
-Route::get('/forums','HomeController@forums' );
+Route::get('/address','HomeController@address' );
 
+Route::get('/forums','HomeController@forums' );
 
 Route::post('/login','LoginController@login_user');
 
 Route::post('/register','LoginController@register_user');
 
+
+Route::get('/register','LoginController@register_user_show');
+
+
 Route::get('/forums/{slug_danh_muc}','CategoryProduct@show_danh_muc_home');
+
+Route::get('/address/{slug_danh_muc}','CategoryProduct@show_huyen');
 
 Route::get('/whats-new','CategoryProduct@whats_new');
 
@@ -184,7 +192,7 @@ Route::get('/whats-new/latest-activity','CategoryProduct@latest_activity');
 
 Route::get('/search','CategoryProduct@search');
 
-Route::get('/search-result','CategoryProduct@search_result');
+Route::post('/search-result','CategoryProduct@search_result');
 
 Route::get('/account','CategoryProduct@account');
 
@@ -209,9 +217,24 @@ Route::post('/create-thread','CategoryProduct@create_post');
 
 Route::post('/comment','CategoryProduct@create_comment');
 
-Route::post('/threads/{slug_post}/stiky','CategoryProduct@stiky');
+Route::get('/threads/{slug_post}/stiky','CategoryProduct@stiky');
 
+Route::get('/threads/{slug_post}/edit','CategoryProduct@view_edit_post');
+
+Route::get('/threads/{slug_post}/delete','CategoryProduct@delete');
+
+Route::post('/threads/{slug_post}/edit','CategoryProduct@edit_post');
 
 Route::post('/momo','CategoryProduct@checkMomo');
 
 Route::get('/lock','CategoryProduct@lock');
+
+Route::get('/withdraw','CategoryProduct@withdraw');
+
+Route::post('/withdraw-money-user','CategoryProduct@withdraw_money_user');
+
+Route::post('/serve-save','CategoryProduct@serve_post');
+
+Route::get('/dich_vu_su_dung','CategoryProduct@dich_vu_su_dung_new');
+
+Route::post('/deposit-money','CategoryProduct@update_payment');

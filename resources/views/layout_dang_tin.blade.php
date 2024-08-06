@@ -15,7 +15,6 @@
     <meta name="keywords" content="{{ $meta_keywords }}" />
     <!--//-------Seo--------->
     <title>{{ $meta_title }} | Gái gọi Hà Nội | Gái gọi Sài Gòn | Cộng đồng checker Việt Nam</title>
-    <link rel="shortcut icon" href="{{ 'frontend/images/favicon.ico' }}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
@@ -26,7 +25,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>{{ $meta_title }} | Gái gọi Hà Nội | Gái gọi Sài Gòn | Cộng đồng checker Việt Nam</title>
-    <link rel="manifest" href="/webmanifest.php">
     <meta name="theme-color" content="#2196f3">
     <meta name="msapplication-TileColor" content="#2196F3">
     <meta name="apple-mobile-web-app-title"
@@ -44,8 +42,7 @@
     <meta property="og:title" content="{{ $meta_title }}">
     <meta property="twitter:title" content="{{ $meta_title }}">
     <meta property="og:url" content="{{ $url_canonical }}" />
-    <link rel="preload" href="{{ asset('dang_tin/fonts/materialdesignicons-webfont.woff2') }}" as="font"
-        type="font/woff2" crossorigin="anonymous">
+
     <link rel="stylesheet" href="{{ asset('dang_tin/user/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dang_tin/user/css/index.css') }}">
     <link rel="stylesheet" href="{{ asset('dang_tin/user/css/css.css') }}">

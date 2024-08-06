@@ -15107,23 +15107,6 @@ tbody:last-child .dataList-row:last-child .dataList-cell {
     align-self: center
 }
 
-.filterBar-filterToggle:after {
-    font: normal normal normal 18px/1 "Material Design Icons";
-    font-size: 110%;
-    font-weight: normal;
-    line-height: inherit;
-    width: auto;
-    font-size: 80%;
-    vertical-align: bottom;
-    content: " \F0156";
-    display: inline-block;
-    text-align: center;
-    opacity: .5;
-    -webkit-transition: opacity .2s ease;
-    transition: opacity .2s ease;
-    position: relative;
-    bottom: -2px
-}
 
 .filterBar-filterToggle:hover {
     text-decoration: none
@@ -16889,126 +16872,24 @@ a.reaction:focus .reaction-text {
 .reaction--1 .reaction-sprite {
     width: 32px;
     height: 32px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px 0px;
     background-size: 100%
 }
 
 .reaction--small.reaction--1 .reaction-sprite {
     width: 16px;
     height: 16px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px 0px;
     background-size: 100%
 }
 
 .reaction--medium.reaction--1 .reaction-sprite {
     width: 21px;
     height: 21px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px 0px;
     background-size: 100%
 }
 
 .reaction--2 .reaction-sprite {
     width: 32px;
     height: 32px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -32px;
-    background-size: 100%
-}
-
-.reaction--small.reaction--2 .reaction-sprite {
-    width: 16px;
-    height: 16px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -16px;
-    background-size: 100%
-}
-
-.reaction--medium.reaction--2 .reaction-sprite {
-    width: 21px;
-    height: 21px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -21px;
-    background-size: 100%
-}
-
-.reaction--3 .reaction-sprite {
-    width: 32px;
-    height: 32px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -64px;
-    background-size: 100%
-}
-
-.reaction--small.reaction--3 .reaction-sprite {
-    width: 16px;
-    height: 16px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -32px;
-    background-size: 100%
-}
-
-.reaction--medium.reaction--3 .reaction-sprite {
-    width: 21px;
-    height: 21px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -42px;
-    background-size: 100%
-}
-
-.reaction--4 .reaction-sprite {
-    width: 32px;
-    height: 32px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -96px;
-    background-size: 100%
-}
-
-.reaction--small.reaction--4 .reaction-sprite {
-    width: 16px;
-    height: 16px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -48px;
-    background-size: 100%
-}
-
-.reaction--medium.reaction--4 .reaction-sprite {
-    width: 21px;
-    height: 21px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -63px;
-    background-size: 100%
-}
-
-.reaction--5 .reaction-sprite {
-    width: 32px;
-    height: 32px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -128px;
-    background-size: 100%
-}
-
-.reaction--small.reaction--5 .reaction-sprite {
-    width: 16px;
-    height: 16px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -64px;
-    background-size: 100%
-}
-
-.reaction--medium.reaction--5 .reaction-sprite {
-    width: 21px;
-    height: 21px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -84px;
-    background-size: 100%
-}
-
-.reaction--6 .reaction-sprite {
-    width: 32px;
-    height: 32px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -160px;
-    background-size: 100%
-}
-
-.reaction--small.reaction--6 .reaction-sprite {
-    width: 16px;
-    height: 16px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -80px;
-    background-size: 100%
-}
-
-.reaction--medium.reaction--6 .reaction-sprite {
-    width: 21px;
-    height: 21px;
-    background: url('styles/default/xenforo/reactions/emojione/sprite_sheet_emojione.png') no-repeat 0px -105px;
     background-size: 100%
 }
 

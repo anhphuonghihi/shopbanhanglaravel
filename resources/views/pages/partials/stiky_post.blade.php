@@ -35,13 +35,12 @@
 
                         <div id="js-lbImage-105263" class="lbContainer-zoomer"
                             data-src="{{ $stiky_post_item->anh_dai_dien }}" aria-label="Zoom"></div>
-                        <span class="heightHelper"></span><img data-src="/public/uploads/product/{{ $stiky_post_item->anh_dai_dien }}"
+                        <span class="heightHelper"></span><img
+                            data-src="/public/uploads/product/{{ $stiky_post_item->anh_dai_dien }}"
                             src="/public/uploads/product/{{ $stiky_post_item->anh_dai_dien }}"
                             datahref="/threads/{{ $stiky_post_item->post_slug }}.{{ $stiky_post_item->id }}"
                             class="lbTrigger bbImage alignThumbnail" data-zoom-target="1" alt="" loading="lazy"
-                            data-fancybox="lb-lb-thread-105263"
-                            data-caption="<h4>TRANG VENUS - EM GÁI PG NGỌT NGÀO NHƯ CHOCOLATE - VÚ TO - MÔNG MẨY</h4><p><a href=&quot;https:&amp;#x2F;&amp;#x2F;xcheckerviet.biz&amp;#x2F;forums&amp;#x2F;gai-goi-sai-gon.31&amp;#x2F;#lb-thread-105263&quot; class=&quot;js-lightboxCloser&quot;></a></p>"
-                            style="cursor: pointer;">
+                            data-fancybox="lb-lb-thread-105263" style="cursor: pointer;">
                     </div>
 
                 </div>
@@ -76,7 +75,7 @@
                 @endphp
                 <a href="/threads/{{ $stiky_post_item->post_slug }}.{{ $stiky_post_item->id }}" class="labelLink"
                     rel="nofollow"></a><a
-                    href="/threads/{{ $stiky_post_item->post_slug }}.{{ $stiky_post_item->id }}?fillter_nhan={{ $nhan[0]->id }}"
+                    href="/threads/{{ $stiky_post_item->post_slug }}.{{ $stiky_post_item->id }}?nhan={{ $nhan[0]->id }}"
                     class="labelLink" rel="nofollow"><span
                         class="label label--@php if($nhan->count()>0){
                             echo $nhan[0]->color;
@@ -155,7 +154,7 @@
             <div class="structItem-iconContainer">
                 <a href="/threads/{{ $stiky_post_item->post_slug }}.{{ $stiky_post_item->id }}"
                     class="avatar avatar--xxs avatar--default avatar--default--dynamic" data-user-id="475821"
-                    data-xf-init="member-tooltip"style="background-color: {{ $user_bl[0]->background_color }}; color: #b9f6ca"
+                    data-xf-init="member-tooltip"style="background-color: {{ $user_bl[0]->background_color ?? 'red' }}; color: #b9f6ca"
                     id="js-XFUniqueId149">
                     <span class="avatar-u475821-s" role="img" aria-label="Little bird_ckv"> @php
 

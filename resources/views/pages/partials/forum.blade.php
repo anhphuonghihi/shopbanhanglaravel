@@ -125,7 +125,7 @@
                         <a href="/threads/{{ $post_new[0]->post_slug }}.{{ $post_new[0]->id }}"
                             class="avatar avatar--xs avatar--default avatar--default--dynamic" data-user-id="46171"
                             data-xf-init="member-tooltip"
-                            style="background-color: {{ $user_postnew[0]->background_color }}; color: #b9f6ca"
+                            style="background-color: {{ $user_postnew[0]->background_color ?? "red" }}; color: #b9f6ca"
                             id="js-XFUniqueId12">
                             <span class="avatar-u46171-s" role="img" aria-label="incheck">
                                 @php

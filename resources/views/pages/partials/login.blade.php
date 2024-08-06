@@ -71,8 +71,6 @@
 
 
                                     </div>
-                                    <a class="uix_forgotPassWord__link" href="/lost-password/"
-                                        data-xf-click="overlay">Bạn đã quên mật khẩu?</a>
                                 </dd>
                             </dl>
 
@@ -126,53 +124,6 @@
 
 
 
-                <div class="blocks-textJoiner"><span></span><em>or đăng nhập bằng</em><span></span></div>
-
-                <div class="block uix_loginProvider__row">
-                    <div class="block-container">
-                        <div class="block-body">
-
-                            <dl class="formRow formRow--button">
-                                <dt>
-                                    <div class="formRow-labelWrapper"></div>
-                                </dt>
-                                <dd>
-
-                                    <ul class="listHeap">
-
-                                        <li>
-
-                                            <a href="/register/connected-accounts/facebook/?setup=1"
-                                                class="button--provider button--provider--facebook button"><span
-                                                    class="button-text">
-
-                                                    Facebook
-                                                </span></a>
-
-                                        </li>
-
-                                        <li>
-
-                                            <a href="/register/connected-accounts/google/?setup=1"
-                                                class="button--provider button--provider--google button"><span
-                                                    class="button-text">
-
-                                                    <img class="button-icon" alt=""
-                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAmCAYAAABDClKtAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+nhxg7wAAA11JREFUWIXNmL9vUlEYhp/a3sYiUWIiDk1burkYqYHFRSqNkwOVhcREWxMXl9rJgUFNWnWr/QuKGw4EBrsVpJMmNBHjoulQbGJq0DQ0XrVIbR3ugcDt/XGgV+KbEOCec977cPjOd79z4D9UT6cDy+GgHwgBHuCyrrkIfALy3myh+E+hyuGgD5gBIoBPclgFSACL3myh5BhUORz0AAvAlCSImRLArDdbqBwJqhwORoAltL/JCVWAaW+2kDHrcMwGaAlIOwiE8EqXw8GHbUMJoCkHYfQaMWswhCqHg07Ej5US3mxh2qzxUEyJGEq3cYMSWgp4J76PoKUKXydAh6DEKttALoYSaMvcMA+J9PGA1hm3BTKCkomjCjDpzRbydubCM4Q28xkZoBao2oriqxbObPxcGbTqXwTG7fKMAZhPNnHqoRaAe3ubbtTUKAe7vfq+FWCsHfNO1bz6IgB9wyonb3+k9+wvfd/pbgCBmKnaiuIH3uobf7wc5vf706A9WMe7AQTQJ95DRo0nrm2ijKjsvvE+lzG7Mq8a+rShSi7uLtahTFNA//lt+s9vZ3ghZfrqiFBFYKweU/p6qKWjMlFra7UdQX6weSALdQuoIRmorksGysmyRUp1qFWLPv7aitJVsPrqM40b9UDhiXohAq8TEn55iT5+zGc/3wxlaLa+d4r734Ns/XHdQqsKLJWLu20T7JV51aoKqYD4+5SJWhGtLmpouTrE3Z1LbP1xAYQCyWjE7oYSQHa7oNUGlFCjkJ9Tx5j7PoZ6oDQPWAoko1aGdkD1HZGVMnqoxa19Fzcrl1neHTIa4AHSgWS006BfwHqWirm4u9QCpUzUSte3JxLre6esjP3ARiAZDcmSBJJRz/jTz2nsi8fF+oeWylPMQlvl8FosZVgOC697wExvddhz/OsdeqvDZl6lXNw9agglzJzYOPjFq6GefRcD5Tv0/bho5DGei7vzplACbAHtVzqu/p2rHP92o/nSs1zcPdt8wXTbHkhG/9lmtO/XOQa+zNCz78rk4u5Jfbvps28tlppGImF2or2BD/wcfJwBDHc3tgccIsacPOAAeLQWSz00a5Q6ChIryYmtfB6YNVuxbUHVJTJ6J4dmGeD5WiyVlxnQ8fFiIBm1O17cAfKyIP+9/gIvkBKjE2YsSQAAAABJRU5ErkJggg==">
-
-                                                    Google
-                                                </span></a>
-
-                                        </li>
-
-                                    </ul>
-
-                                </dd>
-                            </dl>
-
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -191,54 +142,6 @@
         }
         ?>
         <div class="overlay-content">
-            <div class="block">
-                <div class="block-container">
-                    <div class="block-body">
-
-                        <dl class="formRow formRow--button">
-                            <dt>
-                                <div class="formRow-labelWrapper">
-                                    <label class="formRow-label">Đăng Ký Nhanh</label>
-                                </div>
-                            </dt>
-                            <dd>
-
-
-                                <ul class="listHeap">
-
-                                    <li>
-
-                                        <a href="/register/connected-accounts/facebook/?setup=1"
-                                            class="button--provider button--provider--facebook button"><span
-                                                class="button-text">
-
-                                                Facebook
-                                            </span></a>
-
-                                    </li>
-
-                                    <li>
-
-                                        <a href="/register/connected-accounts/google/?setup=1"
-                                            class="button--provider button--provider--google button"><span
-                                                class="button-text">
-
-                                                <img class="button-icon" alt=""
-                                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAmCAYAAABDClKtAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+nhxg7wAAA11JREFUWIXNmL9vUlEYhp/a3sYiUWIiDk1burkYqYHFRSqNkwOVhcREWxMXl9rJgUFNWnWr/QuKGw4EBrsVpJMmNBHjoulQbGJq0DQ0XrVIbR3ugcDt/XGgV+KbEOCec977cPjOd79z4D9UT6cDy+GgHwgBHuCyrrkIfALy3myh+E+hyuGgD5gBIoBPclgFSACL3myh5BhUORz0AAvAlCSImRLArDdbqBwJqhwORoAltL/JCVWAaW+2kDHrcMwGaAlIOwiE8EqXw8GHbUMJoCkHYfQaMWswhCqHg07Ej5US3mxh2qzxUEyJGEq3cYMSWgp4J76PoKUKXydAh6DEKttALoYSaMvcMA+J9PGA1hm3BTKCkomjCjDpzRbydubCM4Q28xkZoBao2oriqxbObPxcGbTqXwTG7fKMAZhPNnHqoRaAe3ubbtTUKAe7vfq+FWCsHfNO1bz6IgB9wyonb3+k9+wvfd/pbgCBmKnaiuIH3uobf7wc5vf706A9WMe7AQTQJ95DRo0nrm2ijKjsvvE+lzG7Mq8a+rShSi7uLtahTFNA//lt+s9vZ3ghZfrqiFBFYKweU/p6qKWjMlFra7UdQX6weSALdQuoIRmorksGysmyRUp1qFWLPv7aitJVsPrqM40b9UDhiXohAq8TEn55iT5+zGc/3wxlaLa+d4r734Ns/XHdQqsKLJWLu20T7JV51aoKqYD4+5SJWhGtLmpouTrE3Z1LbP1xAYQCyWjE7oYSQHa7oNUGlFCjkJ9Tx5j7PoZ6oDQPWAoko1aGdkD1HZGVMnqoxa19Fzcrl1neHTIa4AHSgWS006BfwHqWirm4u9QCpUzUSte3JxLre6esjP3ARiAZDcmSBJJRz/jTz2nsi8fF+oeWylPMQlvl8FosZVgOC697wExvddhz/OsdeqvDZl6lXNw9agglzJzYOPjFq6GefRcD5Tv0/bho5DGei7vzplACbAHtVzqu/p2rHP92o/nSs1zcPdt8wXTbHkhG/9lmtO/XOQa+zNCz78rk4u5Jfbvps28tlppGImF2or2BD/wcfJwBDHc3tgccIsacPOAAeLQWSz00a5Q6ChIryYmtfB6YNVuxbUHVJTJ6J4dmGeD5WiyVlxnQ8fFiIBm1O17cAfKyIP+9/gIvkBKjE2YsSQAAAABJRU5ErkJggg==">
-
-                                                Google
-                                            </span></a>
-
-                                    </li>
-
-                                </ul>
-
-                            </dd>
-                        </dl>
-
-                    </div>
-                </div>
-            </div>
 
 
             @foreach ($errors->all() as $val)

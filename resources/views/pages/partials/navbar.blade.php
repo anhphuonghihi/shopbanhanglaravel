@@ -29,15 +29,14 @@
             <div class="p-header-logo p-header-logo--image">
                 <a class="uix_logo" href="/">
 
-                    <img src="/styles/uix_dark/images/xbiz.png" srcset="/styles/uix_dark/images/xbiz.png 2x"
+                    <img 
                         alt="Gái gọi | Gái gọi Hà Nội | Gái gọi Sài Gòn | Cộng đồng checker Việt Nam" width=""
                         height="">
 
                 </a>
 
                 <a class="uix_logoSmall" href="/">
-                    <img src="/styles/uix_dark/images/xbiz.png"
-                        alt="Gái gọi | Gái gọi Hà Nội | Gái gọi Sài Gòn | Cộng đồng checker Việt Nam">
+                    <img alt="Gái gọi | Gái gọi Hà Nội | Gái gọi Sài Gòn | Cộng đồng checker Việt Nam">
                 </a>
 
             </div>
@@ -58,10 +57,7 @@
 
 
                             <a href="/account/" data-badge="0"
-                                class="p-navgroup-link u-ripple p-navgroup-link--iconic p-navgroup-link--user js-uix_badge--totalUnread badgeContainer rippleButton is-menuOpen"
-                                data-xf-click="menu" data-xf-key="m" data-menu-pos-ref="< .p-navgroup"
-                                title={{ Session::get('username') }} aria-expanded="true" aria-haspopup="true"
-                                aria-controls="js-XFUniqueId11">
+                                class="p-navgroup-link u-ripple p-navgroup-link--iconic p-navgroup-link--user js-uix_badge--totalUnread badgeContainer rippleButton is-menuOpen">
                                 <span class="avatar avatar--xxs avatar--default avatar--default--dynamic"
                                     data-user-id="516184" style="background-color: #f44336; color: #ff8a80">
                                     <span class="avatar-u516184-s" role="img"

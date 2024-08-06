@@ -3,7 +3,8 @@
         <div class="uix_sidebar--scroller">
             <ul class="uix_sidebarNavList js-offCanvasNavSource">
                 <li class="uix_sidebarNavList__listItem">
-                    <div class="p-navEl  @php if (!empty($sidebar_active)){
+                    <div
+                        class="p-navEl  @php if (!empty($sidebar_active)){
                                     if ($sidebar_active=='home') {
                             echo 'is-selected';
                         }
@@ -11,9 +12,8 @@
                                     echo 'is-selected';
                                 } @endphp ">
                         <div class="p-navEl__inner u-ripple rippleButton">
-                            <a href="{{ url('/') }}"
-                                class="p-navEl-link "
-                                data-xf-key="1" data-nav-id="EWRporta"><span>Trang
+                            <a href="{{ url('/') }}" class="p-navEl-link " data-xf-key="1"
+                                data-nav-id="EWRporta"><span>Trang
                                     chủ</span></a>
                         </div>
                         <div class="uix_sidebarNav__subNav">
@@ -50,6 +50,7 @@
                         </div>
                     </div>
                 </li>
+      
                 <li class="uix_sidebarNavList__listItem">
                     <div
                         class="p-navEl   @php if (!empty($sidebar_active)) {

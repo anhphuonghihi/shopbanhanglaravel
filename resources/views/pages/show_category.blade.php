@@ -17,12 +17,12 @@
         </div>
         <div class="block " data-xf-init="" data-type="thread" data-href="/inline-mod/">
             <div class="block-outer">
-                @php
-                    Session::put('danh_muc_id', $danh_muc_id);
-                @endphp
-                {{ $post->links('vendor.pagination.default') }}
+                @if ($post->count() > 20)
+                    {{ $post->links('vendor.pagination.default') }}
+                @endif
             </div>
             <div class="block-container uix_discussionList">
+
                 @include('pages.partials.filterBar')
                 <div class="block-body">
                     <div class="structItemContainer">
@@ -30,6 +30,12 @@
                             $stiky_post = DB::table('tbl_post')
                                 ->where('danh_muc_id', '=', $danh_muc_id)
                                 ->where('stiky', '=', '1')
+                                ->where(function ($stiky_post) use ($output2arrayname) {
+                                    foreach ($output2arrayname as $word) {
+                                        $stiky_post->orWhere('nhan', 'LIKE', '%' . $word . '%');
+                                    }
+                                })
+                                ->orderBy('ten_bai_viet', $direction)
                                 ->get();
                             $stiky_post_count = $stiky_post->count();
 
@@ -41,6 +47,16 @@
                                         DB::table('tbl_post')
                                             ->where('danh_muc_id', '=', $danh_muc_item_con->id)
                                             ->where('stiky', '=', '1')
+                                            ->where(function ($stiky_post_danh_muc_con_ok) use ($output2arrayname) {
+                                                foreach ($output2arrayname as $word) {
+                                                    $stiky_post_danh_muc_con_ok->orWhere(
+                                                        'nhan',
+                                                        'LIKE',
+                                                        '%' . $word . '%',
+                                                    );
+                                                }
+                                            })
+                                            ->orderBy('ten_bai_viet', $direction)
                                             ->get(),
                                     );
                                 }
@@ -49,8 +65,11 @@
 
                             $page = 1;
                             if (!empty($_SERVER['QUERY_STRING'])) {
-                                $page_number = strripos($_SERVER['QUERY_STRING'], 'page=');
-                                $page = substr($_SERVER['QUERY_STRING'], $page_number - 1);
+                                if (strripos($_SERVER['QUERY_STRING'], 'page=')) {
+                                    # code...
+                                    $page_number = strripos($_SERVER['QUERY_STRING'], 'page=');
+                                    $page = substr($_SERVER['QUERY_STRING'], $page_number - 1);
+                                }
                             }
                         @endphp
                         @if ($stiky_post_count > 0 && $page == 1)
@@ -68,7 +87,8 @@
                                         @foreach ($stiky_post as $key => $stiky_post_item)
                                             @include('pages.partials.stiky_post')
                                         @endforeach
-                                        @if (count($stiky_post_danh_muc_con_ok[0]) != 0)
+
+                                        @if ($danh_muc_con->count() > 0 && count($stiky_post_danh_muc_con_ok[0]) != 0)
                                             @foreach ($stiky_post_danh_muc_con_ok[0] as $key => $stiky_post_item)
                                                 @include('pages.partials.stiky_post')
                                             @endforeach
@@ -84,6 +104,13 @@
                                 $stiky_post = DB::table('tbl_post')
                                     ->where('danh_muc_id', '=', $danh_muc_id)
                                     ->where('stiky', '=', '0')
+                                    ->where(function ($stiky_post) use ($output2arrayname) {
+                                        foreach ($output2arrayname as $word) {
+                                            $stiky_post->orWhere('nhan', 'LIKE', '%' . $word . '%');
+                                        }
+                                    })
+                                    ->orderBy('ten_bai_viet', $direction)
+
                                     ->get();
                             @endphp
 
@@ -100,6 +127,16 @@
                                             DB::table('tbl_post')
                                                 ->where('danh_muc_id', '=', $danh_muc_item_con->id)
                                                 ->where('stiky', '=', '0')
+                                                ->where(function ($stiky_post_danh_muc_con) use ($output2arrayname) {
+                                                    foreach ($output2arrayname as $word) {
+                                                        $stiky_post_danh_muc_con->orWhere(
+                                                            'nhan',
+                                                            'LIKE',
+                                                            '%' . $word . '%',
+                                                        );
+                                                    }
+                                                })
+                                                ->orderBy('ten_bai_viet', $direction)
                                                 ->get(),
                                         );
                                     }
@@ -120,21 +157,8 @@
                 @php
                     Session::put('danh_muc_id', $danh_muc_id);
                 @endphp
-                {{ $post->links('vendor.pagination.default') }}
-                @if (!empty(Session::get('username')))
-                    <div class="block-outer-opposite">
-                        <a href="/create-thread" class="button--link button--wrap button rippleButton"><span
-                                class="button-text">
-                                Thêm bài viết.
-                            </span></a>
-                    </div>
-                @else
-                    <div class="block-outer-opposite">
-                        <a href="/login/" class="button--link button--wrap button rippleButton p-navgroup-link--logIn"
-                            data-xf-click="overlay"><span class="button-text">
-                                You must log in or register to post here.
-                            </span></a>
-                    </div>
+                @if ($post->count() > 20)
+                    {{ $post->links('vendor.pagination.default') }}
                 @endif
             </div>
         </div>

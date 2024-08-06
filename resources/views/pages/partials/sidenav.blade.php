@@ -26,6 +26,9 @@
                                 <a class="blockLink  rippleButton" href="/serve">
                                     Dịch vụ
                                 </a>
+                                <a class="blockLink  rippleButton" href="/withdraw">
+                                    Rút tiền
+                                </a>
                             </div>
                             <h3 class="block-minorHeader">Thiết lập</h3>
                             <div class="block-body">

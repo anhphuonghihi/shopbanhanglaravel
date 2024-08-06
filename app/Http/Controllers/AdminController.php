@@ -195,6 +195,9 @@ class AdminController extends Controller
     public function list_withdraw_money_agree(Request $request){
         $this->AuthLogin();
         DB::table('tbl_withdraw_money')->where('id', '=', $request->withdraw_id)->update(['status'=>1]);
+        $money_cu=DB::table('tbl_withdraw_money')->where('id', '=', $request->withdraw_id)->get();
+        $tien_cu=DB::table('users')->where('id', '=', $money_cu[0]->user_id)->get();
+        DB::table('users')->where('id', '=', $money_cu[0]->user_id)->update(['so_tien_da_rut'=> $tien_cu[0]->so_tien_da_rut + $money_cu[0]->so_tien]);
         Session::put('message','Cập nhật thành công');
         return Redirect::to('/withdraw-money');
     }

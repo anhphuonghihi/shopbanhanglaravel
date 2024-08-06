@@ -1,5 +1,5 @@
 <div class="overlay-container" id="lock">
-    <div class="overlay" tabindex="-1" data-url="https://xcheckerviet.biz/login/" role="dialog" aria-hidden="false">
+    <div class="overlay" tabindex="-1" role="dialog" aria-hidden="false">
         <div class="overlay-title">Tài khoản của bạn đã bị khóa</div>
         <?php
         

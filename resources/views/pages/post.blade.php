@@ -1,6 +1,8 @@
 @extends('layout_dang_tin')
 
 @section('content')
+    @if (!empty($post))
+    @endif
     <div class="p-body-pageContent block block--messages">
         <div class="block-outer">
             <div class="block-outer-opposite">
@@ -8,25 +10,16 @@
 
 
 
-
-
-
-
-                    <a href="/threads/trang-anh-net-dam-hien-tren-guong-mat-vu-to-mong-may-su-guc-nga-cua-cac-checker.125638/watch"
-                        class="button--link button rippleButton" data-xf-click="switch-overlay" data-sk-watch="Theo dõi"
-                        data-sk-unwatch="Bỏ theo dõi"><span class="button-text">
-
-                            Theo dõi
-
-                        </span></a>
-
-
-
-
-
                 </div>
             </div>
         </div>
+        <?php
+        $message = Session::get('message');
+        if ($message) {
+            echo '<span class="text-alert">' . $message . '</span>';
+            Session::put('message', null);
+        }
+        ?>
         <div class="block-outer js-threadStatusField ">
             <div class="blockStatus blockStatus--info">
 
@@ -127,6 +120,68 @@
 
 
                                     </div>
+                                </div>
+                                <div class="uix_messagePostBitWrapper">
+                                    <div class="message-userDetails">
+                                        <h4 class="message-name"><a class="username " dir="auto" data-user-id="19"
+                                                data-xf-init="member-tooltip" itemprop="name" id="js-XFUniqueId1"><span
+                                                    class="username--style0">{{ $user[0]->username }}</span></a>
+                                        </h4>
+                                        <div class="star-ranks">
+
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+
+
+
+                                    <div class="thThreads__message-userExtras" style="">
+
+                                        <div class="message-userExtras">
+
+
+
+
+
+
+                                            <dl class="pairs pairs--justified">
+
+                                                <dt>
+                                                    <span data-xf-init="tooltip" data-original-title="Thích"
+                                                        aria-label="Thích" id="js-XFUniqueId11">
+                                                        <i class="fa--xf far fa-thumbs-up uix_icon uix_icon--like"
+                                                            aria-hidden="true"></i>
+                                                        Uy tín
+                                                    </span>
+                                                </dt>
+
+                                                <dd>{{ $user[0]->uy_tin }}</dd>
+                                            </dl>
+
+
+
+
+
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="thThreads__userExtra--toggle">
+                                        <span class="thThreads__userExtra--trigger"
+                                            data-xf-click="ththreads-userextra-trigger"></span>
+                                    </div>
+
+
+
                                 </div>
                             </section>
 
@@ -415,233 +470,247 @@
                     </div>
 
                 </article>
+
                 @if ($tbl_binh_luan->count() > 0)
+                    <br>
+                    <div class="block-outer">
+                        {{ $tbl_binh_luan->links('vendor.pagination.comment') }}
+                    </div>
                     @foreach ($tbl_binh_luan as $item)
-                        <article class="message   message--post  js-post js-inlineModContainer  "
-                            data-author="anhnamdinh123" data-content="post-3741003" id="js-post-3741003">
+                        @if ($item->diem_uy_tin > 3)
+                            <article class="message   message--post  js-post js-inlineModContainer  "
+                                data-author="anhnamdinh123" data-content="post-3741003" id="js-post-3741003">
 
-                            <span class="u-anchorTarget" id="post-3741003"></span>
-
-
-                            <div class="message-inner">
-
-                                <div class="message-cell message-cell--user">
-                                    @php
-                                        $user_item = DB::table('users')
-                                            ->where('id', '=', $item->user_id)
-                                            ->get();
-                                    @endphp
-
-                                    <section itemscope="" itemtype="https://schema.org/Person" class="message-user ">
-                                        <div class="message-avatar ">
-                                            <div class="message-avatar-wrapper">
-
-                                                <a class="avatar avatar--m avatar--default avatar--default--dynamic"
-                                                    data-user-id="19" data-xf-init="member-tooltip"
-                                                    style="background-color: {{ $user_item[0]->background_color ?? 'red' }}; color: #a7ffeb"
-                                                    id="js-XFUniqueId8">
-                                                    <span class="avatar-u19-m" role="img"
-                                                        aria-label="{{ $user_item[0]->username }}">@php
-
-                                                            $user_name = $user_item[0]->username;
-                                                            echo strtoupper(
-                                                                substr($user_name, 0, -(strlen($user_name) - 1)),
-                                                            );
-                                                        @endphp</span>
-                                                </a>
+                                <span class="u-anchorTarget" id="post-3741003"></span>
 
 
-                                            </div>
-                                        </div>
-                                        <div class="uix_messagePostBitWrapper">
-                                            <div class="message-userDetails">
-                                                <h4 class="message-name"><a href="/members/iso-9002.19/"
-                                                        class="username " dir="auto" data-user-id="19"
-                                                        data-xf-init="member-tooltip" itemprop="name"><span
-                                                            class="username--style{{ $user_name = $user_item[0]->rank }}">{{ $user_item[0]->username }}</span></a>
-                                                </h4>
-                                                <div class="star-ranks">
+                                <div class="message-inner">
 
+                                    <div class="message-cell message-cell--user">
+                                        @php
+                                            $user_item = DB::table('users')
+                                                ->where('id', '=', $item->user_id)
+                                                ->get();
+                                        @endphp
 
-                                                </div>
+                                        <section itemscope="" itemtype="https://schema.org/Person"
+                                            class="message-user ">
+                                            <div class="message-avatar ">
+                                                <div class="message-avatar-wrapper">
 
+                                                    <a class="avatar avatar--m avatar--default avatar--default--dynamic"
+                                                        data-user-id="19" data-xf-init="member-tooltip"
+                                                        style="background-color: {{ $user_item[0]->background_color ?? 'red' }}; color: #a7ffeb"
+                                                        id="js-XFUniqueId8">
+                                                        <span class="avatar-u19-m" role="img"
+                                                            aria-label="{{ $user_item[0]->username }}">@php
 
-
-
-                                            </div>
-
-
-
-
-
-                                            <div class="thThreads__message-userExtras">
-
-                                                <div class="message-userExtras">
-
-
-
-                                                    <dl class="pairs pairs--justified">
-
-                                                        <dt>
-                                                            <span data-xf-init="tooltip" data-original-title="Bài viết"
-                                                                aria-label="Bài viết" id="js-XFUniqueId10">
-                                                                <i class="fa--xf far fa-comments uix_icon uix_icon--messages"
-                                                                    aria-hidden="true"></i>
-                                                            </span>
-                                                        </dt>
-                                                        @php
-                                                            $countbl = DB::table('tbl_binh_luan')
-                                                                ->where('user_id', '=', $user_item[0]->id)
-                                                                ->get();
-                                                        @endphp
-                                                        <dd>{{ $countbl->count() }}</dd>
-                                                    </dl>
-
-
-
-                                                    <dl class="pairs pairs--justified">
-
-                                                        <dt>
-                                                            <span data-xf-init="tooltip" data-original-title="Thích"
-                                                                aria-label="Thích" id="js-XFUniqueId11">
-                                                                <i class="fa--xf far fa-thumbs-up uix_icon uix_icon--like"
-                                                                    aria-hidden="true"></i>
-                                                            </span>
-                                                        </dt>
-
-                                                        <dd>{{ $user_item[0]->uy_tin }}</dd>
-                                                    </dl>
-
-
-
-
-
-
-
-
-
-                                                </div>
-
-                                            </div>
-                                            <div class="thThreads__userExtra--toggle">
-                                                <span class="thThreads__userExtra--trigger"
-                                                    data-xf-click="ththreads-userextra-trigger"></span>
-                                            </div>
-
-
-
-                                        </div>
-                                        <span class="message-userArrow"></span>
-                                    </section>
-
-                                </div>
-
-
-
-                                <div class="message-cell message-cell--main">
-
-                                    <div class="message-main uix_messageContent js-quickEditTarget">
-
-
-
-
-                                        <header class="message-attribution message-attribution--split">
-                                            <ul class="message-attribution-main listInline ">
-
-                                                <li class="u-concealed">
-                                                    <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}"
-                                                        rel="nofollow">
-                                                        {{ $item->created_at }}
-                                                        <time class="u-dt"> @php
-                                                            $date2 = new DateTime($item->created_at);
-                                                        @endphp
-                                                            {{-- @include('pages.partials.time') --}}
-                                                        </time>
+                                                                $user_name = $user_item[0]->username;
+                                                                echo strtoupper(
+                                                                    substr($user_name, 0, -(strlen($user_name) - 1)),
+                                                                );
+                                                            @endphp</span>
                                                     </a>
-                                                </li>
 
 
-                                            </ul>
-
-                                        </header>
-
-
-
-                                        <div class="message-content js-messageContent">
-
-
-
-
-
+                                                </div>
+                                            </div>
+                                            <div class="uix_messagePostBitWrapper">
+                                                <div class="message-userDetails">
+                                                    <h4 class="message-name"><a class="username " dir="auto"
+                                                            data-user-id="19" data-xf-init="member-tooltip"
+                                                            itemprop="name"><span
+                                                                class="username--style{{ $user_name = $user_item[0]->rank }}">{{ $user_item[0]->username }}</span></a>
+                                                    </h4>
+                                                    <div class="star-ranks">
 
 
-
-
-
-
-
-
-                                            <div class="message-userContent lbContainer js-lbContainer "
-                                                data-lb-id="post-3741003"
-                                                data-lb-caption-desc="anhnamdinh123 · 23/6/24 lúc 17:49">
-
-
-
-                                                <article class="message-body js-selectToQuote">
-
-
-
-
-                                                    <div class="bbWrapper">
-                                                        @php
-                                                            echo htmlspecialchars_decode($item->noi_dung_danh_gia);
-                                                        @endphp
                                                     </div>
-                                                    <script>
-                                                        editor.getData()
-                                                    </script>
-
-                                                    <div class="js-selectToQuoteEnd">&nbsp;</div>
 
 
 
-                                                </article>
 
+                                                </div>
+
+
+
+
+
+                                                <div class="thThreads__message-userExtras">
+
+                                                    <div class="message-userExtras">
+
+
+
+                                                        <dl class="pairs pairs--justified">
+
+                                                            <dt>
+                                                                <span data-xf-init="tooltip"
+                                                                    data-original-title="Bài viết" aria-label="Bài viết"
+                                                                    id="js-XFUniqueId10">
+                                                                    <i class="fa--xf far fa-comments uix_icon uix_icon--messages"
+                                                                        aria-hidden="true"></i>
+                                                                </span>
+                                                            </dt>
+                                                            @php
+                                                                $countbl = DB::table('tbl_binh_luan')
+                                                                    ->where('user_id', '=', $user_item[0]->id)
+                                                                    ->get();
+                                                            @endphp
+                                                            <dd>{{ $countbl->count() }}</dd>
+                                                        </dl>
+
+
+
+                                                        <dl class="pairs pairs--justified">
+
+                                                            <dt>
+                                                                <span data-xf-init="tooltip" data-original-title="Thích"
+                                                                    aria-label="Thích" id="js-XFUniqueId11">
+                                                                    <i class="fa--xf far fa-thumbs-up uix_icon uix_icon--like"
+                                                                        aria-hidden="true"></i>
+                                                                    Uy tín
+                                                                </span>
+                                                            </dt>
+
+                                                            <dd>{{ $user_item[0]->uy_tin }}</dd>
+                                                        </dl>
+
+
+
+
+
+
+
+
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="thThreads__userExtra--toggle">
+                                                    <span class="thThreads__userExtra--trigger"
+                                                        data-xf-click="ththreads-userextra-trigger"></span>
+                                                </div>
 
 
 
                                             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                        </div>
-
-
-
-
+                                            <span class="message-userArrow"></span>
+                                        </section>
 
                                     </div>
 
 
+
+                                    <div class="message-cell message-cell--main">
+
+                                        <div class="message-main uix_messageContent js-quickEditTarget">
+
+
+
+
+                                            <header class="message-attribution message-attribution--split">
+                                                <ul class="message-attribution-main listInline ">
+
+                                                    <li class="u-concealed">
+                                                        <a href="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}"
+                                                            rel="nofollow">
+                                                            {{ $item->created_at }}
+                                                            <time class="u-dt"> @php
+                                                                $date2 = new DateTime($item->created_at);
+                                                            @endphp
+                                                                {{-- @include('pages.partials.time') --}}
+                                                            </time>
+                                                        </a>
+                                                    </li>
+
+
+                                                </ul>
+
+                                            </header>
+
+
+
+                                            <div class="message-content js-messageContent">
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                <div class="message-userContent lbContainer js-lbContainer "
+                                                    data-lb-id="post-3741003"
+                                                    data-lb-caption-desc="anhnamdinh123 · 23/6/24 lúc 17:49">
+
+
+
+                                                    <article class="message-body js-selectToQuote">
+
+
+
+
+                                                        <div class="bbWrapper">
+                                                            @php
+                                                                echo htmlspecialchars_decode($item->noi_dung_danh_gia);
+                                                            @endphp
+                                                        </div>
+                                                        <script>
+                                                            editor.getData()
+                                                        </script>
+
+                                                        <div class="js-selectToQuoteEnd">&nbsp;</div>
+
+
+
+                                                    </article>
+
+
+
+
+                                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            </div>
+
+
+
+
+
+                                        </div>
+
+
+                                    </div>
+
                                 </div>
 
-                            </div>
-
-                        </article>
+                            </article>
+                        @endif
                     @endforeach
+                    <br>
+                    <div class="block-outer">
+                        {{ $tbl_binh_luan->links('vendor.pagination.comment') }}
+                    </div>
                 @endif
 
 
@@ -656,7 +725,6 @@
 
 
             </div>
-
         </div>
         <div class="block-outer block-outer--after">
 
@@ -676,105 +744,105 @@
         </div>
         @if (Session::get('user_id'))
             <form action="/comment" method="post" class="block-outer block-outer--after block js-quickReply" ">
-                                                                                        @csrf
+                                                                                                                                                                                                        @csrf
 
-                                                                                        <div class="block-container">
-                                                                                            <div class="block-body">
-
-
+                                                                                                                                                                        <div class="block-container">
+                                                                                                                                                                            <div class="block-body">
 
 
 
-                                                                                                <div class="message message--quickReply block-topRadiusContent block-bottomRadiusContent">
-                                                                                                    <div class="message-inner">
-                                                                                                        <div class="message-cell message-cell--user">
-                                                                                                            <div class="message-user ">
-                                                                                                                <div class="message-avatar">
-                                                                                                                    <div class="message-avatar-wrapper">
 
 
-                                                                                                            <a class="avatar avatar--m avatar--default avatar--default--dynamic"
-                                                                                                                data-user-id="19" data-xf-init="member-tooltip"
-                                                                                                                style="background-color: {{ $user[0]->background_color ?? 'red' }}; color: #a7ffeb"
-                                                                                                                id="js-XFUniqueId8">
-                                                                                                                <span class="avatar-u19-m" role="img"
-                                                                                                                    aria-label="{{ $user[0]->username }}">@php
-
-                                                                                                                        $user_name =
-                                                                                                                            $user[0]
-                                                                                                                                ->username;
-                                                                                                                        echo strtoupper(
-                                                                                                                            substr(
-                                                                                                                                $user_name,
-                                                                                                                                0,
-                                                                                                                                -(
-                                                                                                                                    strlen(
-                                                                                                                                        $user_name,
-                                                                                                                                    ) -
-                                                                                                                                    1
-                                                                                                                                ),
-                                                                                                                            ),
-                                                                                                                        );
-                                                                                                                    @endphp</span>
-                                                                                                            </a>
-
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                <span class="message-userArrow"></span>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                        <div class="message-cell message-cell--main">
-                                                                                                            <div class="formButtonGroup ">
-                                                                                                                <div class="formButtonGroup-primary">
-                                                                                                                    <button type="submit"
-                                                                                                                        class="button--primary button button--icon button--icon--reply rippleButton"><span
-                                                                                                                            class="button-text">
-                                                                                                                            Gửi trả lời
-                                                                                                                        </span></button>
-                                                                                                                </div>
-
-                                                                                                                <div class="formButtonGroup-extra">
+                                                                                                                                                                                <div class="message message--quickReply block-topRadiusContent block-bottomRadiusContent">
+                                                                                                                                                                                    <div class="message-inner">
+                                                                                                                                                                                        <div class="message-cell message-cell--user">
+                                                                                                                                                                                            <div class="message-user ">
+                                                                                                                                                                                                <div class="message-avatar">
+                                                                                                                                                                                                    <div class="message-avatar-wrapper">
 
 
+                                                                                                                                                                                            <a class="avatar avatar--m avatar--default avatar--default--dynamic"
+                                                                                                                                                                                                data-user-id="19" data-xf-init="member-tooltip"
+                                                                                                                                                                                                style="background-color: {{ $user[0]->background_color ?? 'red' }}; color: #a7ffeb"
+                                                                                                                                                                                                id="js-XFUniqueId8">
+                                                                                                                                                                                                <span class="avatar-u19-m" role="img"
+                                                                                                                                                                                                    aria-label="{{ $user[0]->username }}">@php
 
-                                                                                                                    <textarea name="editor" id="editor" rows="10" cols="80">
+                                                                                                                                                                                                        $user_name =
+                                                                                                                                                                                                            $user[0]
+                                                                                                                                                                                                                ->username;
+                                                                                                                                                                                                        echo strtoupper(
+                                                                                                                                                                                                            substr(
+                                                                                                                                                                                                                $user_name,
+                                                                                                                                                                                                                0,
+                                                                                                                                                                                                                -(
+                                                                                                                                                                                                                    strlen(
+                                                                                                                                                                                                                        $user_name,
+                                                                                                                                                                                                                    ) -
+                                                                                                                                                                                                                    1
+                                                                                                                                                                                                                ),
+                                                                                                                                                                                                            ),
+                                                                                                                                                                                                        );
+                                                                                                                                                                                                    @endphp</span>
+                                                                                                                                                                                            </a>
+
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                                <span class="message-userArrow"></span>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                        </div>
+                                                                                                                                                                                        <div class="message-cell message-cell--main">
+                                                                                                                                                                                            <div class="formButtonGroup ">
+                                                                                                                                                                                                <div class="formButtonGroup-primary">
+                                                                                                                                                                                                    <button type="submit"
+                                                                                                                                                                                                        class="button--primary button button--icon button--icon--reply rippleButton"><span
+                                                                                                                                                                                                            class="button-text">
+                                                                                                                                                                                                            Gửi trả lời
+                                                                                                                                                                                                        </span></button>
+                                                                                                                                                                                                </div>
+
+                                                                                                                                                                                                <div class="formButtonGroup-extra">
+
+
+
+                                                                                                                                                                                                    <textarea name="editor" id="editor" rows="10" cols="80">
         
-</textarea>
-                                                                                                                 
+                                                                                                            </textarea>
+                                                                                                                                                                                                 
 
 
 
 
-                                                                                                                    <span class="js-attachButton"><a
-                                                                                                                            href="/attachments/upload?type=post&amp;context[thread_id]=127237&amp;hash=894e95fc5969b8acf9926bcb587b7463"
-                                                                                                                            class="button--link js-attachmentUpload button button--icon button--icon--attach rippleButton"
-                                                                                                                            target="_blank" data-accept="." data-chevereto-pup="sibling"><span
-                                                                                                                                class="button-text">Attach files</span></a><input type="file"
-                                                                                                                            multiple="multiple" accept="" title="Attach files"
-                                                                                                                            style="visibility: hidden; position: absolute; width: 1px; height: 1px; overflow: hidden; left: -1000px;"></span>
-                                                                                                                    <input type="hidden" name="attachment_hash"
-                                                                                                                        value="894e95fc5969b8acf9926bcb587b7463">
-                                                                                                                    <input type="hidden" name="attachment_hash_combined"
-                                                                                                                        value="{&quot;type&quot;:&quot;post&quot;,&quot;context&quot;:{&quot;thread_id&quot;:127237},&quot;hash&quot;:&quot;894e95fc5969b8acf9926bcb587b7463&quot;}">
+                                                                                                                                                                                                    <span class="js-attachButton"><a
+                                                                                                                                                                                                            href="/attachments/upload?type=post&amp;context[thread_id]=127237&amp;hash=894e95fc5969b8acf9926bcb587b7463"
+                                                                                                                                                                                                            class="button--link js-attachmentUpload button button--icon button--icon--attach rippleButton"
+                                                                                                                                                                                                            target="_blank" data-accept="." data-chevereto-pup="sibling"><span
+                                                                                                                                                                                                                class="button-text">Attach files</span></a><input type="file"
+                                                                                                                                                                                                            multiple="multiple" accept="" title="Attach files"
+                                                                                                                                                                                                            style="visibility: hidden; position: absolute; width: 1px; height: 1px; overflow: hidden; left: -1000px;"></span>
+                                                                                                                                                                                                    <input type="hidden" name="attachment_hash"
+                                                                                                                                                                                                        value="894e95fc5969b8acf9926bcb587b7463">
+                                                                                                                                                                                                    <input type="hidden" name="attachment_hash_combined"
+                                                                                                                                                                                                        value="{&quot;type&quot;:&quot;post&quot;,&quot;context&quot;:{&quot;thread_id&quot;:127237},&quot;hash&quot;:&quot;894e95fc5969b8acf9926bcb587b7463&quot;}">
 
 
 
 
 
-                                                                                                                </div>
+                                                                                                                                                                                                </div>
 
-                                                                                                               
-                                                                                                                <input type="hidden" name="post_id" value="{{ $post[0]->id }}">
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
+                                                                                                                                                                                               
+                                                                                                                                                                                                <input type="hidden" name="post_id" value="{{ $post[0]->id }}">
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                        </div>
+                                                                                                                                                                                    </div>
+                                                                                                                                                                                </div>
 
-                                                                                            </div>
-                                                                                        </div>
+                                                                                                                                                                            </div>
+                                                                                                                                                                        </div>
 
 
-                                                                                    </form>
+                                                                                                                                                                    </form>
      @endif
 
 

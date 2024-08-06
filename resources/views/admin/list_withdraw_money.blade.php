@@ -27,10 +27,11 @@
                     <thead>
                         <tr>
                             <th style="width:100px;">Thứ tự</th>
-                            <th>Tên mã giảm giá</th>
-                            <th>Mã giảm giá</th>
-                            <th>Số lượng giảm giá</th>
-                            <th>Điều kiện giảm giá</th>
+                            <th>Số tài khoản</th>
+                            <th>Tên ngân hàng</th>
+                            <th>Chủ sở hữu tài khoản ngân hàng</th>
+                            <th>Số tiền</th>
+                            <th>Trạng thái</th>
 
 
                         </tr>
@@ -46,6 +47,7 @@
                                 @endphp
                                 <td><i>{{ $i }}</i></td>
                                 <td>{{ $money->stk }}</td>
+                                <td>{{ $money->ten_ngan_hang }}</td>
                                 <td>{{ $money->ten_tai_khoan_ngan_hang }}</td>
                                 <td>{{ $money->so_tien }}</td>
                                 <td>

@@ -65,7 +65,7 @@
         }
     });
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{ asset('frontend/js/jquery.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/vendor-compiled.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/vendor-compiled-xf.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/notice.min.js') }}"></script>
@@ -384,7 +384,6 @@
 <script src="{{ asset('dang_tin/user/js/defer.min.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/deferNodesCollapse.min.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/deferWidthToggle.min.js') }}"></script>
-<script src="/js/themehouse/uix_dark/defer.min.js?_v=ff3a2254" defer=""></script>
 <script>
     jQuery.extend(XF.phrases, {
         // 
@@ -550,7 +549,7 @@
 
         $(".p-navgroup-link--logIn").click(function(event) {
             event.preventDefault();
-            $("#lock").toggleClass('is-active');
+            $("#dang_nhap").toggleClass('is-active');
         });
 
         $(".overlay-titleCloser.js-overlayClose").click(function() {
@@ -575,13 +574,12 @@
         $(document).ready(function() {
             $("#js-XFUniqueId7").remove();
             $('#list').select2({
-                placeholder: 'Nhãn',
+                placeholder: 'Chọn giá trị',
                 allowClear: true,
                 minimumResultsForSearch: Infinity,
                 multiple: true,
                 templateResult: formatState,
                 templateSelection: function(selection) {
-                    console.log(selection);
                     if (selection.selected) {
                         return $.parseHTML('<span class="label label--' + selection.element
                             .className + '">' + selection.text +
@@ -594,13 +592,12 @@
                 }
             });
             $('.create-thread select').select2({
-                placeholder: 'Nhãn',
+                placeholder: 'Chọn giá trị',
                 allowClear: true,
                 minimumResultsForSearch: Infinity,
                 multiple: true,
                 templateResult: formatState,
                 templateSelection: function(selection) {
-                    console.log(selection);
                     if (selection.selected) {
                         return $.parseHTML('<span class="label label--' + selection.element
                             .className + '">' + selection.text +
@@ -626,15 +623,8 @@
         });
     </script>
 @endif
-@if (Session::has('dki'))
-    <script>
-        $(document).ready(function() {
 
-            $("#dang_ki").toggleClass('is-active');
 
-        });
-    </script>
-@endif
 <script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
@@ -652,3 +642,187 @@
         }
     });
 </script>
+<script type="text/javascript">
+    $.ajax({
+        url: '/uy_tin',
+        data: {
+            action: 'test'
+        },
+        type: 'get',
+        success: function(output) {
+            $('#uy_tin').text(output[0].value);
+        }
+    });
+    $.ajax({
+        url: '/bai_viet',
+        data: {
+            action: 'test'
+        },
+        type: 'get',
+        success: function(output) {
+            $('#bai_viet').text(output[0].value);
+        }
+    });
+    // $.ajax({
+    //     url: '/dich_vu_su_dung',
+    //     data: {
+    //         action: 'test'
+    //     },
+    //     type: 'get',
+    //     success: function(output) {
+
+    //     }
+    // });
+</script>
+
+
+<script type="text/javascript">
+    $(window).load(function() {
+        document.querySelector('#danh_muc').addEventListener('input', function(e) {
+            var input = e.target,
+                list = input.getAttribute('list'),
+                options = document.querySelectorAll('#' + list + ' option'),
+                hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
+                inputValue = input.value;
+            hiddenInput.value = inputValue;
+            for (var i = 0; i < options.length; i++) {
+                var option = options[i];
+                console.log(option);
+
+                if (option.innerText.trim() == inputValue.trim()) {
+                    hiddenInput.value = option.getAttribute('data-value');
+
+                    break;
+
+                }
+            }
+
+        });
+
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(window).load(function() {
+        {!! $var = '0' !!}
+        document.querySelector('#tinhthanhpho').addEventListener('input', function(e) {
+            var input = e.target,
+                list = input.getAttribute('list'),
+                options = document.querySelectorAll('#' + list + ' option'),
+                hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
+                inputValue = input.value;
+
+            hiddenInput.value = inputValue;
+            for (var i = 0; i < options.length; i++) {
+                var option = options[i];
+                if (option.innerText.trim() == inputValue.trim()) {
+                    hiddenInput.value = option.getAttribute('data-value');
+                    document.cookie = "fbdata = " + option.getAttribute('data-value');
+                    break;
+                }
+            }
+
+        });
+
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(window).load(function() {
+        document.querySelector('#quanhuyen').addEventListener('input', function(e) {
+            var input = e.target,
+                list = input.getAttribute('list'),
+                options = document.querySelectorAll('#' + list + ' option'),
+                hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
+                inputValue = input.value;
+
+            hiddenInput.value = inputValue;
+
+            for (var i = 0; i < options.length; i++) {
+                var option = options[i];
+                if (option.innerText.trim() == inputValue.trim()) {
+                    hiddenInput.value = option.getAttribute('data-value');
+                    break;
+                }
+            }
+
+        });
+
+    });
+</script>
+
+@if (!empty(Session::get('post')))
+@php
+    $post = Session::get('post');
+    $danh_muc_item = DB::table('danh_muc')
+        ->where('id', $post[0]->danh_muc_id)
+        ->get();
+    $danh_muc = '';
+    if (!empty($danh_muc_item[0])) {
+        $danh_muc = $danh_muc_item[0]->ten_danh_muc;
+    }
+
+    $tinhthanhpho_item = DB::table('tbl_tinhthanhpho')
+        ->where('matp', $post[0]->tinh_id)
+        ->get();
+    $tinhthanhpho = '';
+    if (!empty($tinhthanhpho_item[0])) {
+        $tinhthanhpho = $tinhthanhpho_item[0]->name_city;
+    }
+
+    $quanhuyen_item = DB::table('tbl_quanhuyen')
+        ->where('maqh', $post[0]->huyen_id)
+        ->get();
+    $quanhuyen = '';
+    if (!empty($quanhuyen_item[0])) {
+        $quanhuyen = $quanhuyen_item[0]->name_quanhuyen;
+    }
+@endphp
+@endif
+
+@if (!empty(Session::get('post')))
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var nhan = {!! json_encode($post[0]->nhan) !!};
+            $("#nhan select").val(nhan);
+            var danh_muc_id = {!! json_encode($post[0]->danh_muc_id) !!};
+            var danh_muc = {!! json_encode($danh_muc) !!};
+            $("#danh_muc-hidden").val(danh_muc_id);
+            $("#danh_muc").val(danh_muc);
+
+            var tinhthanhpho_id = {!! json_encode($post[0]->tinh_id) !!};
+            var tinhthanhpho = {!! json_encode($tinhthanhpho) !!};
+            $("#tinhthanhpho-hidden").val(tinhthanhpho_id);
+            $("#tinhthanhpho").val(tinhthanhpho);
+
+            var quanhuyen_id = {!! json_encode($post[0]->huyen_id) !!};
+            var quanhuyen = {!! json_encode($quanhuyen) !!};
+            $("#quanhuyen-hidden").val(quanhuyen_id);
+            $("#quanhuyen").val(quanhuyen);
+
+            var tong_quat = {!! json_encode($post[0]->tong_quat) !!};
+            $("#tong_quat select").val(tong_quat);
+
+            var vong_1 = {!! json_encode($post[0]->vong_1) !!};
+            $("#vong_1 select").val(vong_1);
+            var vong_2 = {!! json_encode($post[0]->vong_2) !!};
+            $("#vong_2 select").val(vong_2);
+            console.log($("#vong_2 select"));
+
+            var vong_3 = {!! json_encode($post[0]->vong_3) !!};
+            $("#vong_3 select").val(vong_3);
+            var vong_4 = {!! json_encode($post[0]->vong_4) !!};
+            $("#vong_4 select").val(vong_4);
+            var phong_cach_phuc_vu = {!! json_encode($post[0]->phong_cach_phuc_vu) !!};
+            $("#phong_cach_phuc_vu select").val(phong_cach_phuc_vu);
+            var service = {!! json_encode($post[0]->service) !!};
+            $("#service select").val(service);
+            var cam_ket = {!! json_encode($post[0]->cam_ket) !!};
+            $("#cam_ket select").val(cam_ket);
+            var khong_cam_ket = {!! json_encode($post[0]->khong_cam_ket) !!};
+            $("#khong_cam_ket select").val(khong_cam_ket);
+        });
+    </script>
+@endif

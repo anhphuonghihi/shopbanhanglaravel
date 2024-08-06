@@ -58,6 +58,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="fa fa-bars"></div>
                 </div>
             </div>
+            
             <!--logo end-->
 
             <div class="top-nav clearfix">
@@ -181,6 +182,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/all-telegram') }}">Liệt kê telegram</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Ngân hàng</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/all-telegram') }}">Ngân hàng</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
