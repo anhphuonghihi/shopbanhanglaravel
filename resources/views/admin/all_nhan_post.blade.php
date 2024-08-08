@@ -11,7 +11,7 @@
                 <div class="col-sm-4">
                 </div>
                 <div class="col-sm-3">
-                    <form action="/all-category-post" method="get">
+                    <form action="/all-nhan-post" method="get">
                         <div class="input-group">
                             <input type="text" class="input-sm form-control" placeholder="Search" name='search'>
                             <span class="input-group-btn">
@@ -33,10 +33,8 @@
                     <thead>
                         <tr>
                             <th style="width:100px;">Thứ tự</th>
-                            <th>Tên danh mục</th>
-                            <th>Slug</th>
-                            <th>Hiển thị trên menu</th>
-                            <th>Hiển thị trên trang chủ</th>
+                            <th>Tên nhãn</th>
+                            <th>Màu nền</th>
                             <th style="width:100px;"></th>
                         </tr>
                     </thead>
@@ -44,52 +42,22 @@
                         @php
                             $i = 0;
                         @endphp
-                        @foreach ($all_category_post as $key => $cate_post)
+                        @foreach ($all_nhan_post as $key => $cate_post)
                             <tr>
                                 @php
                                     $i++;
                                 @endphp
                                 <td><i>{{ $i }}</i></td>
                                 </td>
-                                <td>{{ $cate_post->ten_danh_muc }}</td>
-                                <td>{{ $cate_post->danh_muc_slug }}</td>
-                                <td><span class="text-ellipsis">
-                                        <?php
-               if($cate_post->menu==1){
-                ?>
-                                        <a href="{{ URL::to('/unactive-category-menu/' . $cate_post->id) }}"><span
-                                                class="fa-thumb-styling fa fa-thumbs-up"></span></a>
-                                        <?php
-                 }else{
-                ?>
-                                        <a href="{{ URL::to('/active-category-menu/' . $cate_post->id) }}"><span
-                                                class="fa-thumb-styling fa fa-thumbs-down"></span></a>
-                                        <?php
-               }
-              ?>
-                                    </span></td>
-                                <td><span class="text-ellipsis">
-                                        <?php
-               if($cate_post->show_trang_chu==1){
-                ?>
-                                        <a href="{{ URL::to('/unactive-category-home/' . $cate_post->id) }}"><span
-                                                class="fa-thumb-styling fa fa-thumbs-up"></span></a>
-                                        <?php
-                 }else{
-                ?>
-                                        <a href="{{ URL::to('/active-category-home/' . $cate_post->id) }}"><span
-                                                class="fa-thumb-styling fa fa-thumbs-down"></span></a>
-                                        <?php
-               }
-              ?>
-                                    </span></td>
+                                <td>{{ $cate_post->name }}</td>
+                                <td>{{ $cate_post->color }}</td>
                                 <td>
 
-                                    <a href="{{ URL::to('/edit-category-post/' . $cate_post->id) }}"
+                                    <a href="{{ URL::to('/edit-nhan-post/' . $cate_post->id) }}"
                                         class="active styling-edit" ui-toggle-class="">
                                         <i class="fa fa-pencil-square-o text-success text-active"></i></a>
 
-                                    <form action="{{ URL::to('/delete-category-post/' . $cate_post->id) }}" method="get">
+                                    <form action="{{ URL::to('/delete-nhan-post/' . $cate_post->id) }}" method="get">
                                         @csrf
                                         <a class="active styling-edit" data-toggle="modal" data-target="#exampleModal{{ $i }}">
                                             <i class="fa fa-times text-danger text"></i>
@@ -102,7 +70,7 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel{{ $i }}">Bạn có chắc chắn
-                                                            danh mục này không</h5>
+                                                            xóa nhãn này không</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Đóng">
                                                             <span aria-hidden="true">&times;</span>
@@ -137,7 +105,7 @@
                     </div>
                     <div class="col-sm-7 text-right text-center-xs">
                         <ul class="pagination pagination-sm m-t-none m-b-none">
-                            {!! $all_category_post->links() !!}
+                            {!! $all_nhan_post->links() !!}
                         </ul>
                     </div>
                 </div>

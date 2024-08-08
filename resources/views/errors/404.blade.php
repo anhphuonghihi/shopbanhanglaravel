@@ -1,3 +1,6 @@
+@extends('admin_layout404')
+
+@section('content')
 <div class="p-body-main                             
 <div uix_component="MainContent" class="p-body-content">
     <!-- ABOVE MAIN CONTENT -->
@@ -31,3 +34,5 @@
     <!-- BELOW MAIN CONTENT -->
 </div>
 </div>
+
+@endsection

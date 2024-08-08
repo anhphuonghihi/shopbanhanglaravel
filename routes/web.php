@@ -111,55 +111,26 @@ Route::post('/change-rose','AdminController@rose_change');
 Route::get('/all-telegram','AdminController@telegram');
 Route::post('/change-telegram/{telegram_id}','AdminController@telegram_change');
 Route::post('/comment/{comment_id}','AdminController@edit_comments');
-//Cart
-Route::post('/update-cart-quantity','CartController@update_cart_quantity');
-Route::post('/update-cart','CartController@update_cart');
-Route::post('/save-cart','CartController@save_cart');
-Route::post('/add-cart-ajax','CartController@add_cart_ajax');
-Route::get('/show-cart','CartController@show_cart');
-Route::get('/gio-hang','CartController@gio_hang');
-Route::get('/delete-to-cart/{rowId}','CartController@delete_to_cart');
-Route::get('/del-product/{session_id}','CartController@delete_product');
-Route::get('/del-all-post','CartController@delete_all_product');
-
-//Checkout
-
-Route::get('/del-fee','CheckoutController@del_fee');
-
-Route::get('/logout-checkout','CheckoutController@logout_checkout');
-Route::post('/add-customer','CheckoutController@add_customer');
-Route::post('/order-place','CheckoutController@order_place');
-Route::post('/login-customer','CheckoutController@login_customer');
-Route::get('/checkout','CheckoutController@checkout');
-Route::get('/payment','CheckoutController@payment');
-Route::post('/save-checkout-customer','CheckoutController@save_checkout_customer');
-Route::post('/calculate-fee','CheckoutController@calculate_fee');
-Route::post('/select-delivery-home','CheckoutController@select_delivery_home');
-Route::post('/confirm-order','CheckoutController@confirm_order');
-
-//Order
-Route::get('/delete-order/{order_code}','OrderController@order_code');
-Route::get('/print-order/{checkout_code}','OrderController@print_order');
-Route::get('/manage-payment','AdminController@manage_payment');
-Route::get('/view-order/{order_code}','OrderController@view_order');
-Route::post('/update-order-qty','OrderController@update_order_qty');
-Route::post('/update-qty','OrderController@update_qty');
 
 
-//Delivery
-Route::get('/delivery','DeliveryController@delivery');
-Route::post('/select-delivery','DeliveryController@select_delivery');
-Route::post('/insert-delivery','DeliveryController@insert_delivery');
-Route::post('/select-feeship','DeliveryController@select_feeship');
-Route::post('/update-delivery','DeliveryController@update_delivery');
 
-//Banner
-Route::get('/manage-slider','SliderController@manage_slider');
-Route::get('/add-slider','SliderController@add_slider');
-Route::get('/delete-slide/{slide_id}','SliderController@delete_slide');
-Route::post('/insert-slider','SliderController@insert_slider');
-Route::get('/unactive-slide/{slide_id}','SliderController@unactive_slide');
-Route::get('/active-slide/{slide_id}','SliderController@active_slide');
+Route::get('/add-nhan-post','AdminController@add_nhan_product');
+Route::get('/edit-nhan-post/{nhan_post_id}','AdminController@edit_nhan_post');
+Route::get('/delete-nhan-post/{nhan_post_id}','AdminController@delete_nhan_post');
+Route::get('/all-nhan-post','AdminController@all_nhan_post');
+Route::post('/save-nhan-post','AdminController@save_nhan_post');
+Route::post('/update-nhan-post/{nhan_post_id}','AdminController@update_nhan_post');
+
+
+Route::get('/add-select-post','AdminController@add_select_product');
+Route::get('/edit-select-post/{select_post_id}','AdminController@edit_select_post');
+Route::get('/delete-select-post/{select_post_id}','AdminController@delete_select_post');
+Route::get('/all-select-post','AdminController@all_select_post');
+Route::post('/save-select-post','AdminController@save_select_post');
+Route::post('/update-select-post/{select_post_id}','AdminController@update_select_post');
+
+
+
 
 
 Route::get('/uy_tin','CategoryProduct@uy_tin' );
@@ -202,7 +173,7 @@ Route::get('/deposit-money','CategoryProduct@deposit_money');
 
 Route::get('/threads/{slug_post}','CategoryProduct@show_post');
 
-Route::get('/serve','CategoryProduct@serve');
+
 
 Route::get('/logout','CategoryProduct@logout');
 
@@ -232,8 +203,6 @@ Route::get('/lock','CategoryProduct@lock');
 Route::get('/withdraw','CategoryProduct@withdraw');
 
 Route::post('/withdraw-money-user','CategoryProduct@withdraw_money_user');
-
-Route::post('/serve-save','CategoryProduct@serve_post');
 
 Route::get('/dich_vu_su_dung','CategoryProduct@dich_vu_su_dung_new');
 

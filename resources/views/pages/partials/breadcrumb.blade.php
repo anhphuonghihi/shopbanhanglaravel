@@ -58,7 +58,7 @@
                     </li>
                 @else
                     <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
-                        <a href="/forums/#{{ $danh_muc_cha[0]->danh_muc_slug }}.{{ $danh_muc_cha[0]->id }}"
+                        <a href="/forums/{{ $danh_muc_cha[0]->danh_muc_slug }}.{{ $danh_muc_cha[0]->id }}"
                             itemprop="item">
 
                             <span itemprop="name">{{ $danh_muc_cha[0]->ten_danh_muc }}</span>

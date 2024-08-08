@@ -7,16 +7,10 @@
             </div>
             <div class="notice-content">
                 <img src="{{ asset('dang_tin/images/new.gif') }}">
-                <font color="red"><b>XCHECKERVIET.BIZ </b></font>là tên miền phụ khi checkerviet
-                không truy cập được. <br>
+                <font > Chào mừng bạn đến với website của chúng tôi <br>
                 <img src="{{ asset('dang_tin/images/new.gif') }}">
                 <font color="red"><a href="{{ $table_telegrams[$random_keys] }}">CLICK HERE</a></font> để
                 truy cập vào kênh telegram của diễn đàn. <br>
-                <img src="{{ asset('dang_tin/images/new.gif') }}"> CHÚ Ý: Cập nhật mới nhất v/v đăng ký nhà cung cấp tại
-                checkerviet<a
-                    href="/threads/quyet-dinh-ve-viec-dang-ky-nha-cung-cap-tai-checkerviet-org-nam-2021.71252/">
-                    <font color="red"><b> Xem thêm</b></font>
-                </a><br>
             </div>
         </div>
     </li>

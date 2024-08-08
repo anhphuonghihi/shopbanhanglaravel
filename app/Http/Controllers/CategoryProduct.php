@@ -91,24 +91,7 @@ class CategoryProduct extends Controller
         return Redirect::to('all-category-post');
     }
 
-    public function serve_post(Request $request){
-        $data = array();
-        $data['dich_vu_su_dung'] = 1;
-        $data['updated_at'] = now()->addMonth(1);
-        $user_id=Session::get('user_id');
-        $crr_users = DB::table('users')->where('id', '=', $user_id)->get();
-        $crr_tbl_dich_vu = DB::table('tbl_dich_vu')->where('id', '=', 3)->get();
-        $data['vi_tien'] = $crr_users[0]->vi_tien - $crr_tbl_dich_vu[0]->gia;
-        if ($data['vi_tien']>0) {
 
-            DB::table('users')->where('id',$user_id)->update($data);
-            Session::put('message','Đăng kí gói tháng thành công');
-            return redirect()->back();
-        }else{
-            Session::put('message','Bạn chưa đủ tiền');
-            return redirect()->back();
-        }
-    }
     public function dich_vu_su_dung_new(Request $request){
 
         $user_id=Session::get('user_id');
@@ -157,8 +140,8 @@ class CategoryProduct extends Controller
         
         $danh_muc = DB::table('danh_muc')->where('id', '=', $danh_muc_id)->get(); 
         
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title="";
         if($danh_muc){
             
@@ -223,8 +206,8 @@ class CategoryProduct extends Controller
         $sidebar_active='forums';
 
         
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $danh_muc = DB::table('tbl_quanhuyen')->where('maqh', '=', $huyen_id)->get(); 
 
         $meta_title = $danh_muc[0]->name_quanhuyen;
@@ -252,9 +235,9 @@ class CategoryProduct extends Controller
 
     public function whats_new(Request $request){
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
-        $meta_title = "Đăng kí";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
+        $meta_title = "Có gì mới?";
         $url_canonical = $request->url();
         $sidebar_active='new-post';
         $post = DB::table('tbl_post')->orderBy('created_at', 'desc')->paginate(10); 
@@ -264,8 +247,8 @@ class CategoryProduct extends Controller
     
     public function news_post(Request $request){
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
         $sidebar_active='new-post';
@@ -275,8 +258,8 @@ class CategoryProduct extends Controller
     }
     public function delete(Request $request,$slug_post){
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
         $sidebar_active='new-post';
@@ -289,8 +272,8 @@ class CategoryProduct extends Controller
         
     public function search(Request $request){
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
         $sidebar_active='forums';
@@ -300,8 +283,8 @@ class CategoryProduct extends Controller
 
     public function search_result(Request $request){
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Tìm kiếm";
         $url_canonical = $request->url();
         $sidebar_active='forums';
@@ -312,8 +295,8 @@ class CategoryProduct extends Controller
     }
     public function account(Request $request){
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
         $sidebar_active='home';
@@ -344,8 +327,8 @@ class CategoryProduct extends Controller
 
     public function referral(Request $request){
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
         $sidebar_active='home';
@@ -356,8 +339,8 @@ class CategoryProduct extends Controller
     
     public function deposit_money(Request $request){
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
         $sidebar_active='home';
@@ -365,21 +348,12 @@ class CategoryProduct extends Controller
         //--seo
     }
     
-    public function serve(Request $request){
-        //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
-        $meta_title = "Bài viết mới";
-        $url_canonical = $request->url();
-        $sidebar_active='home';
-        return view('pages.serve')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
-        //--seo
-    }
+
 
     public function withdraw(Request $request){
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
         $sidebar_active='home';
@@ -393,8 +367,8 @@ class CategoryProduct extends Controller
         $post_id =  substr($slug_post,$number+1);
 
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
         $post_header = "true";
@@ -414,8 +388,8 @@ class CategoryProduct extends Controller
     
     public function latest_activity(Request $request){
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Hoạt động mới nhất";
         $url_canonical = $request->url();
         
@@ -524,8 +498,6 @@ class CategoryProduct extends Controller
         $data['danh_muc_id'] = $request->danh_muc_id;
         $user_id=Session::get('user_id');
         $data['user_id'] = $user_id;
-        $data['tinh_id'] = $request->tinhthanhpho_id;
-        $data['huyen_id'] = $request->quanhuyen_id;
         $data['nghe_danh'] = $request->nghe_danh;
         $data['gia'] = $request->gia_di_khach;
         $data['so_dien_thoai'] = $request->so_dien_thoai;
@@ -591,8 +563,7 @@ class CategoryProduct extends Controller
         $data['danh_muc_id'] = $request->danh_muc_id;
         $user_id=Session::get('user_id');
         $data['user_id'] = $user_id;
-        $data['tinh_id'] = $request->tinhthanhpho_id;
-        $data['huyen_id'] = $request->quanhuyen_id;
+
         $data['nghe_danh'] = $request->nghe_danh;
         $data['gia'] = $request->gia_di_khach;
         $data['so_dien_thoai'] = $request->so_dien_thoai;
@@ -656,8 +627,8 @@ class CategoryProduct extends Controller
     
     public function view_create_post(Request $request){
         
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
       
@@ -669,8 +640,8 @@ class CategoryProduct extends Controller
 
     public function lock(Request $request){
         
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
       
@@ -685,8 +656,8 @@ class CategoryProduct extends Controller
         $number = strripos($slug_post,".");
         $post_id =  substr($slug_post,$number+1);
         
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Bài viết mới";
         $url_canonical = $request->url();
         $post = DB::table('tbl_post')->where('id', '=', $post_id)->get();
@@ -713,8 +684,8 @@ class CategoryProduct extends Controller
     public function view_edit_post(Request $request,$slug_post){
         $number = strripos($slug_post,".");
         $post_id =  substr($slug_post,$number+1);
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Sửa bài viết";
         $url_canonical = $request->url();
       

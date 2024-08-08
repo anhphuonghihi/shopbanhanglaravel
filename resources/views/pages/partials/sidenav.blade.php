@@ -23,9 +23,6 @@
                                 <a class="blockLink  rippleButton" href="/deposit-money">
                                     Nạp tiền
                                 </a>
-                                <a class="blockLink  rippleButton" href="/serve">
-                                    Dịch vụ
-                                </a>
                                 <a class="blockLink  rippleButton" href="/withdraw">
                                     Rút tiền
                                 </a>

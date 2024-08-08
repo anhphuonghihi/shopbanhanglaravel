@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    Thêm danh mục sản phẩm
+                    Thêm danh mục bài viết
                 </header>
                 <?php
                 $message = Session::get('message');
@@ -33,7 +33,7 @@
                                     placeholder="Tên danh mục">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Danh mục cha</label>
+                                <label for="exampleInputPassword1">Khu vực cha</label>
 
                                 <input list="suggestionList" id="answerInput" class="form-control input-sm m-bot15">
                                 <datalist id="suggestionList">

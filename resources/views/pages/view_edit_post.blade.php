@@ -106,13 +106,13 @@
                     <div class="formRow formRow--input" id="danh_muc_id">
                         <dt>
                             <div class="formRow-labelWrapper">
-                                <label for="exampleInputPassword1">Danh mục</label>
+                                <label for="exampleInputPassword1">Khu vực</label>
                             </div>
                         </dt>
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input list="suggestionList" id="danh_muc" class="input" placeholder="Danh mục">
+                                    <input list="suggestionList" id="danh_muc" class="input" placeholder="Khu vực">
                                     <datalist id="suggestionList">
                                         @php
                                             $danh_muc = DB::table('danh_muc')->get();
@@ -129,64 +129,6 @@
 
 
                     </div>
-                    <div class="formRow formRow--input">
-                        <dt>
-                            <div class="formRow-labelWrapper">
-                                <label for="exampleInputPassword1">Tỉnh/Thành phố</label>
-                            </div>
-                        </dt>
-                        <dd>
-                            <div>
-                                <div class="inputGroup inputGroup--joined">
-                                    <input list="tinhthanhpho_list" id="tinhthanhpho" class="input"
-                                        placeholder="Tỉnh/Thành phố">
-                                    <datalist id="tinhthanhpho_list">
-                                        @php
-                                            $tinhthanhpho = DB::table('tbl_tinhthanhpho')->get();
-                                        @endphp
-                                        @foreach ($tinhthanhpho as $key => $tinhthanhpho_item)
-                                            <option data-value="{{ $tinhthanhpho_item->matp }}">
-                                                {{ $tinhthanhpho_item->name_city }}
-                                            </option>
-                                        @endforeach
-                                    </datalist>
-                                    <input type="hidden" id="tinhthanhpho-hidden" name="tinhthanhpho_id" class="input">
-                                </div>
-                            </div>
-                        </dd>
-                    </div>
-                    <div class="formRow formRow--input">
-                        <dt>
-                            <div class="formRow-labelWrapper">
-                                <label for="exampleInputPassword1">Quận huyện</label>
-                            </div>
-                        </dt>
-                        <dd>
-                            <div>
-                                <div class="inputGroup inputGroup--joined">
-                                    <input list="quanhuyen_list" id="quanhuyen" class="input" placeholder="Quận huyện">
-                                    <datalist id="quanhuyen_list">
-                                        @php
-                                            $quanhuyen = [];
-                                            if (isset($_COOKIE['fbdata'])) {
-                                                $quanhuyen = DB::table('tbl_quanhuyen')
-                                                    ->where('matp', $_COOKIE['fbdata'])
-                                                    ->get();
-                                            } else {
-                                            }
-                                        @endphp
-                                        @foreach ($quanhuyen as $key => $quanhuyen_item)
-                                            <option data-value="{{ $quanhuyen_item->maqh }}">
-                                                {{ $quanhuyen_item->name_quanhuyen }}
-                                            </option>
-                                        @endforeach
-                                    </datalist>
-                                    <input type="hidden" id="quanhuyen-hidden" name="quanhuyen_id" class="input">
-                                </div>
-                            </div>
-                        </dd>
-
-                    </div>
                     <dl class="formRow formRow--input">
                         <dt>
                             <div class="formRow-labelWrapper">
@@ -196,8 +138,8 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="nghe_danh" value="{{ $post[0]->nghe_danh }}"
-                                        class="input" placeholder="Nghệ danh">
+                                    <input type="text" name="nghe_danh" value="{{ $post[0]->nghe_danh }}" class="input"
+                                        placeholder="Nghệ danh">
                                 </div>
                             </div>
                         </dd>
@@ -211,8 +153,8 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="gia_di_khach" value="{{ $post[0]->gia }}"
-                                        class="input" placeholder="Giá đi khách">
+                                    <input type="text" name="gia_di_khach" value="{{ $post[0]->gia }}" class="input"
+                                        placeholder="Giá đi khách">
                                 </div>
                             </div>
                         </dd>
@@ -532,7 +474,7 @@
                                 </div>
 
                             </div>
-                    </dd>
+                        </dd>
                     </dl>
                     <dl class="formRow formRow--input" id="cam_ket">
                         <dt>

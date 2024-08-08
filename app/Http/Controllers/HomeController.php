@@ -15,9 +15,9 @@ session_start();
 class HomeController extends BaseController 
 {
     public function error_page(){
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
-        $meta_title = "Phụ kiện,máy chơi game chính hãng";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
+        $meta_title = "Dịch vụ gái gọi";
         $url_canonical = $request->url();
         //--seo
 
@@ -51,9 +51,9 @@ class HomeController extends BaseController
         //slide
         $slider = Slider::orderBy('slider_id','DESC')->where('slider_status','1')->take(4)->get();
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
-        $meta_title = "Phụ kiện,máy chơi game chính hãng";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
+        $meta_title = "Dịch vụ gái gọi";
         $url_canonical = $request->url();
         //--seo
         
@@ -94,8 +94,8 @@ class HomeController extends BaseController
     public function forums(Request $request){
 
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Danh sách diễn đàn";
         $url_canonical = $request->url();
         //--seo
@@ -112,8 +112,8 @@ class HomeController extends BaseController
     public function address(Request $request){
 
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Danh sách diễn đàn";
         $url_canonical = $request->url();
         //--seo
@@ -130,8 +130,8 @@ class HomeController extends BaseController
     public function trang_chu(Request $request){
 
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Trang chủ";
         $url_canonical = $request->url();
         //--seo

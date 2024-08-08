@@ -3,7 +3,7 @@
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Đổi mật khẩu
+                Hoa hồng
             </div>
             <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
@@ -60,7 +60,7 @@
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">
                                                     Bạn có chắc chắn
-                                                    đánh giá bình luận này không không</h5>
+                                                    đổi tỉ lệ hoa hồng không này không không</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Đóng">
                                                     <span aria-hidden="true">&times;</span>

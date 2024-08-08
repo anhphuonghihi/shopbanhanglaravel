@@ -42,7 +42,7 @@
                             <th>Slug</th>
 
                             <th>Hình sản phẩm</th>
-                            <th>Danh mục</th>
+                            <th>Khu vực</th>
 
 
                             <th style="width:100px;"></th>
@@ -68,7 +68,9 @@
                                         title="" width="" height="" loading="lazy">
                                 </td>
                                 @php
-                                    $danh_muc_item = DB::table('danh_muc')->where('id', $pro->danh_muc_id)->get();
+                                    $danh_muc_item = DB::table('danh_muc')
+                                        ->where('id', $pro->danh_muc_id)
+                                        ->get();
                                 @endphp
                                 <td>{{ $danh_muc_item[0]->ten_danh_muc }}</td>
 

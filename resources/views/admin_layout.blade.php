@@ -58,7 +58,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="fa fa-bars"></div>
                 </div>
             </div>
-            
+
             <!--logo end-->
 
             <div class="top-nav clearfix">
@@ -130,7 +130,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>Danh mục bài viết</span>
+                                <span>Khu vực bài viết</span>
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/add-category-post') }}">Thêm danh mục bài viết</a></li>
@@ -143,9 +143,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Bài viết</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-product') }}">Thêm bài viết</a></li>
+                                <li><a href="{{ URL::to('/add-nhan-post') }}">Thêm nhãn</a></li>
+                                <li><a href="{{ URL::to('/all-nhan-post') }}">Liệt kê nhãn</a></li>
+                                <li><a href="{{ URL::to('/add-select-post') }}">Thêm lựa chọn</a></li>
+                                <li><a href="{{ URL::to('/all-select-post') }}">Liệt kê lựa chọn</a></li>
                                 <li><a href="{{ URL::to('/all-post') }}">Liệt kê bài viết</a></li>
-
                             </ul>
                         </li>
                         <li class="sub-menu">

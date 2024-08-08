@@ -64,27 +64,23 @@
 
             @php
                 $nhan = $stiky_post_item->nhan;
-                $listnhan = explode(',', $nhan, -1);
+                $listnhan = explode(',', $nhan);
             @endphp
-            @foreach ($listnhan as $key => $listnhan_item)
-                @php
-                    $nhan = DB::table('tbl_tag')
-                        ->where('name', '=', $listnhan_item)
-                        ->where('la_label', '=', '1')
-                        ->get();
-                @endphp
-                <a href="/threads/{{ $stiky_post_item->post_slug }}.{{ $stiky_post_item->id }}" class="labelLink"
-                    rel="nofollow"></a><a
-                    href="/threads/{{ $stiky_post_item->post_slug }}.{{ $stiky_post_item->id }}?nhan={{ $nhan[0]->id }}"
-                    class="labelLink" rel="nofollow"><span
-                        class="label label--@php if($nhan->count()>0){
-                            echo $nhan[0]->color;
-                        } else{
-                            echo 'green';
-                        } @endphp"
+            <a href="/threads/{{ $stiky_post_item->post_slug }}.{{ $stiky_post_item->id }}" class="labelLink" rel="nofollow">
+                @foreach ($listnhan as $key => $listnhan_item)
+                    <span
+                        class="label label--@php $nhan = DB::table('tbl_tag')->where('name', '=', $listnhan_item)->where('la_label', '=', '1')->get(); 
+        if($nhan->count()>0){
+            echo $nhan[0]->color;
+        } else{
+            echo 'green';
+        } @endphp"
                         dir="auto">
-                        {{ $listnhan_item }}</span></a><span class="label-append">&nbsp;</span>
-            @endforeach
+                        {{ $listnhan_item }}
+                    </span>
+                @endforeach
+            </a>
+
 
             <a href="/threads/{{ $stiky_post_item->post_slug }}.{{ $stiky_post_item->id }}" class=""
                 data-tp-primary="on" data-xf-init="preview-tooltip"

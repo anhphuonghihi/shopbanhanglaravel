@@ -37,7 +37,7 @@
                                         value="{{ $edit_value->ten_danh_muc }}" placeholder="Tên danh mục">
                                 </div>
                                 <div class="form-group" id="id_danh_muc_cha">
-                                    <label for="exampleInputPassword1">Danh mục cha</label>
+                                    <label for="exampleInputPassword1">Khu vực cha</label>
 
                                     <input list="suggestionList" id="answerInput" class="form-control input-sm m-bot15"
                                         required>

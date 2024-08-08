@@ -49,7 +49,7 @@
 
                                         @php
                                             $nhan = $item->nhan;
-                                            $listnhan = explode(',', $nhan, -1);
+                                            $listnhan = explode(',', $nhan);
                                         @endphp
                                         @foreach ($listnhan as $key => $listnhan_item)
                                             @php
@@ -155,8 +155,8 @@
                                                 data-user-id="475821"
                                                 data-xf-init="member-tooltip"style="background-color: {{ $user_bl[0]->background_color ?? 'red' }}; color: #b9f6ca"
                                                 id="js-XFUniqueId149">
-                                                <span class="avatar-u475821-s" role="img"
-                                                    aria-label="Little bird_ckv"> @php
+                                                <span class="avatar-u475821-s" role="img" aria-label="Little bird_ckv">
+                                                    @php
 
                                                         $user_name = $user_bl[0]->username;
                                                         echo strtoupper(

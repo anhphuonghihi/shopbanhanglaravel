@@ -754,53 +754,32 @@
 </script>
 
 @if (!empty(Session::get('post')))
-@php
-    $post = Session::get('post');
-    $danh_muc_item = DB::table('danh_muc')
-        ->where('id', $post[0]->danh_muc_id)
-        ->get();
-    $danh_muc = '';
-    if (!empty($danh_muc_item[0])) {
-        $danh_muc = $danh_muc_item[0]->ten_danh_muc;
-    }
-
-    $tinhthanhpho_item = DB::table('tbl_tinhthanhpho')
-        ->where('matp', $post[0]->tinh_id)
-        ->get();
-    $tinhthanhpho = '';
-    if (!empty($tinhthanhpho_item[0])) {
-        $tinhthanhpho = $tinhthanhpho_item[0]->name_city;
-    }
-
-    $quanhuyen_item = DB::table('tbl_quanhuyen')
-        ->where('maqh', $post[0]->huyen_id)
-        ->get();
-    $quanhuyen = '';
-    if (!empty($quanhuyen_item[0])) {
-        $quanhuyen = $quanhuyen_item[0]->name_quanhuyen;
-    }
-@endphp
+    @php
+        $post = Session::get('post');
+        $danh_muc_item = DB::table('danh_muc')
+            ->where('id', $post[0]->danh_muc_id)
+            ->get();
+        $danh_muc = '';
+        if (!empty($danh_muc_item[0])) {
+            $danh_muc = $danh_muc_item[0]->ten_danh_muc;
+        }
+        var_dump($post[0]->nhan);
+    @endphp
 @endif
 
 @if (!empty(Session::get('post')))
     <script type="text/javascript">
         $(document).ready(function() {
             var nhan = {!! json_encode($post[0]->nhan) !!};
+            console.log(nhan);
+            
             $("#nhan select").val(nhan);
+
             var danh_muc_id = {!! json_encode($post[0]->danh_muc_id) !!};
             var danh_muc = {!! json_encode($danh_muc) !!};
             $("#danh_muc-hidden").val(danh_muc_id);
             $("#danh_muc").val(danh_muc);
 
-            var tinhthanhpho_id = {!! json_encode($post[0]->tinh_id) !!};
-            var tinhthanhpho = {!! json_encode($tinhthanhpho) !!};
-            $("#tinhthanhpho-hidden").val(tinhthanhpho_id);
-            $("#tinhthanhpho").val(tinhthanhpho);
-
-            var quanhuyen_id = {!! json_encode($post[0]->huyen_id) !!};
-            var quanhuyen = {!! json_encode($quanhuyen) !!};
-            $("#quanhuyen-hidden").val(quanhuyen_id);
-            $("#quanhuyen").val(quanhuyen);
 
             var tong_quat = {!! json_encode($post[0]->tong_quat) !!};
             $("#tong_quat select").val(tong_quat);

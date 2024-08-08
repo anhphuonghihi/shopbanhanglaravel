@@ -48,8 +48,8 @@ class LoginController extends Controller
     }
     public function register_user_show(Request $request)
     {
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Có gì mới?";
         $url_canonical = $request->url();
         $sidebar_active='new-post';

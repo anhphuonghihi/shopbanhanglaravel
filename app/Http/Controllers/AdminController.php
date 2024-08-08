@@ -347,7 +347,7 @@ return Redirect::to('/all-service');
     public function delete_category_post($category_post_id){
         $this->AuthLogin();
         DB::table('danh_muc')->where('id',$category_post_id)->delete();
-        Session::put('message','Xóa danh mục sản phẩm thành công');
+        Session::put('message','Xóa danh mục bài viết thành công');
         return Redirect::to('all-category-post');
     }
     
@@ -361,13 +361,13 @@ return Redirect::to('/all-service');
         $data['description'] = $request->description;
         $data['icon'] = $request->icon;
         $data['new'] = $request->new;
-        $data['id_danh_muc_cha'] = $request->id_danh_muc_cha;
+        $data['id_danh_muc_cha'] = $request->id_danh_muc_cha ?? 0;
         $data['menu'] = $request->menu;
         $data['icon_menu'] = $request->icon_menu;
         $data['mau_chu_menu'] = $request->mau_chu_menu;
         $data['show_trang_chu'] = $request->show_trang_chu;
     	 DB::table('danh_muc')->insert($data);
-    	Session::put('message','Thêm danh mục sản phẩm thành công');
+    	Session::put('message','Thêm danh mục bài viết thành công');
     	return Redirect::to('all-category-post');
     }
     public function update_category_post(Request $request,$category_post_id){
@@ -386,7 +386,7 @@ return Redirect::to('/all-service');
         $data['show_trang_chu'] = $request->show_trang_chu;
         
         DB::table('danh_muc')->where('id',$category_post_id)->update($data);
-        Session::put('message','Cập nhật danh mục sản phẩm thành công');
+        Session::put('message','Cập nhật danh mục bài viết thành công');
         return Redirect::to('all-category-post');
     }
 
@@ -445,5 +445,122 @@ return Redirect::to('/all-service');
         DB::table('table_telegram')->where('id', '=',$request->telegram_id)->update(['link'=>$request->number_telegram]);
         return redirect()->back()->with("success","Thay đổi đường dẫn telegram thành công");
     }
+ 
+    
+    public function add_nhan_product(){
+        $this->AuthLogin();         
+        return view('admin.add_nhan_product');
+
+    }
+
+    public function edit_nhan_post($nhan_post_id){
+        $this->AuthLogin();
+        $tbl_tag_item=DB::table('tbl_tag')->where('id',$nhan_post_id)->get();   
+        return view('admin.edit_nhan_product')->with(compact('tbl_tag_item'))->with(compact('nhan_post_id'));
+    }
+    public function delete_nhan_post($nhan_post_id){
+        $this->AuthLogin();
+        DB::table('tbl_tag')->where('id',$nhan_post_id)->delete();
+        Session::put('message','Xóa nhãn bài viết thành công');
+        return Redirect::to('all-nhan-post');
+    }
+
+    public function all_nhan_post(Request $request){
+        $this->AuthLogin();
+        $search = $request->input('search');
+    	$all_nhan_post = DB::table('tbl_tag')->where('la_label',1)->where('name', 'LIKE', "%{$search}%")->paginate(20);
+        return view('admin.all_nhan_post')->with(compact('all_nhan_post'));
+    }
+    
+    public function save_nhan_post(Request $request){
+        $this->AuthLogin();
+    	$data = array();
+
+        $all_nhan_post = DB::table('tbl_tag')->where('name',$request->name)->get();
+        if ($all_nhan_post->count() > 0) {
+            Session::put('message','Nhãn đã tồn tại thành công');
+            return Redirect::to('all-nhan-post');
+        }
+    	$data['name'] = $request->name;
+    	$data['color'] = $request->color;
+        $data['la_label'] = 1;
+    	DB::table('tbl_tag')->insert($data);
+    	Session::put('message','Thêm nhãn bài viết thành công');
+    	return Redirect::to('all-nhan-post');
+    }
+    
+    public function update_nhan_post(Request $request,$nhan_post_id){
+        $this->AuthLogin();
+        $data = array();
+        $all_nhan_post = DB::table('tbl_tag')->where('name',$request->name)->get();
+        if ($all_nhan_post->count() > 0) {
+            Session::put('message','Nhãn đã tồn tại thành công');
+            return Redirect::to('all-nhan-post');
+        }
+    	$data['name'] = $request->name;
+    	$data['color'] = $request->color;
+        $data['la_label'] = 1;
+        
+        DB::table('tbl_tag')->where('id',$nhan_post_id)->update($data);
+        Session::put('message','Cập nhật nhãn bài viết thành công');
+        return Redirect::to('all-nhan-post');
+    }
+
+    public function edit_select_post($select_post_id){
+        $this->AuthLogin();
+        $tbl_select_item=DB::table('tbl_select')->where('id',$select_post_id)->get();   
+        return view('admin.edit_select_product')->with(compact('tbl_select_item'))->with(compact('select_post_id'));
+    }
+    public function delete_select_post($select_post_id){
+        $this->AuthLogin();
+        DB::table('tbl_select')->where('id',$select_post_id)->delete();
+        Session::put('message','Xóa lựa chọn bài viết thành công');
+        return Redirect::to('all-select-post');
+    }
+    public function add_select_product(){
+        $this->AuthLogin();         
+        return view('admin.add_select_product');
+
+    }
+    public function all_select_post(Request $request){
+        $this->AuthLogin();
+        $search = $request->input('search');
+    	$all_select_post = DB::table('tbl_select')->where('name', 'LIKE', "%{$search}%")->paginate(20);
+        return view('admin.all_select_post')->with(compact('all_select_post'));
+    }
+    
+    public function save_select_post(Request $request){
+        $this->AuthLogin();
+    	$data = array();
+        $all_nhan_post = DB::table('tbl_select')->where('loai',$request->loai)->where('name',$request->name)->get();
+        if ($all_nhan_post->count() > 0) {
+            Session::put('message','Nhãn đã tồn tại thành công');
+            return Redirect::to('all-select-post');
+        }
+    	$data['name'] = $request->name;
+    	$data['color'] = $request->color;
+        $data['loai'] =  $request->loai;
+        DB::table('tbl_select')->insert($data);
+    	Session::put('message','Thêm lựa chọn bài viết thành công');
+    	return Redirect::to('all-select-post');
+    }
+    
+    public function update_select_post(Request $request,$select_post_id){
+        $this->AuthLogin();
+        $data = array();
+        $all_nhan_post = DB::table('tbl_select')->where('loai',$request->loai)->where('name',$request->name)->get();
+        if ($all_nhan_post->count() > 0) {
+            Session::put('message','Nhãn đã tồn tại thành công');
+            return Redirect::to('all-select-post');
+        }
+    	$data['name'] = $request->name;
+    	$data['color'] = $request->color;
+        $data['loai'] =  $request->loai;
+        
+        DB::table('tbl_select')->where('id',$select_post_id)->update($data);
+        Session::put('message','Cập nhật lựa chọn bài viết thành công');
+        return Redirect::to('all-select-post');
+    }
+    
     
 }

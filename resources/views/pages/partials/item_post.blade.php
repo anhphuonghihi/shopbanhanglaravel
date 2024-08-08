@@ -14,7 +14,7 @@
         <div class="contentRow-main contentRow-main--close">
             @php
                 $nhan = $item->nhan;
-                $listnhan = explode(',', $nhan, -1);
+                $listnhan = explode(',', $nhan);
             @endphp
             <a href="/threads/dau-xinh-2k5-_-so-1-ve-ngoan-va-ngon-va-dang-yeu-_-nen-can-anh-em-duoc-bao-ton.128357/">
                 @foreach ($listnhan as $key => $listnhan_item)
@@ -41,7 +41,7 @@
                 $danh_muc = DB::table('danh_muc')
                     ->where('id', '=', $item->danh_muc_id)
                     ->get();
-                $listnhan = explode(',', $nhan, -1);
+                $listnhan = explode(',', $nhan);
             @endphp
             <div class="contentRow-minor contentRow-minor--hideLinks">
                 <a href="/forums/gai-goi-tran-duy-hung-lang.134/">{{ $danh_muc[0]->ten_danh_muc }}</a>

@@ -3,7 +3,7 @@
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Liệt kê dịch vụ
+                Liệt kê hạng
             </div>
             <div class="row w3-res-tb">
                 <div class="col-sm-11">
@@ -23,8 +23,8 @@
                     <thead>
                         <tr>
                             <th style="width:100px;">Thứ tự</th>
-                            <th>Tên dịch vụ</th>
-                            <th>Giá tiền</th>
+                            <th>Tên hạng</th>
+                            <th>Màu</th>
                             <th>Điểm uy tín cần để lên rank</th>
                             <th>Giới hạn cao nhất</th>
                             <th style="width:100px;"></th>

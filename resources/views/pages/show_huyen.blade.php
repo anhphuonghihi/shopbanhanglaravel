@@ -81,7 +81,7 @@
 
                                                         @php
                                                             $nhan = $item->nhan;
-                                                            $listnhan = explode(',', $nhan, -1);
+                                                            $listnhan = explode(',', $nhan);
                                                         @endphp
                                                         @foreach ($listnhan as $key => $listnhan_item)
                                                             @php
@@ -263,7 +263,7 @@
 
                                             @php
                                                 $nhan = $item->nhan;
-                                                $listnhan = explode(',', $nhan, -1);
+                                                $listnhan = explode(',', $nhan);
                                             @endphp
                                             @foreach ($listnhan as $key => $listnhan_item)
                                                 @php
