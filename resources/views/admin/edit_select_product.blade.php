@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    Cập nhật lựa chon bài viết
+                    Cập nhật lựa chọn bài viết
                 </header>
                 <?php
                 $message = Session::get('message');
@@ -20,9 +20,9 @@
                             <form role="form" action="{{ URL::to('/update-select-post/' . $edit_value->id) }}" method="post">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Tên lựa chon</label>
+                                    <label for="exampleInputEmail1">Tên lựa chọn</label>
                                     <input type="text" class="form-control" name="name" id="slug"
-                                        placeholder="lựa chon" required value="{{ $edit_value->name }}">
+                                        placeholder="Lựa chọn" required value="{{ $edit_value->name }}">
                                 </div>
                                 <div class="form-group" id="color">
                                     <label for="exampleInputEmail1">Màu nền</label>

@@ -64,9 +64,10 @@
 
             @php
                 $nhan = $stiky_post_item->nhan;
-                $listnhan = explode(',', $nhan);
+                $listnhan = explode(', ', $nhan);
             @endphp
-            <a href="/threads/{{ $stiky_post_item->post_slug }}.{{ $stiky_post_item->id }}" class="labelLink" rel="nofollow">
+            <a href="/threads/{{ $stiky_post_item->post_slug }}.{{ $stiky_post_item->id }}" class="labelLink"
+                rel="nofollow">
                 @foreach ($listnhan as $key => $listnhan_item)
                     <span
                         class="label label--@php $nhan = DB::table('tbl_tag')->where('name', '=', $listnhan_item)->where('la_label', '=', '1')->get(); 

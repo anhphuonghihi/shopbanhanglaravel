@@ -168,7 +168,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li><a href="{{ URL::to('/all-service') }}">Liệt kê dịch vụ</a></li>
                             </ul>
                         </li>
-                        <li class="sub-menu">
+                        {{-- <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Hạng</span>
@@ -176,7 +176,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/all-ranks') }}">Liệt kê hạng</a></li>
                             </ul>
-                        </li>
+                        </li> --}}
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
@@ -192,7 +192,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Ngân hàng</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/all-telegram') }}">Ngân hàng</a></li>
+                                <li><a href="{{ URL::to('/add-bank-post') }}">Thêm lựa chọn</a></li>
+                                <li><a href="{{ URL::to('/all-bank-post') }}">Liệt kê lựa chọn</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">

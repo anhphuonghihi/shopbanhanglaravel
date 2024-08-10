@@ -44,7 +44,7 @@
 
                                         <div class="memberHeader-blurbContainer">
                                             <div class="memberHeader-blurb" dir="auto"><span class="userTitle"
-                                                    dir="auto">LÍNH DỰ BỊ</span></div>
+                                                    dir="auto"></span></div>
 
 
                                         </div>
@@ -85,14 +85,6 @@
                                         </dl>
 
 
-                                        <dl class="pairs pairs--rows pairs--rows--centered fauxBlockLink">
-                                            <dt title="Hoa hồng">Hoa hồng</dt>
-                                            <dd>
-                                                @php
-                                                    echo Session::get('sum_da_tung_nap');
-                                                @endphp
-                                            </dd>
-                                        </dl>
 
 
 

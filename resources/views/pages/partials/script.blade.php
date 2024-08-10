@@ -535,7 +535,7 @@
         console.log(userlock);
         if (userlock == 1) {
             $("#lock").toggleClass('is-active');
-            console.log(location.pathname);
+
             if (location.pathname == "/lock") {
 
             } else {
@@ -560,7 +560,7 @@
             if (!state.id) {
                 return state.text;
             }
-            console.log(state.element.className);
+
             var text = state.text.split(',')
             var className = state.element.className
             var $state = $(
@@ -636,13 +636,6 @@
 
 
 <script type="text/javascript">
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-</script>
-<script type="text/javascript">
     $.ajax({
         url: '/uy_tin',
         data: {
@@ -663,44 +656,9 @@
             $('#bai_viet').text(output[0].value);
         }
     });
-    // $.ajax({
-    //     url: '/dich_vu_su_dung',
-    //     data: {
-    //         action: 'test'
-    //     },
-    //     type: 'get',
-    //     success: function(output) {
-
-    //     }
-    // });
 </script>
 
 
-<script type="text/javascript">
-    $(window).load(function() {
-        document.querySelector('#danh_muc').addEventListener('input', function(e) {
-            var input = e.target,
-                list = input.getAttribute('list'),
-                options = document.querySelectorAll('#' + list + ' option'),
-                hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
-                inputValue = input.value;
-            hiddenInput.value = inputValue;
-            for (var i = 0; i < options.length; i++) {
-                var option = options[i];
-                console.log(option);
-
-                if (option.innerText.trim() == inputValue.trim()) {
-                    hiddenInput.value = option.getAttribute('data-value');
-
-                    break;
-
-                }
-            }
-
-        });
-
-    });
-</script>
 
 
 <script type="text/javascript">
@@ -763,16 +721,13 @@
         if (!empty($danh_muc_item[0])) {
             $danh_muc = $danh_muc_item[0]->ten_danh_muc;
         }
-        var_dump($post[0]->nhan);
     @endphp
 @endif
 
 @if (!empty(Session::get('post')))
     <script type="text/javascript">
         $(document).ready(function() {
-            var nhan = {!! json_encode($post[0]->nhan) !!};
-            console.log(nhan);
-            
+            var nhan = {!! json_encode(explode(', ', $post[0]->nhan)) !!};
             $("#nhan select").val(nhan);
 
             var danh_muc_id = {!! json_encode($post[0]->danh_muc_id) !!};
@@ -781,27 +736,28 @@
             $("#danh_muc").val(danh_muc);
 
 
-            var tong_quat = {!! json_encode($post[0]->tong_quat) !!};
+            var tong_quat = {!! json_encode(explode(',', $post[0]->tong_quat)) !!};
             $("#tong_quat select").val(tong_quat);
 
-            var vong_1 = {!! json_encode($post[0]->vong_1) !!};
+            var vong_1 = {!! json_encode(explode(',', $post[0]->vong_1)) !!};
             $("#vong_1 select").val(vong_1);
-            var vong_2 = {!! json_encode($post[0]->vong_2) !!};
+            var vong_2 = {!! json_encode(explode(',', $post[0]->vong_2)) !!};
             $("#vong_2 select").val(vong_2);
-            console.log($("#vong_2 select"));
 
-            var vong_3 = {!! json_encode($post[0]->vong_3) !!};
+
+            var vong_3 = {!! json_encode(explode(',', $post[0]->vong_3)) !!};
             $("#vong_3 select").val(vong_3);
-            var vong_4 = {!! json_encode($post[0]->vong_4) !!};
+            var vong_4 = {!! json_encode(explode(',', $post[0]->vong_4)) !!};
             $("#vong_4 select").val(vong_4);
-            var phong_cach_phuc_vu = {!! json_encode($post[0]->phong_cach_phuc_vu) !!};
+            var phong_cach_phuc_vu = {!! json_encode(explode(',', $post[0]->phong_cach_phuc_vu)) !!};
             $("#phong_cach_phuc_vu select").val(phong_cach_phuc_vu);
-            var service = {!! json_encode($post[0]->service) !!};
+            var service = {!! json_encode(explode(',', $post[0]->service)) !!};
             $("#service select").val(service);
-            var cam_ket = {!! json_encode($post[0]->cam_ket) !!};
+            var cam_ket = {!! json_encode(explode(',', $post[0]->cam_ket)) !!};
             $("#cam_ket select").val(cam_ket);
-            var khong_cam_ket = {!! json_encode($post[0]->khong_cam_ket) !!};
+            var khong_cam_ket = {!! json_encode(explode(',', $post[0]->khong_cam_ket)) !!};
             $("#khong_cam_ket select").val(khong_cam_ket);
         });
     </script>
 @endif
+

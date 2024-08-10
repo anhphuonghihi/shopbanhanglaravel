@@ -12,6 +12,8 @@ use CategoryProductModel;
 use Session;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
+use Image;
+
 session_start();
 
 class CategoryProduct extends Controller
@@ -92,25 +94,6 @@ class CategoryProduct extends Controller
     }
 
 
-    public function dich_vu_su_dung_new(Request $request){
-
-        $user_id=Session::get('user_id');
-        $crr_users = DB::table('users')->where('id', '=', $user_id)->get();
-        
-        $data = array();
-        $data['dich_vu_su_dung'] = 0;
-        $now = Carbon::create($crr_users[0]->updated_at); //Tạo 1 datetime
-        $dt = Carbon::now();
-        if ($now->diffInSeconds($dt) < 30000) {
-            # code...
-            DB::table('users')->where('id',$user_id)->update($data);
-        }else{
-            return 'a';
-        }
-
-        
-       
-    }
     public function delete_category_product($category_post_id){
         $this->AuthLogin();
         DB::table('tbl_category_product')->where('category_id',$category_post_id)->delete();
@@ -260,7 +243,7 @@ class CategoryProduct extends Controller
         //seo 
         $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
         $meta_keywords = "gai goi ha noi,gai goi sai gon";
-        $meta_title = "Bài viết mới";
+        $meta_title = "Xóa bài viết";
         $url_canonical = $request->url();
         $sidebar_active='new-post';
         $number = strripos($slug_post,".");
@@ -274,7 +257,7 @@ class CategoryProduct extends Controller
         //seo 
         $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
         $meta_keywords = "gai goi ha noi,gai goi sai gon";
-        $meta_title = "Bài viết mới";
+        $meta_title = "Tìm kiếm";
         $url_canonical = $request->url();
         $sidebar_active='forums';
         return view('pages.search')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
@@ -297,7 +280,7 @@ class CategoryProduct extends Controller
         //seo 
         $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
         $meta_keywords = "gai goi ha noi,gai goi sai gon";
-        $meta_title = "Bài viết mới";
+        $meta_title = "Trang cá nhân";
         $url_canonical = $request->url();
         $sidebar_active='home';
         $count_bai_viet = 0;
@@ -329,7 +312,7 @@ class CategoryProduct extends Controller
         //seo 
         $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
         $meta_keywords = "gai goi ha noi,gai goi sai gon";
-        $meta_title = "Bài viết mới";
+        $meta_title = "Mã giới thiệu";
         $url_canonical = $request->url();
         $sidebar_active='home';
         return view('pages.referral')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
@@ -341,7 +324,7 @@ class CategoryProduct extends Controller
         //seo 
         $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
         $meta_keywords = "gai goi ha noi,gai goi sai gon";
-        $meta_title = "Bài viết mới";
+        $meta_title = "Nạp tiền";
         $url_canonical = $request->url();
         $sidebar_active='home';
         return view('pages.deposit_money')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
@@ -354,7 +337,7 @@ class CategoryProduct extends Controller
         //seo 
         $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
         $meta_keywords = "gai goi ha noi,gai goi sai gon";
-        $meta_title = "Bài viết mới";
+        $meta_title = "Rút tiền";
         $url_canonical = $request->url();
         $sidebar_active='home';
         return view('pages.withdraw')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
@@ -369,7 +352,7 @@ class CategoryProduct extends Controller
         //seo 
         $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
         $meta_keywords = "gai goi ha noi,gai goi sai gon";
-        $meta_title = "Bài viết mới";
+
         $url_canonical = $request->url();
         $post_header = "true";
 
@@ -380,6 +363,7 @@ class CategoryProduct extends Controller
             $danh_muc_id = $post[0]->danh_muc_id;  
             $tbl_binh_luan = DB::table('tbl_binh_luan')->where('post_id', '=', $post_id)->paginate(20); 
             $sidebar_active='forums';
+            $meta_title = $post[0]->ten_bai_viet;
            return view('pages.post')->with('sidebar_active',$sidebar_active)->with('tbl_binh_luan',$tbl_binh_luan)->with('danh_muc_id',$danh_muc_id)->with('breadcrumb','true')->with('user',$user)->with('post',$post)->with('post_header',$post_header)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         }else{
             return Redirect::to('/');
@@ -400,6 +384,7 @@ class CategoryProduct extends Controller
 
         Session::put('username',null);
         Session::put('user_id',null);
+        Session::put('sum_da_tung_nap',null);
         return Redirect::to('/');
     }
 
@@ -474,20 +459,35 @@ class CategoryProduct extends Controller
         }
     }
     public function edit_post(Request $request,$slug_post){
+        $this->validate($request, [
+            'image' => 'required|mimes:jpg,jpeg,png,gif,svg',
+        ]);
         $data = array();
         $data['ten_bai_viet'] = $request->title;
         $data['post_slug'] = $request->slug;
-      
-        $get_image = $request->file('image');
-        if($get_image){
-            $get_name_image = $get_image->getClientOriginalName();
-            $name_image = current(explode('.',$get_name_image));
-                $new_image =  $name_image.rand(0,9999).'.'.$get_image->getClientOriginalExtension();
-                $get_image->move('public/uploads/product',$new_image);
-                $data['anh_dai_dien'] = $new_image;
-            
-            
-        }
+        $image = $request->file('image');
+        $input['image'] = time().rand(0,9999).'.'.$image->getClientOriginalExtension();
+        $imgFile = Image::make($image->getRealPath())->resize(600, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $text =$_SERVER['HTTP_HOST'];
+        
+
+
+
+        
+        $imgFile->text($text, 300, $imgFile->height() /2 , function($font) { 
+            $font->file('C:/Windows/Fonts/arial.ttf');
+            $font->size(60);  
+            $font->color('#ffffff');  
+            $font->align('center');  
+            $font->valign('bottom');  
+        })->save(public_path('/public/uploads/product').'/'.$input['image']); 
+
+         
+        $data['anh_dai_dien'] = $input['image'];
+        
+        
         if ($request->nhan) {
             # code...
             $data['nhan'] = implode(', ', $request->nhan);
@@ -520,12 +520,28 @@ class CategoryProduct extends Controller
         $data['khong_cam_ket'] = implode(',', $request->khong_cam_ket);
         $images=array();
         if($files=$request->file('list_anh')){
+            $index= 0;
             foreach($files as $file){
-                $get_name_image = $file->getClientOriginalName();
-                $name_image = current(explode('.',$get_name_image));
-                $new_image =  $name_image.rand(0,99999).'.'.$file->getClientOriginalExtension();
-                $file->move('public/uploads/product',$new_image);                
-                $images[]=$new_image;
+                $index ++;
+                $image = $file;
+                $name_image = time().rand(0,9999).$index.'.'.$file->getClientOriginalExtension();
+
+                $imgFile = Image::make($image->getRealPath())->resize(600, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $text =$_SERVER['HTTP_HOST'];
+        
+                
+        
+                $imgFile->text($text, 300, $imgFile->height() /2 , function($font) { 
+                    $font->file('C:/Windows/Fonts/arial.ttf');
+                    $font->size(80);  
+                    $font->color('#ffffff');  
+                    $font->align('center');  
+                    $font->valign('bottom');  
+                })->save(public_path('/public/uploads/product').'/'.$name_image); 
+                    
+                $images[]=$name_image;
             }
         }
         $data['list_anh'] = implode(",",$images);
@@ -546,16 +562,27 @@ class CategoryProduct extends Controller
         $data['ten_bai_viet'] = $request->title;
         $data['post_slug'] = $request->slug;
       
-        $get_image = $request->file('image');
-        if($get_image){
-            $get_name_image = $get_image->getClientOriginalName();
-            $name_image = current(explode('.',$get_name_image));
-                $new_image =  $name_image.rand(0,9999).'.'.$get_image->getClientOriginalExtension();
-                $get_image->move('public/uploads/product',$new_image);
-                $data['anh_dai_dien'] = $new_image;
-            
-            
-        }
+        $image = $request->file('image');
+        $input['image'] = time().rand(0,9999).'.'.$image->getClientOriginalExtension();
+        $imgFile = Image::make($image->getRealPath())->resize(600, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $text =$_SERVER['HTTP_HOST'];
+        
+
+
+
+        
+        $imgFile->text($text, 300, $imgFile->height() /2 , function($font) { 
+            $font->file('C:/Windows/Fonts/arial.ttf');
+            $font->size(60);  
+            $font->color('#ffffff');  
+            $font->align('center');  
+            $font->valign('bottom');  
+        })->save(public_path('/public/uploads/product').'/'.$input['image']); 
+
+         
+        $data['anh_dai_dien'] = $input['image'];
         if ($request->nhan) {
             # code...
             $data['nhan'] = implode(', ', $request->nhan);
@@ -586,12 +613,28 @@ class CategoryProduct extends Controller
         $data['khong_cam_ket'] = implode(',', $request->khong_cam_ket);
         $images=array();
         if($files=$request->file('list_anh')){
+            $index= 0;
             foreach($files as $file){
-                $get_name_image = $file->getClientOriginalName();
-                $name_image = current(explode('.',$get_name_image));
-                $new_image =  $name_image.rand(0,99999).'.'.$file->getClientOriginalExtension();
-                $file->move('public/uploads/product',$new_image);                
-                $images[]=$new_image;
+                $index ++;
+                $image = $file;
+                $name_image = time().rand(0,9999).$index.'.'.$file->getClientOriginalExtension();
+
+                $imgFile = Image::make($image->getRealPath())->resize(600, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $text =$_SERVER['HTTP_HOST'];
+        
+                
+        
+                $imgFile->text($text, 300, $imgFile->height() /2 , function($font) { 
+                    $font->file('C:/Windows/Fonts/arial.ttf');
+                    $font->size(80);  
+                    $font->color('#ffffff');  
+                    $font->align('center');  
+                    $font->valign('bottom');  
+                })->save(public_path('/public/uploads/product').'/'.$name_image); 
+                    
+                $images[]=$name_image;
             }
         }
         $data['list_anh'] = implode(",",$images);
@@ -601,18 +644,15 @@ class CategoryProduct extends Controller
    
         $crr_users = DB::table('users')->where('id', '=', $user_id)->get();
         
-        if($crr_users[0]->dich_vu_su_dung == 0){
-            $crr_tbl_dich_vu = DB::table('tbl_dich_vu')->where('id', '=', 1)->get();
-            $data_user['vi_tien'] = $crr_users[0]->vi_tien - $crr_tbl_dich_vu[0]->gia;
-            if ($data_user['vi_tien']>0) {
-    
-                DB::table('users')->where('id',$user_id)->update($data_user);
-    
-            }else{
-                Session::put('message','Bạn chưa đủ tiền');
-                return redirect()->back();
-            }
-            
+        $crr_tbl_dich_vu = DB::table('tbl_dich_vu')->where('id', '=', 1)->get();
+        $data_user['vi_tien'] = $crr_users[0]->vi_tien - $crr_tbl_dich_vu[0]->gia;
+        if ($data_user['vi_tien']>0) {
+
+            DB::table('users')->where('id',$user_id)->update($data_user);
+
+        }else{
+            Session::put('message','Bạn chưa đủ tiền');
+            return redirect()->back();
         }
         $post_id=DB::table('tbl_post')->insertGetId($data);
         if ($post_id !=0) {
@@ -629,7 +669,7 @@ class CategoryProduct extends Controller
         
         $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
         $meta_keywords = "gai goi ha noi,gai goi sai gon";
-        $meta_title = "Bài viết mới";
+        $meta_title = "Thêm bài viết";
         $url_canonical = $request->url();
       
         //--seo
@@ -642,7 +682,7 @@ class CategoryProduct extends Controller
         
         $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
         $meta_keywords = "gai goi ha noi,gai goi sai gon";
-        $meta_title = "Bài viết mới";
+        $meta_title = "Khóa tài khoản";
         $url_canonical = $request->url();
       
         //--seo
@@ -658,7 +698,7 @@ class CategoryProduct extends Controller
         
         $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
         $meta_keywords = "gai goi ha noi,gai goi sai gon";
-        $meta_title = "Bài viết mới";
+        $meta_title = "Ghim bài viết";
         $url_canonical = $request->url();
         $post = DB::table('tbl_post')->where('id', '=', $post_id)->get();
 
@@ -821,6 +861,11 @@ class CategoryProduct extends Controller
            
     }
             }}
+    }
+
+    public function nap_tien(Request $request){
+        Session::put('da_nap_tien','true');
+        return redirect()->back();
     }
     
     public function checkMomo(Request $request){

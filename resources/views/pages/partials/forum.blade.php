@@ -145,7 +145,7 @@
                             @php
                                 if ($post_new->count() > 0) {
                                     $nhan = $post_new[0]->nhan;
-                                    $listnhan = explode(',', $nhan);
+                                    $listnhan = explode(', ', $nhan);
                                 }
                             @endphp
                             @foreach ($listnhan as $key => $listnhan_item)

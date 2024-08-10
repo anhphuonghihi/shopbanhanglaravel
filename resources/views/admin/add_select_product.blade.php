@@ -19,9 +19,9 @@
                         <form role="form" action="{{ URL::to('/save-select-post') }}" method="post">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Tên lựa chon</label>
+                                <label for="exampleInputEmail1">Tên lựa chọn</label>
                                 <input type="text" class="form-control"  name="name"
-                                    id="slug" placeholder="Lựa chon" required>
+                                    id="slug" placeholder="Lựa chọn" required>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Màu chữ</label>

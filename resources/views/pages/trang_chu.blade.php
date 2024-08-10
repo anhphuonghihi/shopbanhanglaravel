@@ -170,7 +170,7 @@
                                                 <span>
                                                     @php
                                                         $nhan = $stiky_post_item[0]->nhan;
-                                                        $listnhan = explode(',', $nhan);
+                                                        $listnhan = explode(', ', $nhan);
                                                     @endphp
                                                     @foreach ($listnhan as $key => $listnhan_item)
                                                         @php
@@ -193,7 +193,7 @@
                                                 </span>
                                                 @php
                                                     $nhan = $stiky_post_item[0]->nhan;
-                                                    $listnhan = explode(',', $nhan);
+                                                    $listnhan = explode(', ', $nhan);
                                                 @endphp
 
                                             </div>

@@ -77,7 +77,8 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        ...
+                                                        <img
+                                                            src="https://img.vietqr.io/image/{{ $money->ten_ngan_hang }}-{{ $money->stk }}-compact2.jpg?amount={{ $money->so_tien }}&amp;addInfo=RUT%20TIEN%20HOA%20HONG%20&amp;accountName={{ $money->ten_tai_khoan_ngan_hang }}">
                                                     </div>
                                                     <div class="modal-footer">
                                                         <form action="{{ URL::to('/agree-withdraw/' . $money->id) }}"

@@ -14,20 +14,12 @@
 
 
 
-// Start
-
-Route::get('/home','HomeController@index2' );
-Route::get('/trang-chu','HomeController@index');
-// Route::get('/404','HomeController@error_page');
-Route::post('/tim-kiem','HomeController@search');
-
-
 //Backend
 Route::get('/admin','AdminController@index');
 Route::get('/dashboard','AdminController@show_dashboard');
 
 Route::post('/admin-dashboard','AdminController@dashboard');
-
+Route::get('/manage-payment','AdminController@manage_payment');
 
 //Category Product
 Route::get('/add-category-post','AdminController@add_category_product');
@@ -131,7 +123,18 @@ Route::post('/update-select-post/{select_post_id}','AdminController@update_selec
 
 
 
+Route::get('/add-bank-post','AdminController@add_bank_product');
+Route::get('/edit-bank-post/{bank_post_id}','AdminController@edit_bank_post');
+Route::get('/delete-bank-post/{bank_post_id}','AdminController@delete_bank_post');
+Route::get('/all-bank-post','AdminController@all_bank_post');
+Route::post('/save-bank-post','AdminController@save_bank_post');
+Route::post('/update-bank-post/{bank_post_id}','AdminController@update_bank_post');
 
+Route::post('/change-password-user/{user_id}','AdminController@change_password_user');
+Route::get('/change-password-user/{user_id}','AdminController@change_password_user_view');
+
+Route::post('/change-vi-tien-user/{user_id}','AdminController@change_vi_tien_user');
+Route::get('/change-vi-tien-user/{user_id}','AdminController@change_vi_tien_user_view');
 
 Route::get('/uy_tin','CategoryProduct@uy_tin' );
 Route::get('/bai_viet','CategoryProduct@bai_viet' );
@@ -161,7 +164,6 @@ Route::get('/whats-new/news-post','CategoryProduct@news_post');
 
 Route::get('/whats-new/latest-activity','CategoryProduct@latest_activity');
 
-Route::get('/search','CategoryProduct@search');
 
 Route::post('/search-result','CategoryProduct@search_result');
 
@@ -204,6 +206,9 @@ Route::get('/withdraw','CategoryProduct@withdraw');
 
 Route::post('/withdraw-money-user','CategoryProduct@withdraw_money_user');
 
-Route::get('/dich_vu_su_dung','CategoryProduct@dich_vu_su_dung_new');
+
 
 Route::post('/deposit-money','CategoryProduct@update_payment');
+
+
+Route::post('/nap-tien','CategoryProduct@nap_tien');

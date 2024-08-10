@@ -494,9 +494,15 @@ return Redirect::to('/all-service');
         $data = array();
         $all_nhan_post = DB::table('tbl_tag')->where('name',$request->name)->get();
         if ($all_nhan_post->count() > 0) {
-            Session::put('message','Nhãn đã tồn tại thành công');
-            return Redirect::to('all-nhan-post');
+           
+            foreach ($all_nhan_post as $key => $value) {
+                if ($nhan_post_id != $value->id) {
+                    Session::put('message','Nhãn đã tồn tại thành công');
+                return Redirect::to('all-nhan-post');
+                }
+            }
         }
+        
     	$data['name'] = $request->name;
     	$data['color'] = $request->color;
         $data['la_label'] = 1;
@@ -548,10 +554,15 @@ return Redirect::to('/all-service');
     public function update_select_post(Request $request,$select_post_id){
         $this->AuthLogin();
         $data = array();
-        $all_nhan_post = DB::table('tbl_select')->where('loai',$request->loai)->where('name',$request->name)->get();
-        if ($all_nhan_post->count() > 0) {
-            Session::put('message','Nhãn đã tồn tại thành công');
-            return Redirect::to('all-select-post');
+        $all_select_post = DB::table('tbl_select')->where('loai',$request->loai)->where('name',$request->name)->get();
+        if ($all_select_post->count() > 0  ) {
+            foreach ($all_select_post as $key => $value) {
+                if ($select_post_id != $value->id) {
+                    Session::put('message','Lựa chọn đã tồn tại thành công');
+                    return Redirect::to('all-select-post');
+                }
+            }
+
         }
     	$data['name'] = $request->name;
     	$data['color'] = $request->color;
@@ -562,5 +573,124 @@ return Redirect::to('/all-service');
         return Redirect::to('all-select-post');
     }
     
+    public function edit_bank_post($bank_post_id){
+        $this->AuthLogin();
+        $tbl_admin_payment_item=DB::table('tbl_admin_payment')->where('id',$bank_post_id)->get();   
+        return view('admin.edit_bank_product')->with(compact('tbl_admin_payment_item'))->with(compact('bank_post_id'));
+    }
+    public function delete_bank_post($bank_post_id){
+        $this->AuthLogin();
+        DB::table('tbl_admin_payment')->where('id',$bank_post_id)->delete();
+        Session::put('message','Xóa lựa chọn bài viết thành công');
+        return Redirect::to('all-bank-post');
+    }
+    public function add_bank_product(){
+        $this->AuthLogin();         
+        return view('admin.add_bank_product');
+
+    }
+    public function all_bank_post(Request $request){
+        $this->AuthLogin();
+        $search = $request->input('search');
+    	$all_bank_post = DB::table('tbl_admin_payment')->where('stk', 'LIKE', "%{$search}%")->paginate(20);
+        return view('admin.all_bank_post')->with(compact('all_bank_post'));
+    }
+    
+    public function save_bank_post(Request $request){
+        $this->AuthLogin();
+    	$data = array();
+        $all_nhan_post = DB::table('tbl_admin_payment')->where('stk',$request->stk)->get();
+        if ($all_nhan_post->count() > 0) {
+            Session::put('message','Số tài khoản đã tồn tại thành công');
+            return Redirect::to('all-bank-post');
+        }
+    	$data['stk'] = $request->stk;
+    	$data['token'] = $request->token;
+        $data['ten_ngan_hang'] =  $request->ten_ngan_hang;
+
+        $data['password'] =  $request->password;
+        $data['acc_name'] =  $request->acc_name;
+        DB::table('tbl_admin_payment')->insert($data);
+    	Session::put('message','Thêm lựa ngân hàng thành công');
+    	return Redirect::to('all-bank-post');
+    }
+    
+    public function update_bank_post(Request $request,$bank_post_id){
+        $this->AuthLogin();
+    	$data = array();
+        $all_nhan_post = DB::table('tbl_admin_payment')->where('stk',$request->stk)->get();
+        if ($all_nhan_post->count() > 0  ) {
+            foreach ($all_nhan_post as $key => $value) {
+                if ($bank_post_id != $value->id) {
+                    Session::put('message','Số tài khoản đã tồn tại thành công');
+                    return Redirect::to('all-select-post');
+                }
+            }
+
+        }
+    	$data['stk'] = $request->stk;
+    	$data['token'] = $request->token;
+        $data['ten_ngan_hang'] =  $request->ten_ngan_hang;
+        
+        $data['password'] =  $request->password;
+        $data['acc_name'] =  $request->acc_name;
+        DB::table('tbl_admin_payment')->where('id',$bank_post_id)->update($data);
+        Session::put('message','Cập nhật ngân hàng thành công');
+        return Redirect::to('all-bank-post');
+    }
+
+    
+    public function change_password_user_view(Request $request,$user_id){
+        $this->AuthLogin();
+    	return view('admin.change_password_user')->with(compact('user_id'));
+    }
+    public function change_password_user(Request $request,$user_id) {
+        $this->AuthLogin();
+      
+        $admin_user = DB::table('users')->where('id', '=',$user_id)->get();
+        
+        $validatedData = $request->validate([
+            'current-password' => 'required',
+            'new-password' => 'required|string|min:8|confirmed',
+        ]);
+        if (md5($request->get('current-password')) != $admin_user[0]->password) {
+           
+            return redirect()->back()->with("error","Mật khẩu xác nhận không trùng");
+        }
+
+        if(strcmp($request->get('current-password'), $request->get('new-password')) == 0){
+            // Current password and new password same
+            return redirect()->back()->with("error","Mật khẩu xác nhận không trùng");
+        }
+
+
+
+        //Change Password
+        DB::table('users')->where('id', '=',$user_id)->update(['password'=>md5($request->get('new-password'))]);
+
+
+        return redirect()->back()->with("success","Đổi mật khẩu thành công");
+    }
+    public function change_vi_tien_user_view(Request $request,$user_id){
+        $this->AuthLogin();
+        
+     $user = DB::table('users')->where('id', '=',$user_id)->get();
+    	return view('admin.change_vi_tien_user')->with(compact('user'))->with(compact('user_id'));
+    }
+    public function change_vi_tien_user(Request $request,$user_id) {
+        $this->AuthLogin();
+      
+        
+        $validatedData = $request->validate([
+            'vi_tien' => 'required',
+        ]);
+
+
+        //Change vi-tien
+        DB::table('users')->where('id', '=',$user_id)->update(['vi_tien'=>$request->get('vi_tien')]);
+        Session::put('success',"Thay đổi ví tiền thành công");
+        return Redirect::to('users');
+
+    }
     
 }

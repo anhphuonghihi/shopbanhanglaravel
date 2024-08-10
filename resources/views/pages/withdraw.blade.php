@@ -66,56 +66,58 @@
                                                     </div>
                                                 </dt>
                                                 <dd>
-                                                    <input type="text" class="input" name="stk" required="required" " id="_xfUid-1-1721463296">
-                                                                </dd>
-                                                            </dl>
-                                                            <dl class="formRow formRow--input">
-                                                                <dt>
-                                                                    <div class="formRow-labelWrapper">
-                                                                        <label class="formRow-label" for="_xfUid-1-1721463296">Tên ngân hàng
-                                                                        </label>
-                                                                    </div>
-                                                                </dt>
-                                                                <dd>
-                                                                    <input type="text" class="input" name="ten_ngan_hang"
-                                                                        required="required" id="_xfUid-1-1721463296">
-                                                                </dd>
-                                                            </dl>
-                                                                                                                <dl class="formRow formRow--input">
-                                                                <dt>
-                                                                    <div class="formRow-labelWrapper">
-                                                                        <label class="formRow-label" for="_xfUid-1-1721463296">Chủ sở hữu tài khoản ngân hàng
-                                                                        </label>
-                                                                    </div>
-                                                                </dt>
-                                                                <dd>
-                                                                    <input type="text" class="input" name="ten_tai_khoan_ngan_hang"
-                                                                        required="required" id="_xfUid-1-1721463296">
-                                                                </dd>
-                                                            </dl>
-                                                            <dl class="formRow formRow--input">
-                                                                <dt>
-                                                                    <div class="formRow-labelWrapper">
-                                                                        <label class="formRow-label" for="_xfUid-1-1721463296">Số tiền rút
-                                                                        </label>
-                                                                    </div>
-                                                                </dt>
-                                                                <dd>
-                                                                    <input type="number" class="input" name="so_tien" required="required"
-                                                                        style="max-width: 100% !important;     text-align: left;" min="0"
-                                                                        id="_xfUid-1-1721463296">
-                                                                </dd>
-                                                            </dl>
-                                                            <div class="formSubmitRow-controls"><button type="submit"
-                                                                    class="button--primary button button--icon button--icon--login rippleButton rippleButton">Gửi</button>
-                                                            </div>
-                                                        </form>
-@else
-    <span
-                                                            style="display: flex;text-align: center;padding: 10px;justify-content: center;align-items: center;">
-                                                            Bạn chưa đủ 50.000 VND để có thể rút tiền</span>
-     @endif
+                                                    <input type="text" class="input" name="stk" required="required"
+                                                        id="_xfUid-1-1721463296">
+                                                </dd>
+                                            </dl>
+                                            <dl class="formRow formRow--input">
+                                                <dt>
+                                                    <div class="formRow-labelWrapper">
+                                                        <label class="formRow-label" for="_xfUid-1-1721463296">Tên ngân hàng
+                                                        </label>
+                                                    </div>
+                                                </dt>
+                                                <dd>
+                                                    <input type="text" class="input" name="ten_ngan_hang"
+                                                        required="required" id="_xfUid-1-1721463296">
+                                                </dd>
+                                            </dl>
+                                            <dl class="formRow formRow--input">
+                                                <dt>
+                                                    <div class="formRow-labelWrapper">
+                                                        <label class="formRow-label" for="_xfUid-1-1721463296">Chủ sở hữu
+                                                            tài khoản ngân hàng
+                                                        </label>
+                                                    </div>
+                                                </dt>
+                                                <dd>
+                                                    <input type="text" class="input" name="ten_tai_khoan_ngan_hang"
+                                                        required="required" id="_xfUid-1-1721463296">
+                                                </dd>
+                                            </dl>
+                                            <dl class="formRow formRow--input">
+                                                <dt>
+                                                    <div class="formRow-labelWrapper">
+                                                        <label class="formRow-label" for="_xfUid-1-1721463296">Số tiền rút
+                                                        </label>
+                                                    </div>
+                                                </dt>
+                                                <dd>
+                                                    <input type="number" class="input" name="so_tien" required="required"
+                                                        style="max-width: 100% !important;     text-align: left;"
+                                                        min="0" id="_xfUid-1-1721463296">
+                                                </dd>
+                                            </dl>
+                                            <div class="formSubmitRow-controls"><button type="submit"
+                                                    class="button--primary button button--icon button--icon--login rippleButton rippleButton">Gửi</button>
+                                            </div>
+                                        </form>
+                                    @else
+                                        <span
+                                            style="display: flex;text-align: center;padding: 10px;justify-content: center;align-items: center;">
+                                            Bạn chưa đủ 50.000 VND để có thể rút tiền</span>
                                     @endif
+                                @endif
                             </div>
 
 

@@ -23,9 +23,6 @@
                                 <a class="blockLink  rippleButton" href="/deposit-money">
                                     Nạp tiền
                                 </a>
-                                <a class="blockLink  rippleButton" href="/withdraw">
-                                    Rút tiền
-                                </a>
                             </div>
                             <h3 class="block-minorHeader">Thiết lập</h3>
                             <div class="block-body">

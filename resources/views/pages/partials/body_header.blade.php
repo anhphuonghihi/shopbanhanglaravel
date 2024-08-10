@@ -10,7 +10,7 @@
                 <div class="p-title ">
                     @php
                         $nhan = $post[0]->nhan;
-                        $listnhan = explode(',', $nhan);
+                        $listnhan = explode(', ', $nhan);
                     @endphp
 
                     <h1 class="p-title-value">

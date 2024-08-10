@@ -29,6 +29,22 @@
                     Session::put('message', null);
                 }
                 ?>
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                        @php
+                            Session::put('success', null);
+                            Session::put('error', null);
+                        @endphp
+                    </div>
+                @endif
+
                 <table class="table table-striped b-t b-light">
                     <thead>
                         <tr>
@@ -82,6 +98,12 @@
                                             @csrf <input type="submit" value="Mở tài khoản" class="btn btn-sm btn-default">
                                         </form>
                                     @endif
+                                    <form action="{{ URL::to('/change-password-user/' . $user->id) }}" method="GET">
+                                        @csrf <input type="submit" value="Đổi mật khẩu" class="btn btn-sm btn-default">
+                                    </form>
+                                    <form action="{{ URL::to('/change-vi-tien-user/' . $user->id) }}" method="GET">
+                                        @csrf <input type="submit" value="Thay đổi ví tiền" class="btn btn-sm btn-default">
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

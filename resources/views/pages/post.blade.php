@@ -16,10 +16,20 @@
         <?php
         $message = Session::get('message');
         if ($message) {
-            echo '<span class="text-alert">' . $message . '</span>';
+            echo '<div class="alert alert-success">' . $message . '</div>';
+        
             Session::put('message', null);
         }
         ?>
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="block-outer js-threadStatusField ">
             <div class="blockStatus blockStatus--info">
 
@@ -743,107 +753,161 @@
 
         </div>
         @if (Session::get('user_id'))
-            <form action="/comment" method="post" class="block-outer block-outer--after block js-quickReply" ">
-                                                                                                                                                                                                        @csrf
+            <form action="/comment" method="post" class="block-outer block-outer--after block js-quickReply">
+                @csrf
 
-                                                                                                                                                                        <div class="block-container">
-                                                                                                                                                                            <div class="block-body">
-
-
+                <div class="block-container">
+                    <div class="block-body">
 
 
 
-                                                                                                                                                                                <div class="message message--quickReply block-topRadiusContent block-bottomRadiusContent">
-                                                                                                                                                                                    <div class="message-inner">
-                                                                                                                                                                                        <div class="message-cell message-cell--user">
-                                                                                                                                                                                            <div class="message-user ">
-                                                                                                                                                                                                <div class="message-avatar">
-                                                                                                                                                                                                    <div class="message-avatar-wrapper">
 
 
-                                                                                                                                                                                            <a class="avatar avatar--m avatar--default avatar--default--dynamic"
-                                                                                                                                                                                                data-user-id="19" data-xf-init="member-tooltip"
-                                                                                                                                                                                                style="background-color: {{ $user[0]->background_color ?? 'red' }}; color: #a7ffeb"
-                                                                                                                                                                                                id="js-XFUniqueId8">
-                                                                                                                                                                                                <span class="avatar-u19-m" role="img"
-                                                                                                                                                                                                    aria-label="{{ $user[0]->username }}">@php
+                        <div class="message message--quickReply block-topRadiusContent block-bottomRadiusContent">
+                            <div class="message-inner">
+                                <div class="message-cell message-cell--user">
+                                    <div class="message-user ">
+                                        <div class="message-avatar">
+                                            <div class="message-avatar-wrapper">
+                                                @php
+                                                    $user_id = Session::get('user_id');
+                                                    $crr_users = DB::table('users')->where('id', '=', $user_id)->get();
 
-                                                                                                                                                                                                        $user_name =
-                                                                                                                                                                                                            $user[0]
-                                                                                                                                                                                                                ->username;
-                                                                                                                                                                                                        echo strtoupper(
-                                                                                                                                                                                                            substr(
-                                                                                                                                                                                                                $user_name,
-                                                                                                                                                                                                                0,
-                                                                                                                                                                                                                -(
-                                                                                                                                                                                                                    strlen(
-                                                                                                                                                                                                                        $user_name,
-                                                                                                                                                                                                                    ) -
-                                                                                                                                                                                                                    1
-                                                                                                                                                                                                                ),
-                                                                                                                                                                                                            ),
-                                                                                                                                                                                                        );
-                                                                                                                                                                                                    @endphp</span>
-                                                                                                                                                                                            </a>
+                                                @endphp
+                                                <a class="avatar avatar--m avatar--default avatar--default--dynamic"
+                                                    data-user-id="19" data-xf-init="member-tooltip"
+                                                    style="background-color: {{ $crr_users[0]->background_color ?? 'red' }}; color: #a7ffeb"
+                                                    id="js-XFUniqueId8">
+                                                    <span class="avatar-u19-m" role="img"
+                                                        aria-label="{{ $crr_users[0]->username }}">@php
 
-                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                </div>
-                                                                                                                                                                                                <span class="message-userArrow"></span>
-                                                                                                                                                                                            </div>
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                        <div class="message-cell message-cell--main">
-                                                                                                                                                                                            <div class="formButtonGroup ">
-                                                                                                                                                                                                <div class="formButtonGroup-primary">
-                                                                                                                                                                                                    <button type="submit"
-                                                                                                                                                                                                        class="button--primary button button--icon button--icon--reply rippleButton"><span
-                                                                                                                                                                                                            class="button-text">
-                                                                                                                                                                                                            Gửi trả lời
-                                                                                                                                                                                                        </span></button>
-                                                                                                                                                                                                </div>
+                                                            $user_name = $crr_users[0]->username;
+                                                            echo strtoupper(
+                                                                substr($user_name, 0, -(strlen($user_name) - 1)),
+                                                            );
+                                                        @endphp</span>
+                                                </a>
 
-                                                                                                                                                                                                <div class="formButtonGroup-extra">
+                                            </div>
+                                        </div>
+                                        <div class="uix_messagePostBitWrapper">
+                                            <div class="message-userDetails">
+                                                <h4 class="message-name"><a class="username " dir="auto"
+                                                        data-user-id="19" data-xf-init="member-tooltip" itemprop="name"
+                                                        id="js-XFUniqueId1"><span
+                                                            class="username--style0">{{ $crr_users[0]->username }}</span></a>
+                                                </h4>
+                                                <div class="star-ranks">
+
+
+                                                </div>
 
 
 
-                                                                                                                                                                                                    <textarea name="editor" id="editor" rows="10" cols="80">
+
+                                            </div>
+
+
+
+
+
+                                            <div class="thThreads__message-userExtras" style="">
+
+                                                <div class="message-userExtras">
+
+
+
+
+
+
+                                                    <dl class="pairs pairs--justified">
+
+                                                        <dt>
+                                                            <span data-xf-init="tooltip" data-original-title="Thích"
+                                                                aria-label="Thích" id="js-XFUniqueId11">
+                                                                <i class="fa--xf far fa-thumbs-up uix_icon uix_icon--like"
+                                                                    aria-hidden="true"></i>
+                                                                Uy tín
+                                                            </span>
+                                                        </dt>
+
+                                                        <dd>{{ $crr_users[0]->uy_tin }}</dd>
+                                                    </dl>
+
+
+
+
+
+
+
+
+
+                                                </div>
+
+                                            </div>
+                                            <div class="thThreads__userExtra--toggle">
+                                                <span class="thThreads__userExtra--trigger"
+                                                    data-xf-click="ththreads-userextra-trigger"></span>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="message-cell message-cell--main">
+                                    <div class="formButtonGroup ">
+                                        <div class="formButtonGroup-primary">
+                                            <button type="submit"
+                                                class="button--primary button button--icon button--icon--reply rippleButton"><span
+                                                    class="button-text">
+                                                    Gửi trả lời
+                                                </span></button>
+                                        </div>
+
+                                        <div class="formButtonGroup-extra">
+
+
+
+                                            <textarea name="editor" id="editor" rows="10" cols="80">
         
                                                                                                             </textarea>
-                                                                                                                                                                                                 
-
-
-
-
-                                                                                                                                                                                                    <span class="js-attachButton"><a
-                                                                                                                                                                                                            href="/attachments/upload?type=post&amp;context[thread_id]=127237&amp;hash=894e95fc5969b8acf9926bcb587b7463"
-                                                                                                                                                                                                            class="button--link js-attachmentUpload button button--icon button--icon--attach rippleButton"
-                                                                                                                                                                                                            target="_blank" data-accept="." data-chevereto-pup="sibling"><span
-                                                                                                                                                                                                                class="button-text">Attach files</span></a><input type="file"
-                                                                                                                                                                                                            multiple="multiple" accept="" title="Attach files"
-                                                                                                                                                                                                            style="visibility: hidden; position: absolute; width: 1px; height: 1px; overflow: hidden; left: -1000px;"></span>
-                                                                                                                                                                                                    <input type="hidden" name="attachment_hash"
-                                                                                                                                                                                                        value="894e95fc5969b8acf9926bcb587b7463">
-                                                                                                                                                                                                    <input type="hidden" name="attachment_hash_combined"
-                                                                                                                                                                                                        value="{&quot;type&quot;:&quot;post&quot;,&quot;context&quot;:{&quot;thread_id&quot;:127237},&quot;hash&quot;:&quot;894e95fc5969b8acf9926bcb587b7463&quot;}">
 
 
 
 
 
-                                                                                                                                                                                                </div>
+                                            <span class="js-attachButton"><a
+                                                    href="/attachments/upload?type=post&amp;context[thread_id]=127237&amp;hash=894e95fc5969b8acf9926bcb587b7463"
+                                                    class="button--link js-attachmentUpload button button--icon button--icon--attach rippleButton"
+                                                    target="_blank" data-accept="." data-chevereto-pup="sibling"><span
+                                                        class="button-text">Attach files</span></a><input type="file"
+                                                    multiple="multiple" accept="" title="Attach files"
+                                                    style="visibility: hidden; position: absolute; width: 1px; height: 1px; overflow: hidden; left: -1000px;"></span>
+                                            <input type="hidden" name="attachment_hash"
+                                                value="894e95fc5969b8acf9926bcb587b7463">
+                                            <input type="hidden" name="attachment_hash_combined"
+                                                value="{&quot;type&quot;:&quot;post&quot;,&quot;context&quot;:{&quot;thread_id&quot;:127237},&quot;hash&quot;:&quot;894e95fc5969b8acf9926bcb587b7463&quot;}">
 
-                                                                                                                                                                                               
-                                                                                                                                                                                                <input type="hidden" name="post_id" value="{{ $post[0]->id }}">
-                                                                                                                                                                                            </div>
-                                                                                                                                                                                        </div>
-                                                                                                                                                                                    </div>
-                                                                                                                                                                                </div>
-
-                                                                                                                                                                            </div>
-                                                                                                                                                                        </div>
 
 
-                                                                                                                                                                    </form>
-     @endif
+
+
+                                        </div>
+
+
+                                        <input type="hidden" name="post_id" value="{{ $post[0]->id }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </form>
+        @endif
 
 
 
@@ -862,34 +926,6 @@
 
 
             <div class="shareButtons-buttons">
-
-
-                <a class="shareButtons-button shareButtons-button--brand shareButtons-button--facebook"
-                    data-href="https://www.facebook.com/sharer.php?u={url}"
-                    href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fxcheckerviet.biz%2Fthreads%2Ftrang-anh-net-dam-hien-tren-guong-mat-vu-to-mong-may-su-guc-nga-cua-cac-checker.125638%2F">
-                    <i aria-hidden="true"></i>
-                    <span>Facebook</span>
-                </a>
-
-
-
-                <a class="shareButtons-button shareButtons-button--brand shareButtons-button--twitter"
-                    data-href="https://twitter.com/intent/tweet?url={url}&amp;text={title}&amp;via=checkerviet&amp;related=checkerviet"
-                    href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fxcheckerviet.biz%2Fthreads%2Ftrang-anh-net-dam-hien-tren-guong-mat-vu-to-mong-may-su-guc-nga-cua-cac-checker.125638%2F&amp;text=%E2%9C%AA%20%C4%90%E1%BB%98C%20QUY%E1%BB%80N%20%E2%9C%AA%20-%20600K%20TRANG%20ANH-%20N%C3%89T%20D%C3%82M%20HI%E1%BB%86N%20TR%C3%8AN%20G%C6%AF%C6%A0NG%20M%E1%BA%B6T%20-%20V%C3%9A%20TO%20-%20M%C3%94NG%20M%E1%BA%A8Y%20-%20S%E1%BB%B0%20G%E1%BB%A4C%20NG%C3%83%20C%E1%BB%A6A%20C%C3%81C%20CHECKER&amp;via=checkerviet&amp;related=checkerviet">
-                    <i aria-hidden="true"></i>
-                    <span>Twitter</span>
-                </a>
-
-
-
-
-
-
-
-
-
-
-
 
 
                 <a class="shareButtons-button shareButtons-button--share is-hidden" data-xf-init="web-share"

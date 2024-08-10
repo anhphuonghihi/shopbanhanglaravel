@@ -22,9 +22,8 @@
                             <th>Email người dùng</th>
                             <th>Tên người dùng</th>
                             <th>Ngày tháng đặt hàng</th>
-                            <th>Tình trạng đơn hàng</th>
-
-                            <th style="width:100px;"></th>
+                            <th>Mã nạp</th>
+                            <th>Thời gian nạp</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,6 +43,7 @@
                                 <td><i>{{ $user_name[0]->email }}</i></td>
                                 <td><i>{{ $user_name[0]->username }}</i></td>
                                 <td><i>{{ $payment->so_tien }}</i></td>
+                                <td><i>{{ $payment->ma_nap }}</i></td>
                                 <td><i>{{ $payment->created_at }}</i></td>
                             </tr>
                         @endforeach

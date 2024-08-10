@@ -49,7 +49,7 @@
 
                                         @php
                                             $nhan = $item->nhan;
-                                            $listnhan = explode(',', $nhan);
+                                            $listnhan = explode(', ', $nhan);
                                         @endphp
                                         @foreach ($listnhan as $key => $listnhan_item)
                                             @php
@@ -60,7 +60,7 @@
                                             @endphp
                                             <a href="/threads/{{ $item->post_slug }}.{{ $item->id }}" class="labelLink"
                                                 rel="nofollow"></a><a
-                                                href="/threads/{{ $item->post_slug }}.{{ $item->id }}?nhan={{ $nhan[0]->id }}"
+                                                href="/threads/{{ $item->post_slug }}.{{ $item->id }}"
                                                 class="labelLink" rel="nofollow"><span
                                                     class="label label--@php if($nhan->count()>0){
                                                         echo $nhan[0]->color;

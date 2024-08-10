@@ -48,6 +48,14 @@ div.threadThumbnailWrapper div .alignThumbnail {
     }
 }
 
+.alert.alert-success {
+    background: #22c722;
+    padding: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #fff;
+}
+
 .block--category .block-header.uix_stickyCategoryStrips {
     position: sticky
 }
