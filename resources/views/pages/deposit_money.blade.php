@@ -12,21 +12,14 @@
             $number = mt_rand(0, $thanh_toan->count() - 1);
 
         @endphp
+
+
         <div uix_component="MainContent" class="p-body-content">
             <!-- ABOVE MAIN CONTENT -->
             <div class="block">
                 <div>
                     <div class="block-body">
                         <div class="memberHeader ">
-                            @if (session()->has('message'))
-                                <div class="alert alert-success">
-                                    {!! session()->get('message') !!}
-                                </div>
-                            @elseif(session()->has('error'))
-                                <div class="alert alert-danger">
-                                    {!! session()->get('error') !!}
-                                </div>
-                            @endif
                             <div class="memberProfileBanner memberHeader-main memberProfileBanner-u516184-l"
                                 response-toggle-class="memberHeader--withBanner">
                                 <div class="memberHeader-mainContent">
@@ -79,10 +72,22 @@
                                                     </option>
                                                     <option value="5000000">{{ number_format(5000000, 0, ',', '.') }}đ
                                                     </option>
+                                                    <option value="10000000">{{ number_format(10000000, 0, ',', '.') }}đ
+                                                    </option>
+                                                    <option value="20000000">{{ number_format(20000000, 0, ',', '.') }}đ
+                                                    </option>
+                                                    <option value="50000000">{{ number_format(50000000, 0, ',', '.') }}đ
+                                                    </option>
                                                 </select>
                                             </dd>
                                         </dl>
                                         <dl class="formRow formSubmitRow">
+                                            <input type="hidden" name="ten_ngan_hang"
+                                                value="{{ $thanh_toan[$number]->ten_ngan_hang }}">
+                                            <input type="hidden" name="password"
+                                                value="{{ $thanh_toan[$number]->password }}">
+                                            <input type="hidden" name="stk" value="{{ $thanh_toan[$number]->stk }}">
+                                            <input type="hidden" name="token" value="{{ $thanh_toan[$number]->token }}">
                                             <dt></dt>
                                             <dd>
                                                 <div class="formSubmitRow-main">
@@ -116,26 +121,18 @@
                                                                     <dl class="formRow formRow--input">
                                                                         <dd
                                                                             style="
-                                                                        display: flex;
-                                                                        justify-content: center;
-                                                                        align-content: center;
-                                                                        width: 100%;
+                                                                        color:#000;
                                                                     ">
-
-                                                                            <img
+                                                                            <div>Lưu ý :Sau khi chuyển khoản 2 phút sẽ được
+                                                                                tự động cộng tiền vào tài khoản</div>
+                                                                            <br><img
                                                                                 src="https://img.vietqr.io/image/{{ $thanh_toan[$number]->ten_ngan_hang }}-{{ $thanh_toan[$number]->stk }}-compact2.jpg?amount=tien_value&addInfo={{ $number_value }}&amp;accountName={{ $thanh_toan[$number]->acc_name }}">
                                                                         </dd>
 
                                                                     </dl>
                                                                 </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="submit"
-                                                                        class="button--primary button button--icon button--icon--save rippleButton"
-                                                                        id="exampleModalCenteroksubmit"><span
-                                                                            class="button-text" data-toggle="modal"
-                                                                            data-target="#exampleModalCenterok">Xác nhận đã
-                                                                            chuyển khoản</span></button>
-                                                                </div>
+
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -147,6 +144,7 @@
                         </div>
 
                         </form>
+
 
                         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
                             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
@@ -174,130 +172,84 @@
 
                             }
                         </script>
-
-
                         @php
-                            if (!empty(Session::get('da_nap_tien'))) {
-                                $response = null;
-                                if ($thanh_toan[$number]->ten_ngan_hang == 'BIDV') {
-                                    $response = file_get_contents(
-                                        'https://api.web2m.com/historyapibidv/' .
-                                            $thanh_toan[$number]->password .
-                                            '/' .
-                                            $thanh_toan[$number]->stk .
-                                            '/' .
-                                            $thanh_toan[$number]->token .
-                                            '',
-                                    );
-                                } elseif ($thanh_toan[$number]->ten_ngan_hang == 'ACB') {
-                                    $response = file_get_contents(
-                                        'https://api.web2m.com/historyapiacb/' .
-                                            $thanh_toan[$number]->password .
-                                            '/' .
-                                            $thanh_toan[$number]->stk .
-                                            '/' .
-                                            $thanh_toan[$number]->token .
-                                            '',
-                                    );
-                                } elseif ($thanh_toan[$number]->ten_ngan_hang == 'TPBANK') {
-                                    $response = file_get_contents(
-                                        'https://api.web2m.com/historyapitpb/' .
-                                            $thanh_toan[$number]->password .
-                                            '/' .
-                                            $thanh_toan[$number]->stk .
-                                            '/' .
-                                            $thanh_toan[$number]->token .
-                                            '',
-                                    );
-                                } elseif ($thanh_toan[$number]->ten_ngan_hang == 'VIETCOMBANK') {
-                                    $response = file_get_contents(
-                                        'https://api.web2m.com/historyapivcb/' .
-                                            $thanh_toan[$number]->password .
-                                            '/' .
-                                            $thanh_toan[$number]->stk .
-                                            '/' .
-                                            $thanh_toan[$number]->token .
-                                            '',
-                                    );
-                                } elseif ($thanh_toan[$number]->ten_ngan_hang == 'TECHCOMBANK') {
-                                    $response = file_get_contents(
-                                        'https://api.web2m.com/historyapitcb/' .
-                                            $thanh_toan[$number]->password .
-                                            '/' .
-                                            $thanh_toan[$number]->stk .
-                                            '/' .
-                                            $thanh_toan[$number]->token .
-                                            '',
-                                    );
-                                } elseif ($thanh_toan[$number]->ten_ngan_hang == 'MBBANK') {
-                                    $response = file_get_contents(
-                                        'https://api.web2m.com/historyapimb/' .
-                                            $thanh_toan[$number]->password .
-                                            '/' .
-                                            $thanh_toan[$number]->stk .
-                                            '/' .
-                                            $thanh_toan[$number]->token .
-                                            '',
-                                    );
-                                } elseif ($thanh_toan[$number]->ten_ngan_hang == 'VIETINBANK') {
-                                    $response = file_get_contents(
-                                        'https://api.web2m.com/historyapivtb/' .
-                                            $thanh_toan[$number]->password .
-                                            '/' .
-                                            $thanh_toan[$number]->stk .
-                                            '/' .
-                                            $thanh_toan[$number]->token .
-                                            '',
-                                    );
-                                }
-                                $response = json_decode($response);
-                                if ($response->status) {
-                                    $data = $response->data;
-
-                                    $obj = array_reduce(
-                                        $data,
-                                        static function ($carry, $item) {
-                                            $char = 'NAP100';
-                                            $pos = strpos($item->addDescription, $char);
-                                            $newstring = substr($item->addDescription, $pos);
-                                            $tbl_payment = DB::table('tbl_payment')->get();
-                                            $number_id = $tbl_payment->count();
-                                            $user_id = Session::get('user_id');
-                                            $number_value = 'NAP100' . $user_id . $number_id;
-                                            $charnew = '-CHUYEN TIEN';
-                                            $posnew = strpos($newstring, $charnew);
-                                            $newstring2 = substr($newstring, 0, $posnew);
-                                            return $carry ?? ($newstring2 === $number_value ? $item : $carry);
-                                        },
-                                        null,
-                                    );
-
-                                    if ($obj == null) {
-                                        Session::put('da_nap_tien', null);
-                                        Session::put('error', 'Bạn chưa chuyển khoản');
-                                    } else {
-                                        $user_id = Session::get('user_id');
-                                        $data = [];
-                                        $data['user_id'] = (int) $user_id;
-                                        $data['so_tien'] = (int) $obj->creditAmount;
-                                        $data['ma_nap'] = $number_value;
-                                        DB::table('tbl_payment')->insert($data);
-                                        $user_get = DB::table('users')->where('id', $user_id)->get();
-                                        $tien = (int) $user_get[0]->vi_tien + (int) $obj->creditAmount;
-                                        DB::table('users')
-                                            ->where('id', $user)
-                                            ->update([
-                                                'vi_tien' => $tien,
-                                                'da_tung_nap' => $tien,
-                                            ]);
-                                        Session::put('da_nap_tien', null);
-                                        Session::put('message', 'Nạp tiền thành công');
-                                    }
-                                }
+                            $response = null;
+                            if ($thanh_toan[$number]->ten_ngan_hang == 'BIDV') {
+                                $response = file_get_contents(
+                                    'https://api.web2m.com/historyapibidv/' .
+                                        $thanh_toan[$number]->password .
+                                        '/' .
+                                        $thanh_toan[$number]->stk .
+                                        '/' .
+                                        $thanh_toan[$number]->token .
+                                        '',
+                                );
+                            } elseif ($thanh_toan[$number]->ten_ngan_hang == 'ACB') {
+                                $response = file_get_contents(
+                                    'https://api.web2m.com/historyapiacb/' .
+                                        $thanh_toan[$number]->password .
+                                        '/' .
+                                        $thanh_toan[$number]->stk .
+                                        '/' .
+                                        $thanh_toan[$number]->token .
+                                        '',
+                                );
+                            } elseif ($thanh_toan[$number]->ten_ngan_hang == 'TPBANK') {
+                                $response = file_get_contents(
+                                    'https://api.web2m.com/historyapitpb/' .
+                                        $thanh_toan[$number]->password .
+                                        '/' .
+                                        $thanh_toan[$number]->stk .
+                                        '/' .
+                                        $thanh_toan[$number]->token .
+                                        '',
+                                );
+                            } elseif ($thanh_toan[$number]->ten_ngan_hang == 'VIETCOMBANK') {
+                                $response = file_get_contents(
+                                    'https://api.web2m.com/historyapivcb/' .
+                                        $thanh_toan[$number]->password .
+                                        '/' .
+                                        $thanh_toan[$number]->stk .
+                                        '/' .
+                                        $thanh_toan[$number]->token .
+                                        '',
+                                );
+                            } elseif ($thanh_toan[$number]->ten_ngan_hang == 'TECHCOMBANK') {
+                                $response = file_get_contents(
+                                    'https://api.web2m.com/historyapitcb/' .
+                                        $thanh_toan[$number]->password .
+                                        '/' .
+                                        $thanh_toan[$number]->stk .
+                                        '/' .
+                                        $thanh_toan[$number]->token .
+                                        '',
+                                );
+                            } elseif ($thanh_toan[$number]->ten_ngan_hang == 'MBBANK') {
+                                $response = file_get_contents(
+                                    'https://api.web2m.com/historyapimb/' .
+                                        $thanh_toan[$number]->password .
+                                        '/' .
+                                        $thanh_toan[$number]->stk .
+                                        '/' .
+                                        $thanh_toan[$number]->token .
+                                        '',
+                                );
+                            } elseif ($thanh_toan[$number]->ten_ngan_hang == 'VIETINBANK') {
+                                $response = file_get_contents(
+                                    'https://api.web2m.com/historyapivtb/' .
+                                        $thanh_toan[$number]->password .
+                                        '/' .
+                                        $thanh_toan[$number]->stk .
+                                        '/' .
+                                        $thanh_toan[$number]->token .
+                                        '',
+                                );
                             }
-
+                            Session::put('response', $response);
                         @endphp
-                        
+
+
+
                         <script type="text/javascript">
                             document.querySelector('#button_nap').addEventListener('click', function(e) {
                                 value = $('#formthanhtoan select').val();

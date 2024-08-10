@@ -863,10 +863,7 @@ class CategoryProduct extends Controller
             }}
     }
 
-    public function nap_tien(Request $request){
-        Session::put('da_nap_tien','true');
-        return redirect()->back();
-    }
+
     
     public function checkMomo(Request $request){
         

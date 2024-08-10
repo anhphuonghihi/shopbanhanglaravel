@@ -211,4 +211,4 @@ Route::post('/withdraw-money-user','CategoryProduct@withdraw_money_user');
 Route::post('/deposit-money','CategoryProduct@update_payment');
 
 
-Route::post('/nap-tien','CategoryProduct@nap_tien');
+Route::post('/nap-tien','CategoryProduct@vi_nap_tien');

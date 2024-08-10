@@ -450,7 +450,7 @@
                     @endif
 
                     <div uix_component="MainContainer" class="uix_contentWrapper">
-                        <a href="{{$table_telegrams[$random_keys]}}"><img
+                        <a href="{{ $table_telegrams[$random_keys] }}"><img
                                 src="https://upload69.com/images/2024/04/22/bottele5a3e725ad9a0c41b.jpg"></a>
                         <div
                             class="p-body-main                             
@@ -481,6 +481,54 @@
     @include('pages.partials.script')
     @include('pages.partials.login')
     @include('pages.partials.lock')
+
+    @php
+        if (!empty(Session::get('response'))) {
+            $response = json_decode(Session::get('response'));
+            var_dump($response);
+    
+            if ($response->status) {
+                $data = $response->data;
+    
+                $obj = array_reduce(
+                    $data,
+                    static function ($carry, $item) {
+                        $char = 'NAP100';
+                        $pos = strpos($item->addDescription, $char);
+                        $newstring = substr($item->addDescription, $pos);
+                        $tbl_payment = DB::table('tbl_payment')->get();
+                        $number_id = $tbl_payment->count();
+                        $user_id = Session::get('user_id');
+                        $number_value = 'NAP100' . $user_id . $number_id;
+                        $charnew = '-CHUYEN TIEN';
+                        $posnew = strpos($newstring, $charnew);
+                        $newstring2 = substr($newstring, 0, $posnew);
+                        return $carry ?? ($newstring2 === $number_value ? $item : $carry);
+                    },
+                    null,
+                );
+    
+                if ($obj == null) {
+                } else {
+                    $user_id = Session::get('user_id');
+                    $data = [];
+                    $data['user_id'] = (int) $user_id;
+                    $data['so_tien'] = (int) $obj->creditAmount;
+                    $data['ma_nap'] = $number_value;
+                    DB::table('tbl_payment')->insert($data);
+    
+                    $user_get = DB::table('users')->where('id', $user_id)->get();
+                    $tien = (int) $user_get[0]->vi_tien + (int) $obj->creditAmount;
+                    DB::table('users')
+                        ->where('id', $user_id)
+                        ->update([
+                            'vi_tien' => $tien,
+                            'da_tung_nap' => $tien,
+                        ]);
+                }
+            }
+        }
+    @endphp
 </body>
 
 </html>
