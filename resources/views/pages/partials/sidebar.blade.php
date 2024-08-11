@@ -51,23 +51,6 @@
                     </div>
                 </li>
       
-                <li class="uix_sidebarNavList__listItem">
-                    <div
-                        class="p-navEl   @php if (!empty($sidebar_active)) {
-                        if ($sidebar_active=='new-post') {
-                            echo 'is-selected';
-                        }
-                    } @endphp">
-                        <div class="p-navEl__inner u-ripple rippleButton">
-                            <a href="/whats-new/" class="p-navEl-link  " data-xf-key="3" data-nav-id="whatsNew"><span>Có
-                                    gì mới?</span></a>
-                        </div>
-                        <div class="uix_sidebarNav__subNav">
-                            <div class="uix_sidebarNav__subNavInner">
-                            </div>
-                        </div>
-                    </div>
-                </li>
                 @php
                     $danh_muc_con = DB::table('danh_muc')->where('menu', '=', '1')->get();
                     // var_dump($count_danh_muc_shubmenu);
