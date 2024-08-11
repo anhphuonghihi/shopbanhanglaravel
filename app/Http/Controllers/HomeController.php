@@ -136,13 +136,12 @@ class HomeController extends BaseController
         $url_canonical = $request->url();
         //--seo
 
-        $danh_muc = DB::table('danh_muc')->where('show_trang_chu','1')->get(); 
-      
+        $post = DB::table('tbl_post')->orderBy('created_at', 'desc')->paginate(10); 
 
         $nhan = DB::table('tbl_tag')->where('la_label','1')->get(); 
         Session::put('nhan',$nhan);
         $sidebar_active='home';
         
-    	return view('pages.trang_chu')->with('sidebar_active',$sidebar_active)->with('danh_muc',$danh_muc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+    	return view('pages.trang_chu')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
 }

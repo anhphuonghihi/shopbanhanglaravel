@@ -15,7 +15,7 @@
 
                     <h1 class="p-title-value">
                         @include('pages.partials.listnhan')
-                        {{ $post[0]->ten_bai_viet }}
+                        {{ $post[0]->ten_bai_viet }} - {{ $post[0]->khu_vuc }}
                     </h1>
 
 

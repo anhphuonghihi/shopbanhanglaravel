@@ -9,7 +9,14 @@
             $tbl_payment = DB::table('tbl_payment')->get();
             $number_id = $tbl_payment->count();
             $number_value = 'NAP100' . $user_id . $number_id;
-            $number = mt_rand(0, $thanh_toan->count() - 1);
+            $number = 0;
+            if (!empty(Session::get('number_payment'))) {
+                $number = Session::get('number_payment');
+            }else{
+                Session::put('number_payment',mt_rand(0, $thanh_toan->count() - 1));
+                $number = Session::get('number_payment');
+            }
+
 
         @endphp
 
@@ -245,6 +252,7 @@
                                         '',
                                 );
                             }
+                  
                             Session::put('response', $response);
                         @endphp
 

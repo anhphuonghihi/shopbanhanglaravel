@@ -60,17 +60,17 @@
                                             ->get(),
                                     );
                                 }
-                                $stiky_post_count += (int) count($stiky_post_danh_muc_con_ok[0]);
+                                $stiky_post_count += (int) count($stiky_post_danh_muc_con_ok);
                             }
 
                             $page = 1;
                             if (!empty($_SERVER['QUERY_STRING'])) {
                                 if (strripos($_SERVER['QUERY_STRING'], 'page=')) {
-                                    # code...
                                     $page_number = strripos($_SERVER['QUERY_STRING'], 'page=');
                                     $page = substr($_SERVER['QUERY_STRING'], $page_number - 1);
                                 }
                             }
+                            
                         @endphp
                         @if ($stiky_post_count > 0 && $page == 1)
                             <h3 class="block-minorHeader uix_threadListSeparator">
@@ -87,12 +87,13 @@
                                         @foreach ($stiky_post as $key => $stiky_post_item)
                                             @include('pages.partials.stiky_post')
                                         @endforeach
-
-                                        @if ($danh_muc_con->count() > 0 && count($stiky_post_danh_muc_con_ok[0]) != 0)
-                                            @foreach ($stiky_post_danh_muc_con_ok[0] as $key => $stiky_post_item)
-                                                @include('pages.partials.stiky_post')
-                                            @endforeach
-                                        @else
+                                     
+                                        @if (count($stiky_post_danh_muc_con_ok) != 0)
+                                            @for ($i = 0; $i < count($stiky_post_danh_muc_con_ok); $i++)
+                                                @foreach ($stiky_post_danh_muc_con_ok[$i] as $key => $stiky_post_item)
+                                                    @include('pages.partials.stiky_post')
+                                                @endforeach
+                                            @endfor
                                         @endif
                                     </div>
                                 </div>
@@ -141,12 +142,14 @@
                                         );
                                     }
                                 }
-
                             @endphp
+
                             @if (count($stiky_post_danh_muc_con) != 0)
-                                @foreach ($stiky_post_danh_muc_con[0] as $key => $stiky_post_item)
-                                    @include('pages.partials.stiky_post')
-                                @endforeach
+                                @for ($i = 0; $i < count($stiky_post_danh_muc_con); $i++)
+                                    @foreach ($stiky_post_danh_muc_con[$i] as $key => $stiky_post_item)
+                                        @include('pages.partials.stiky_post')
+                                    @endforeach
+                                @endfor
                             @else
                             @endif
                         </div>

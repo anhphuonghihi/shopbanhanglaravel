@@ -10,10 +10,10 @@
                     </h3>
                     @php
                         $stiky_post_danh_muc_right = DB::table('tbl_post')
-                            ->where('danh_muc_id', '=', 42)
+                            ->where('danh_muc_id', '=', 3)
                             ->orderBy('created_at', 'desc')
                             ->paginate(5);
-                        $danh_muc_con = DB::table('danh_muc')->where('id_danh_muc_cha', '=', 42)->get();
+                        $danh_muc_con = DB::table('danh_muc')->where('id_danh_muc_cha', '=', 3)->get();
                         $stiky_post_danh_muc_right_con = [];
                         if ($danh_muc_con->count() > 0) {
                             foreach ($danh_muc_con as $key => $danh_muc_item_con) {
@@ -47,10 +47,10 @@
                     </h3>
                     @php
                         $stiky_post_danh_muc_right = DB::table('tbl_post')
-                            ->where('danh_muc_id', '=', 69)
+                            ->where('danh_muc_id', '=', 6)
                             ->orderBy('created_at', 'desc')
                             ->paginate(5);
-                        $danh_muc_con = DB::table('danh_muc')->where('id_danh_muc_cha', '=', 69)->get();
+                        $danh_muc_con = DB::table('danh_muc')->where('id_danh_muc_cha', '=', 6)->get();
                         $stiky_post_danh_muc_right_con = [];
                         if ($danh_muc_con->count() > 0) {
                             foreach ($danh_muc_con as $key => $danh_muc_item_con) {

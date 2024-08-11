@@ -8,7 +8,7 @@
             Session::put('message', null);
         }
         Session::put('post', $post);
-        
+        var_dump($post[0]->tinh_id);
         ?>
         <form action="/threads/{{ $post[0]->post_slug }}.{{ $post[0]->id }}/edit" method="post" class="block create-thread"
             enctype="multipart/form-data">
@@ -25,7 +25,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="title" onkeyup="ChangeToSlug();" id="slug"
+                                    <input type="text" name="title" onkeyup="ChangeToSlug();" id="slug" required
                                         value="{{ $post[0]->ten_bai_viet }}" class="input" placeholder="Tiêu đề">
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="slug" value="{{ $post[0]->post_slug }}" class="input"
+                                    <input type="text" name="slug" value="{{ $post[0]->post_slug }}" class="input" required
                                         id="convert_slug" placeholder="Slug">
                                 </div>
                             </div>
@@ -97,13 +97,51 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="file" required name="image" value="{{ $post[0]->anh_dai_dien }}"
+                                    <input type="file" required name="image" value="{{ $post[0]->anh_dai_dien }}" required
                                         class="input" placeholder="Ảnh đại diện">
                                 </div>
                             </div>
                         </dd>
                     </dl>
-                    <div class="formRow formRow--input" id="danh_muc_id">
+
+                    <div class="formRow formRow--select">
+                        <dt>
+                            <div class="formRow-labelWrapper">
+                                <label for="exampleInputPassword1">Tỉnh/Thành phố</label>
+                            </div>
+                        </dt>
+                        <dd>
+                            <div>
+                                <select id="city" class="input" name="tinhthanhpho_id" required>
+                                    <option value="" disabled>Chọn tỉnh thành</option>
+                                </select>
+                            </div>
+                        </dd>
+                    </div>
+                    <div class="formRow formRow--select">
+                        <dt>
+                            <div class="formRow-labelWrapper">
+                                <label for="exampleInputPassword1">Quận huyện</label>
+                            </div>
+                        </dt>
+                        <dd>
+                            <div>
+                                @php
+                                    $danh_muc_crr = DB::table('tbl_quanhuyen')
+                                        ->where('maqh', '=', $post[0]->huyen_id)
+                                        ->get();
+
+                                @endphp
+                                <select id="district" class="input" name="quanhuyen_id" required>
+                                    <option value="{{ $post[0]->huyen_id }}" disabled>{{ $danh_muc_crr[0]->name_quanhuyen }}
+                                    </option>
+                                </select>
+                            </div>
+                        </dd>
+
+                    </div>
+
+                    <dl class="formRow formRow--input">
                         <dt>
                             <div class="formRow-labelWrapper">
                                 <label for="exampleInputPassword1">Khu vực</label>
@@ -112,23 +150,12 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input list="suggestionList" id="danh_muc" class="input" placeholder="Khu vực">
-                                    <datalist id="suggestionList">
-                                        @php
-                                            $danh_muc = DB::table('danh_muc')->get();
-                                        @endphp
-                                        @foreach ($danh_muc as $key => $danh_muc_item)
-                                            <option data-value="{{ $danh_muc_item->id }}">{{ $danh_muc_item->ten_danh_muc }}
-                                            </option>
-                                        @endforeach
-                                    </datalist>
-                                    <input type="hidden" id="danh_muc-hidden" name="danh_muc_id" class="input">
+                                    <input type="text" name="khu_vuc" value="{{ $post[0]->khu_vuc }}" class="input"
+required                                         placeholder="Khu vực">
                                 </div>
                             </div>
                         </dd>
-
-
-                    </div>
+                    </dl>
                     <dl class="formRow formRow--input">
                         <dt>
                             <div class="formRow-labelWrapper">
@@ -139,7 +166,7 @@
                             <div>
                                 <div class="inputGroup inputGroup--joined">
                                     <input type="text" name="nghe_danh" value="{{ $post[0]->nghe_danh }}" class="input"
-                                        placeholder="Nghệ danh">
+required                                         placeholder="Nghệ danh">
                                 </div>
                             </div>
                         </dd>
@@ -154,7 +181,7 @@
                             <div>
                                 <div class="inputGroup inputGroup--joined">
                                     <input type="text" name="gia_di_khach" value="{{ $post[0]->gia }}" class="input"
-                                        placeholder="Giá đi khách">
+required                                         placeholder="Giá đi khách">
                                 </div>
                             </div>
                         </dd>
@@ -169,7 +196,7 @@
                             <div>
                                 <div class="inputGroup inputGroup--joined">
                                     <input type="text" name="so_dien_thoai" value="{{ $post[0]->so_dien_thoai }}"
-                                        class="input" placeholder="Số điện thoại">
+                                        class="input" required placeholder="Số điện thoại">
                                 </div>
                             </div>
                         </dd>
@@ -184,7 +211,7 @@
                             <div>
                                 <div class="inputGroup inputGroup--joined">
                                     <input type="text" name="nam_sinh" value="{{ $post[0]->nam_sinh }}"
-                                        class="input" placeholder="Năm sinh">
+                                        class="input" required placeholder="Năm sinh">
                                 </div>
                             </div>
                         </dd>
@@ -199,7 +226,7 @@
                             <div>
                                 <div class="inputGroup inputGroup--joined">
                                     <input type="text" name="xuat_xu" value="{{ $post[0]->xuat_xu }}" class="input"
-                                        placeholder="Xuất xứ">
+required                                         placeholder="Xuất xứ">
                                 </div>
                             </div>
                         </dd>
@@ -214,7 +241,7 @@
                             <div>
                                 <div class="inputGroup inputGroup--joined">
                                     <input type="text" name="pass" value="{{ $post[0]->pass }}" class="input"
-                                        placeholder="Pass">
+required                                         placeholder="Pass">
                                 </div>
                             </div>
                         </dd>
@@ -229,7 +256,7 @@
                             <div>
                                 <div class="inputGroup inputGroup--joined">
                                     <input type="text" name="gia_nha_nghi" value="{{ $post[0]->gia_nha_nghi }}"
-                                        class="input" placeholder="Giá nhà nghỉ">
+                                        class="input" required placeholder="Giá nhà nghỉ">
                                 </div>
                             </div>
                         </dd>
@@ -245,7 +272,7 @@
                                 <div class="inputGroup inputGroup--joined">
                                     <input type="text" name="thoi_gian_di_lam"
                                         value="{{ $post[0]->thoi_gian_di_lam }}" class="input"
-                                        placeholder="Thời gian làm việc">
+required                                         placeholder="Thời gian làm việc">
                                 </div>
                             </div>
                         </dd>
@@ -260,7 +287,7 @@
                             <div>
                                 <div class="inputGroup inputGroup--joined">
                                     <input type="text" name="mo_ta_them" value="{{ $post[0]->mo_ta_them }}"
-                                        class="input" placeholder="Mô tả thêm">
+                                        class="input" required placeholder="Mô tả thêm">
                                 </div>
                             </div>
                         </dd>
@@ -275,7 +302,7 @@
                             <div>
                                 <div class="inputGroup inputGroup--joined">
                                     <input type="text" name="chieu_cao" value="{{ $post[0]->chieu_cao }}"
-                                        class="input" placeholder="Chiều cao">
+                                        class="input" required placeholder="Chiều cao">
                                 </div>
                             </div>
                         </dd>
@@ -290,7 +317,7 @@
                             <div>
                                 <div class="inputGroup inputGroup--joined">
                                     <input type="text" name="can_nang" value="{{ $post[0]->can_nang }}"
-                                        class="input" placeholder="Cân nặng">
+                                        class="input" required placeholder="Cân nặng">
                                 </div>
                             </div>
                         </dd>

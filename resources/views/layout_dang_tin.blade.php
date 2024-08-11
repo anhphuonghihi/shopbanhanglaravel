@@ -5,6 +5,8 @@
     class="has-js template-forum_list uix_page--fixed sidebarNav--active uix_hasWelcomeSection uix_hasSectionLinks uix_hasPageAction has-no-touchevents has-passiveeventlisteners has-no-hiddenscroll has-overflowanchor has-os-windows has-browser-chrome has-pointer-nav"
     data-run-jobs="">
 
+
+
 <head>
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -485,11 +487,8 @@
     @php
         if (!empty(Session::get('response'))) {
             $response = json_decode(Session::get('response'));
-            var_dump($response);
-    
-            if ($response->status) {
+            if ($response->data != null) {
                 $data = $response->data;
-    
                 $obj = array_reduce(
                     $data,
                     static function ($carry, $item) {
@@ -507,7 +506,7 @@
                     },
                     null,
                 );
-    
+
                 if ($obj == null) {
                 } else {
                     $user_id = Session::get('user_id');
@@ -516,7 +515,7 @@
                     $data['so_tien'] = (int) $obj->creditAmount;
                     $data['ma_nap'] = $number_value;
                     DB::table('tbl_payment')->insert($data);
-    
+
                     $user_get = DB::table('users')->where('id', $user_id)->get();
                     $tien = (int) $user_get[0]->vi_tien + (int) $obj->creditAmount;
                     DB::table('users')

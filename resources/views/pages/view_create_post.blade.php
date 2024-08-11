@@ -23,7 +23,7 @@
                             <div>
                                 <div class="inputGroup inputGroup--joined">
                                     <input type="text" name="title" onkeyup="ChangeToSlug();" id="slug"
-                                        value="" class="input" placeholder="Tiêu đề">
+                                        value="" class="input" placeholder="Tiêu đề" required>
                                 </div>
                             </div>
                         </dd>
@@ -61,7 +61,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="slug" value="" class="input" id="convert_slug"
+                                    <input type="text" name="slug" value="" class="input" id="convert_slug" required
                                         placeholder="Slug">
                                 </div>
                             </div>
@@ -76,12 +76,42 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="file" required name="image" value="" class="input"
+                                    <input type="file" required name="image" value="" class="input"  required
                                         placeholder="Ảnh đại diện">
                                 </div>
                             </div>
                         </dd>
                     </dl>
+
+                    <div class="formRow formRow--select">
+                        <dt>
+                            <div class="formRow-labelWrapper">
+                                <label for="exampleInputPassword1">Tỉnh/Thành phố</label>
+                            </div>
+                        </dt>
+                        <dd>
+                            <div>
+                                <select id="city" class="input" name="tinhthanhpho_id" required>
+                                    <option value="" disabled selected>Chọn tỉnh thành</option>
+                                </select>
+                            </div>
+                        </dd>
+                    </div>
+                    <div class="formRow formRow--select">
+                        <dt>
+                            <div class="formRow-labelWrapper">
+                                <label for="exampleInputPassword1">Quận huyện</label>
+                            </div>
+                        </dt>
+                        <dd>
+                            <div>
+                                <select id="district" class="input" name="quanhuyen_id" required>
+                                    <option value="" disabled selected>Chọn quận huyện</option>
+                                </select>
+                            </div>
+                        </dd>
+
+                    </div>
                     <div class="formRow formRow--input">
                         <dt>
                             <div class="formRow-labelWrapper">
@@ -91,18 +121,8 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input list="suggestionList" id="danh_muc" class="input" placeholder="Khu vực"
-                                        required>
-                                    <datalist id="suggestionList">
-                                        @php
-                                            $danh_muc = DB::table('danh_muc')->get();
-                                        @endphp
-                                        @foreach ($danh_muc as $key => $danh_muc_item)
-                                            <option data-value="{{ $danh_muc_item->id }}">{{ $danh_muc_item->ten_danh_muc }}
-                                            </option>
-                                        @endforeach
-                                    </datalist>
-                                    <input type="hidden" id="danh_muc-hidden" name="danh_muc_id" class="input" required>
+                                    <input type="text" name="khu_vuc" value="" class="input" required
+                                        placeholder="Khu vực">
                                 </div>
                             </div>
                         </dd>
@@ -118,7 +138,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="nghe_danh" value="" class="input"
+                                    <input type="text" name="nghe_danh" value="" class="input" required
                                         placeholder="Nghệ danh">
                                 </div>
                             </div>
@@ -133,7 +153,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="gia_di_khach" value="" class="input"
+                                    <input type="text" name="gia_di_khach" value="" class="input" required
                                         placeholder="Giá đi khách">
                                 </div>
                             </div>
@@ -148,7 +168,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="so_dien_thoai" value="" class="input"
+                                    <input type="text" name="so_dien_thoai" value="" class="input" required
                                         placeholder="Số điện thoại">
                                 </div>
                             </div>
@@ -163,7 +183,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="nam_sinh" value="" class="input"
+                                    <input type="text" name="nam_sinh" value="" class="input" required
                                         placeholder="Năm sinh">
                                 </div>
                             </div>
@@ -178,7 +198,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="xuat_xu" value="" class="input"
+                                    <input type="text" name="xuat_xu" value="" class="input" required
                                         placeholder="Xuất xứ">
                                 </div>
                             </div>
@@ -193,7 +213,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="pass" value="" class="input"
+                                    <input type="text" name="pass" value="" class="input" required
                                         placeholder="Pass">
                                 </div>
                             </div>
@@ -208,7 +228,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="gia_nha_nghi" value="" class="input"
+                                    <input type="text" name="gia_nha_nghi" value="" class="input" required
                                         placeholder="Giá nhà nghỉ">
                                 </div>
                             </div>
@@ -223,7 +243,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="thoi_gian_di_lam" value="" class="input"
+                                    <input type="text" name="thoi_gian_di_lam" value="" class="input" required
                                         placeholder="Thời gian làm việc">
                                 </div>
                             </div>
@@ -238,7 +258,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="mo_ta_them" value="" class="input"
+                                    <input type="text" name="mo_ta_them" value="" class="input" required
                                         placeholder="Mô tả thêm">
                                 </div>
                             </div>
@@ -253,7 +273,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="chieu_cao" value="" class="input"
+                                    <input type="text" name="chieu_cao" value="" class="input" required
                                         placeholder="Chiều cao">
                                 </div>
                             </div>
@@ -268,7 +288,7 @@
                         <dd>
                             <div>
                                 <div class="inputGroup inputGroup--joined">
-                                    <input type="text" name="can_nang" value="" class="input"
+                                    <input type="text" name="can_nang" value="" class="input" required
                                         placeholder="Cân nặng">
                                 </div>
                             </div>
@@ -580,7 +600,6 @@
                 $('input').val(null);
             }
             document.getElementById("myBtn").addEventListener("click", displayDate);
-
         </script>
         <script type="text/javascript">
             document.querySelector('#danh_muc').addEventListener('input', function(e) {

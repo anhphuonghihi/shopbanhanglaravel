@@ -29,14 +29,14 @@
             <div class="p-header-logo p-header-logo--image">
                 <a class="uix_logo" href="/">
 
-                    <img 
-                        alt="Gái gọi | Gái gọi Hà Nội | Gái gọi Sài Gòn | Cộng đồng checker Việt Nam" width=""
+                    <img alt="Gái gọi | Gái gọi Hà Nội | Gái gọi Sài Gòn | Cộng đồng checker Việt Nam" width=""
                         height="">
 
                 </a>
 
                 <a class="uix_logoSmall" href="/">
-                    <img alt="Gái gọi | Gái gọi Hà Nội | Gái gọi Sài Gòn | Cộng đồng checker Việt Nam">
+                    <img alt="Gái gọi | Gái gọi Hà Nội | Gái gọi Sài Gòn | Cộng đồng checker Việt Nam"
+                        src="http://127.0.0.1:8000/dang_tin/images/xbiz.webp">
                 </a>
 
             </div>

@@ -29,12 +29,12 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Màu chữ</label>
                                     <input type="color" class="form-control" name="mau_chu"
-                                        id="colro"value="{{ $edit_value->ten_danh_muc }}" placeholder="red">
+                                        id="colro"value="{{ $edit_value->mau_chu }}" placeholder="red">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Slug</label>
                                     <input type="text" name="danh_muc_slug" class="form-control" id="convert_slug"
-                                        value="{{ $edit_value->ten_danh_muc }}" placeholder="Tên danh mục">
+                                        value="{{ $edit_value->danh_muc_slug }}" placeholder="Tên danh mục">
                                 </div>
                                 <div class="form-group" id="id_danh_muc_cha">
                                     <label for="exampleInputPassword1">Khu vực cha</label>

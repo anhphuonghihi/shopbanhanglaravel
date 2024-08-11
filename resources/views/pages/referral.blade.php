@@ -187,7 +187,7 @@
                         </div>
 
                     </div>
-                    <br>thread
+                    <br>
                     <div class="memberHeader ">
 
                         <div class="memberProfileBanner memberHeader-main memberProfileBanner-u516184-l"
@@ -284,7 +284,7 @@
                                                 </div>
                                             </dt>
                                             <dd>
-                                                <input type="number" class="input" name="so_tien" required="required"
+                                                <input type="number" min="50000" step="50000" class="input" name="so_tien" required="required"
                                                     style="max-width: 100% !important;     text-align: left;"
                                                     min="0" id="_xfUid-1-1721463296">
                                             </dd>

@@ -122,63 +122,67 @@ class CategoryProduct extends Controller
 
         
         $danh_muc = DB::table('danh_muc')->where('id', '=', $danh_muc_id)->get(); 
-        
-        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
-        $meta_keywords = "gai goi ha noi,gai goi sai gon";
-        $meta_title="";
-        if($danh_muc){
+        if($danh_muc->count() > 0){
             
-            $meta_title = $danh_muc[0]->ten_danh_muc;
-            $description = $danh_muc[0]->description;
-
-        }
+            $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+            $meta_keywords = "gai goi ha noi,gai goi sai gon";
+            $meta_title="";
+            if($danh_muc){
+                
+                $meta_title = $danh_muc[0]->ten_danh_muc;
+                $description = $danh_muc[0]->description;
     
-        $url_canonical = $request->url();
-
-        Session::put('danh_muc_id_ht', $danh_muc_id);
-        if (!empty($_SERVER['QUERY_STRING'])) {
-            # code...
-            $str = $_SERVER['QUERY_STRING'];
-            $output =array();
-            $output = explode("&",$str);
+            }
+        
+            $url_canonical = $request->url();
+    
+            Session::put('danh_muc_id_ht', $danh_muc_id);
+            if (!empty($_SERVER['QUERY_STRING'])) {
+                # code...
+                $str = $_SERVER['QUERY_STRING'];
+                $output =array();
+                $output = explode("&",$str);
+            }else{
+                $output = [];
+            }
+            $output2array = [];
+            foreach ($output as $key => $value) {
+                if (str_starts_with($value, 'nhan=')) {
+                    $output2= str_replace("nhan=", "",$value);
+                    $output2array[]=$output2;
+                }
+            }
+            $direction ="desc";
+            if (!empty($request->direction)) {
+                # code...
+                $direction = $request->direction;
+            }
+            Session::put('nhan_array',$output2array);
+            $output2arrayname=[];
+            foreach ($output2array as $item){
+                $nhan = DB::table('tbl_tag')
+                ->where('id', '=', $item)
+                ->where('la_label', '=', '1')
+                ->get();
+                foreach ($nhan as $row) {
+                    $name = $row->name;
+                    $output2arrayname[]= $name;
+                }
+            }
+            $sql = array('0'); // Stop errors when $words is empty
+    
+          
+            $post = DB::table('tbl_post')->where('danh_muc_id', '=', $danh_muc_id)->where(function($post) use($output2arrayname){
+    
+                foreach($output2arrayname as $word){
+                    $post->orWhere('nhan', 'LIKE', '%'.$word.'%');
+                }
+                
+            })->where('stiky', '=', '0')->orderBy('ten_bai_viet', $direction)->paginate(10); 
+            return view('pages.show_category')->with('danh_muc_id',$danh_muc_id)->with('output2arrayname',$output2arrayname)->with('direction',$direction)->with('output',$output)->with('output2array',$output2array)->with('sidebar_active',$sidebar_active)->with('slug_danh_muc',$slug_danh_muc)->with('post',$post)->with('breadcrumb','true')->with('rightbar','true')->with('description',$description)->with('danh_muc_id',$danh_muc_id)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         }else{
-            $output = [];
+            return Redirect::to('/');
         }
-        $output2array = [];
-        foreach ($output as $key => $value) {
-            if (str_starts_with($value, 'nhan=')) {
-                $output2= str_replace("nhan=", "",$value);
-                $output2array[]=$output2;
-            }
-        }
-        $direction ="desc";
-        if (!empty($request->direction)) {
-            # code...
-            $direction = $request->direction;
-        }
-        Session::put('nhan_array',$output2array);
-        $output2arrayname=[];
-        foreach ($output2array as $item){
-            $nhan = DB::table('tbl_tag')
-            ->where('id', '=', $item)
-            ->where('la_label', '=', '1')
-            ->get();
-            foreach ($nhan as $row) {
-                $name = $row->name;
-                $output2arrayname[]= $name;
-            }
-        }
-        $sql = array('0'); // Stop errors when $words is empty
-
-      
-        $post = DB::table('tbl_post')->where('danh_muc_id', '=', $danh_muc_id)->where(function($post) use($output2arrayname){
-
-            foreach($output2arrayname as $word){
-                $post->orWhere('nhan', 'LIKE', '%'.$word.'%');
-            }
-            
-        })->where('stiky', '=', '0')->orderBy('ten_bai_viet', $direction)->paginate(10); 
-    	return view('pages.show_category')->with('danh_muc_id',$danh_muc_id)->with('output2arrayname',$output2arrayname)->with('direction',$direction)->with('output',$output)->with('output2array',$output2array)->with('sidebar_active',$sidebar_active)->with('slug_danh_muc',$slug_danh_muc)->with('post',$post)->with('breadcrumb','true')->with('rightbar','true')->with('description',$description)->with('danh_muc_id',$danh_muc_id)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
 
     public function show_huyen(Request $request ,$slug_danh_muc){
@@ -495,17 +499,21 @@ class CategoryProduct extends Controller
         $number = strripos($slug_post,".");
         $post_id =  substr($slug_post,$number+1);
         $data['id'] = $post_id;
-        $data['danh_muc_id'] = $request->danh_muc_id;
+        $danh_muc_crr = DB::table('danh_muc')->where('maqh', '=', $request->quanhuyen_id)->get();
+        $data['danh_muc_id'] = $danh_muc_crr[0]->id;
         $user_id=Session::get('user_id');
         $data['user_id'] = $user_id;
         $data['nghe_danh'] = $request->nghe_danh;
         $data['gia'] = $request->gia_di_khach;
         $data['so_dien_thoai'] = $request->so_dien_thoai;
         $data['nam_sinh'] = $request->nam_sinh;
+        $data['tinh_id'] = $request->tinhthanhpho_id;
+        $data['huyen_id'] = $request->quanhuyen_id;
         $data['xuat_xu'] = $request->xuat_xu;
         $data['pass'] = $request->pass;
         $data['gia_nha_nghi'] = $request->gia_nha_nghi;
         $data['thoi_gian_di_lam'] = $request->thoi_gian_di_lam;
+        $data['khu_vuc'] = $request->khu_vuc;
         $data['mo_ta_them'] = $request->mo_ta_them;
         $data['chieu_cao'] = $request->chieu_cao;
         $data['can_nang'] = $request->can_nang;
@@ -587,14 +595,18 @@ class CategoryProduct extends Controller
             # code...
             $data['nhan'] = implode(', ', $request->nhan);
         }
-        $data['danh_muc_id'] = $request->danh_muc_id;
+        $danh_muc_crr = DB::table('danh_muc')->where('maqh', '=', $request->quanhuyen_id)->get();
+        $data['danh_muc_id'] = $danh_muc_crr[0]->id;
         $user_id=Session::get('user_id');
         $data['user_id'] = $user_id;
 
         $data['nghe_danh'] = $request->nghe_danh;
         $data['gia'] = $request->gia_di_khach;
         $data['so_dien_thoai'] = $request->so_dien_thoai;
+        $data['tinh_id'] = $request->tinhthanhpho_id;
+        $data['huyen_id'] = $request->quanhuyen_id;
         $data['nam_sinh'] = $request->nam_sinh;
+        $data['khu_vuc'] = $request->khu_vuc;
         $data['xuat_xu'] = $request->xuat_xu;
         $data['pass'] = $request->pass;
         $data['gia_nha_nghi'] = $request->gia_nha_nghi;

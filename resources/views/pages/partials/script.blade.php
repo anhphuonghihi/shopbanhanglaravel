@@ -591,7 +591,7 @@
                     }
                 }
             });
-            $('.create-thread select').select2({
+            $('.create-thread .formRow.formRow--input select').select2({
                 placeholder: 'Chọn giá trị',
                 allowClear: true,
                 minimumResultsForSearch: Infinity,
@@ -676,7 +676,6 @@
                 var option = options[i];
                 if (option.innerText.trim() == inputValue.trim()) {
                     hiddenInput.value = option.getAttribute('data-value');
-                    document.cookie = "fbdata = " + option.getAttribute('data-value');
                     break;
                 }
             }
@@ -721,6 +720,8 @@
         if (!empty($danh_muc_item[0])) {
             $danh_muc = $danh_muc_item[0]->ten_danh_muc;
         }
+   
+
     @endphp
 @endif
 
@@ -734,6 +735,14 @@
             var danh_muc = {!! json_encode($danh_muc) !!};
             $("#danh_muc-hidden").val(danh_muc_id);
             $("#danh_muc").val(danh_muc);
+            var tinhthanhpho = {!! json_encode($post[0]->tinh_id) !!};
+     
+            
+            $("#city").val(tinhthanhpho);
+
+            var quanhuyen = {!! json_encode($post[0]->huyen_id) !!};
+
+            $("#district").val(quanhuyen);
 
 
             var tong_quat = {!! json_encode(explode(',', $post[0]->tong_quat)) !!};
@@ -760,4 +769,44 @@
         });
     </script>
 @endif
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+    var citis = document.getElementById("city");
+    var districts = document.getElementById("district");
+    var Parameter = {
+        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+        method: "GET",
+        responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function(result) {
+        renderCity(result.data);
+    });
 
+    function renderCity(data) {
+        for (const x of data) {
+            var opt = document.createElement('option');
+            opt.value = x.Name;
+            opt.text = x.Name;
+            opt.setAttribute('data-id', x.Id);
+            citis.options.add(opt);
+        }
+        citis.onchange = function() {
+            district.length = 1;
+            
+            if (this.options[this.selectedIndex].dataset.id != "") {
+                const result = data.filter(n => n.Id === this.options[this.selectedIndex].dataset.id);
+                console.log(result[0].Districts);
+                
+                for (const k of result[0].Districts) {
+                    var opt = document.createElement('option');
+                    opt.value = k.Id;
+                    opt.text = k.Name;
+                    opt.setAttribute('data-id', k.Id);
+                    district.options.add(opt);
+                }
+            }
+        };
+
+    }
+</script>
