@@ -65,7 +65,7 @@
         }
     });
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{ asset('frontend/js/jquery.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/vendor-compiled.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/vendor-compiled-xf.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/notice.min.js') }}"></script>
@@ -378,89 +378,13 @@
         }, 100)
     })
 </script>
-<script>
-    $(document).on('ajax:complete', function(e, xhr, status) {
-        var data = xhr.responseJSON;
-        if (!data) {
-            return;
-        }
-        if (data.visitor) {
-            $('.js-uix_badge--totalUnread').data('badge', data.visitor.total_unread);
-        }
-    });
-</script>
+
 <script src="{{ asset('dang_tin/user/js/defer.min.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/deferFab.min.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/defer.min.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/deferNodesCollapse.min.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/deferWidthToggle.min.js') }}"></script>
-<script src="/js/themehouse/uix_dark/defer.min.js?_v=ff3a2254" defer=""></script>
 <script>
-    jQuery.extend(true, XF.config, {
-        // 
-        userId: 0,
-        enablePush: false,
-        pushAppServerKey: '',
-        url: {
-            fullBase: 'http://127.0.0.1:8000/',
-            basePath: '/',
-            css: '/css.php?css=__SENTINEL__&s=12&l=2&d=1720838790',
-            keepAlive: '/login/keep-alive'
-        },
-        cookie: {
-            path: '/',
-            domain: '',
-            prefix: 'xf_',
-            secure: true
-        },
-        cacheKey: '759e247ee94d0d76e3d270317ea7066f',
-        csrf: '1721268225,66b37889f0448b7acc8a04e3ebfbaaf3',
-        js: {
-            "\/js\/xf\/notice.min.js?_v=ff3a2254": true,
-            "\/js\/themehouse\/uix_dark\/ripple.min.js?_v=ff3a2254": true,
-            "\/js\/themehouse\/global\/20210125.min.js?_v=ff3a2254": true,
-            "\/js\/themehouse\/uix_dark\/index.min.js?_v=ff3a2254": true,
-            "\/js\/themehouse\/uix_dark\/vendor\/hover-intent\/jquery.hoverIntent.min.js?_v=ff3a2254": true
-        },
-        css: {
-            "public:altt_thread_thumbnail.less": true,
-            "public:node_list.less": true,
-            "public:notices.less": true,
-            "public:share_controls.less": true,
-            "public:th_nodeStyling_nodes.12.less": true,
-            "public:uix.less": true,
-            "public:uix_extendedFooter.less": true,
-            "public:uix_socialMedia.less": true,
-            "public:uix_welcomeSection.less": true,
-            "public:extra.less": true
-        },
-        time: {
-            now: 1721268225,
-            today: 1721235600,
-            todayDow: 4,
-            tomorrow: 1721322000,
-            yesterday: 1721149200,
-            week: 1720717200
-        },
-        borderSizeFeature: '2px',
-        fontAwesomeWeight: 'r',
-        enableRtnProtect: true,
-        enableFormSubmitSticky: true,
-        uploadMaxFilesize: 167772160,
-        allowedVideoExtensions: ["m4v", "mov", "mp4", "mp4v", "mpeg", "mpg", "ogv", "webm"],
-        allowedAudioExtensions: ["mp3", "opus", "ogg", "wav"],
-        shortcodeToEmoji: true,
-        visitorCounts: {
-            conversations_unread: '0',
-            alerts_unviewed: '0',
-            total_unread: '0',
-            title_count: true,
-            icon_indicator: true
-        },
-        jsState: {},
-        publicMetadataLogoUrl: '',
-        publicPushBadgeUrl: 'http://127.0.0.1:8000/styles/default/xenforo/bell.png'
-    });
     jQuery.extend(XF.phrases, {
         // 
         date_x_at_time_y: "{date} lúc {time}",
@@ -582,6 +506,13 @@
 
 <script src="{{ asset('dang_tin/user/js/prefix_menu.min.js') }}"></script>
 <script src="{{ asset('dang_tin/user/js/select2.full.js') }}"></script>
+@php
+    $user = DB::table('users')->where('id', Session::get('user_id'))->get();
+    $lock = 0;
+    if ($user->count() > 0) {
+        $lock = $user[0]->lock;
+    }
+@endphp
 <script>
     $(document).ready(function() {
         $(".uix_sidebarTrigger").click(function() {
@@ -600,10 +531,27 @@
             event.preventDefault();
             $("#dang_ki").toggleClass('is-active');
         });
+        var userlock = {!! json_encode($lock) !!};
+        console.log(userlock);
+        if (userlock == 1) {
+            $("#lock").toggleClass('is-active');
+
+            if (location.pathname == "/lock") {
+
+            } else {
+                setInterval(function() {
+                    window.location.replace("lock");
+                }, 1000);
+            }
+
+        }
+
+
         $(".p-navgroup-link--logIn").click(function(event) {
             event.preventDefault();
             $("#dang_nhap").toggleClass('is-active');
         });
+
         $(".overlay-titleCloser.js-overlayClose").click(function() {
             $(".overlay-container").removeClass('is-active');
         });
@@ -614,18 +562,52 @@
             }
 
             var text = state.text.split(',')
+            var className = state.element.className
             var $state = $(
-                `<span class="label label--red">${text[0]}</span>`
+                `<span class="label label--${className}">${text[0]}</span>`
             );
             return $state;
         };
+
+
+
         $(document).ready(function() {
+            $("#js-XFUniqueId7").remove();
             $('#list').select2({
-                placeholder: 'Kies formaat en bekijk prijzen',
+                placeholder: 'Chọn giá trị',
                 allowClear: true,
                 minimumResultsForSearch: Infinity,
                 multiple: true,
-                templateResult: formatState
+                templateResult: formatState,
+                templateSelection: function(selection) {
+                    if (selection.selected) {
+                        return $.parseHTML('<span class="label label--' + selection.element
+                            .className + '">' + selection.text +
+                            '</span>');
+                    } else {
+                        return $.parseHTML('<span class="label label--' + selection.element
+                            .className + '">' + selection.text +
+                            '</span>');
+                    }
+                }
+            });
+            $('.create-thread .formRow.formRow--input select').select2({
+                placeholder: 'Chọn giá trị',
+                allowClear: true,
+                minimumResultsForSearch: Infinity,
+                multiple: true,
+                templateResult: formatState,
+                templateSelection: function(selection) {
+                    if (selection.selected) {
+                        return $.parseHTML('<span class="label label--' + selection.element
+                            .className + '">' + selection.text +
+                            '</span>');
+                    } else {
+                        return $.parseHTML('<span class="label label--' + selection.element
+                            .className + '">' + selection.text +
+                            '</span>');
+                    }
+                }
             });
         });
 
@@ -641,11 +623,190 @@
         });
     </script>
 @endif
-@if (Session::has('dki'))
-    <script>
-        $(document).ready(function() {
 
-            $("#dang_ki").toggleClass('is-active');
+
+<script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+
+<script type="text/javascript">
+    $.ajax({
+        url: '/uy_tin',
+        data: {
+            action: 'test'
+        },
+        type: 'get',
+        success: function(output) {
+            $('#uy_tin').text(output[0].value);
+        }
+    });
+    $.ajax({
+        url: '/bai_viet',
+        data: {
+            action: 'test'
+        },
+        type: 'get',
+        success: function(output) {
+            $('#bai_viet').text(output[0].value);
+        }
+    });
+</script>
+
+
+
+
+<script type="text/javascript">
+    $(window).load(function() {
+        {!! $var = '0' !!}
+        document.querySelector('#tinhthanhpho').addEventListener('input', function(e) {
+            var input = e.target,
+                list = input.getAttribute('list'),
+                options = document.querySelectorAll('#' + list + ' option'),
+                hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
+                inputValue = input.value;
+
+            hiddenInput.value = inputValue;
+            for (var i = 0; i < options.length; i++) {
+                var option = options[i];
+                if (option.innerText.trim() == inputValue.trim()) {
+                    hiddenInput.value = option.getAttribute('data-value');
+                    break;
+                }
+            }
+
+        });
+
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(window).load(function() {
+        document.querySelector('#quanhuyen').addEventListener('input', function(e) {
+            var input = e.target,
+                list = input.getAttribute('list'),
+                options = document.querySelectorAll('#' + list + ' option'),
+                hiddenInput = document.getElementById(input.getAttribute('id') + '-hidden'),
+                inputValue = input.value;
+
+            hiddenInput.value = inputValue;
+
+            for (var i = 0; i < options.length; i++) {
+                var option = options[i];
+                if (option.innerText.trim() == inputValue.trim()) {
+                    hiddenInput.value = option.getAttribute('data-value');
+                    break;
+                }
+            }
+
+        });
+
+    });
+</script>
+
+@if (!empty(Session::get('post')))
+    @php
+        $post = Session::get('post');
+        $danh_muc_item = DB::table('danh_muc')
+            ->where('id', $post[0]->danh_muc_id)
+            ->get();
+        $danh_muc = '';
+        if (!empty($danh_muc_item[0])) {
+            $danh_muc = $danh_muc_item[0]->ten_danh_muc;
+        }
+   
+
+    @endphp
+@endif
+
+@if (!empty(Session::get('post')))
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var nhan = {!! json_encode(explode(', ', $post[0]->nhan)) !!};
+            $("#nhan select").val(nhan);
+
+            var danh_muc_id = {!! json_encode($post[0]->danh_muc_id) !!};
+            var danh_muc = {!! json_encode($danh_muc) !!};
+            $("#danh_muc-hidden").val(danh_muc_id);
+            $("#danh_muc").val(danh_muc);
+            var tinhthanhpho = {!! json_encode($post[0]->tinh_id) !!};
+     
+            
+            $("#city").val(tinhthanhpho);
+
+            var quanhuyen = {!! json_encode($post[0]->huyen_id) !!};
+
+            $("#district").val(quanhuyen);
+
+
+            var tong_quat = {!! json_encode(explode(',', $post[0]->tong_quat)) !!};
+            $("#tong_quat select").val(tong_quat);
+
+            var vong_1 = {!! json_encode(explode(',', $post[0]->vong_1)) !!};
+            $("#vong_1 select").val(vong_1);
+            var vong_2 = {!! json_encode(explode(',', $post[0]->vong_2)) !!};
+            $("#vong_2 select").val(vong_2);
+
+
+            var vong_3 = {!! json_encode(explode(',', $post[0]->vong_3)) !!};
+            $("#vong_3 select").val(vong_3);
+            var vong_4 = {!! json_encode(explode(',', $post[0]->vong_4)) !!};
+            $("#vong_4 select").val(vong_4);
+            var phong_cach_phuc_vu = {!! json_encode(explode(',', $post[0]->phong_cach_phuc_vu)) !!};
+            $("#phong_cach_phuc_vu select").val(phong_cach_phuc_vu);
+            var service = {!! json_encode(explode(',', $post[0]->service)) !!};
+            $("#service select").val(service);
+            var cam_ket = {!! json_encode(explode(',', $post[0]->cam_ket)) !!};
+            $("#cam_ket select").val(cam_ket);
+            var khong_cam_ket = {!! json_encode(explode(',', $post[0]->khong_cam_ket)) !!};
+            $("#khong_cam_ket select").val(khong_cam_ket);
         });
     </script>
 @endif
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+    var citis = document.getElementById("city");
+    var districts = document.getElementById("district");
+    var Parameter = {
+        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+        method: "GET",
+        responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function(result) {
+        renderCity(result.data);
+    });
+
+    function renderCity(data) {
+        for (const x of data) {
+            var opt = document.createElement('option');
+            opt.value = x.Name;
+            opt.text = x.Name;
+            opt.setAttribute('data-id', x.Id);
+            citis.options.add(opt);
+        }
+        citis.onchange = function() {
+            district.length = 1;
+            
+            if (this.options[this.selectedIndex].dataset.id != "") {
+                const result = data.filter(n => n.Id === this.options[this.selectedIndex].dataset.id);
+                console.log(result[0].Districts);
+                
+                for (const k of result[0].Districts) {
+                    var opt = document.createElement('option');
+                    opt.value = k.Id;
+                    opt.text = k.Name;
+                    opt.setAttribute('data-id', k.Id);
+                    district.options.add(opt);
+                }
+            }
+        };
+
+    }
+</script>

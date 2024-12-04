@@ -9,14 +9,15 @@ use App\Http\Requests;
 use Mail;
 use App\Slider;
 use Illuminate\Support\Facades\Redirect;
+
 session_start();
 
 class HomeController extends BaseController 
 {
     public function error_page(){
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
-        $meta_title = "Phụ kiện,máy chơi game chính hãng";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
+        $meta_title = "Dịch vụ gái gọi";
         $url_canonical = $request->url();
         //--seo
 
@@ -50,9 +51,9 @@ class HomeController extends BaseController
         //slide
         $slider = Slider::orderBy('slider_id','DESC')->where('slider_status','1')->take(4)->get();
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
-        $meta_title = "Phụ kiện,máy chơi game chính hãng";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
+        $meta_title = "Dịch vụ gái gọi";
         $url_canonical = $request->url();
         //--seo
         
@@ -85,49 +86,62 @@ class HomeController extends BaseController
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
 
         $search_product = DB::table('tbl_product')->where('product_name','like','%'.$keywords.'%')->get(); 
+        $sidebar_active='forums';
 
-
-        return view('pages.sanpham.search')->with('category',$cate_product)->with('brand',$brand_product)->with('search_product',$search_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('slider',$slider);
+        return view('pages.sanpham.search')->with('sidebar_active',$sidebar_active)->with('category',$cate_product)->with('brand',$brand_product)->with('search_product',$search_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('slider',$slider);
 
     }
     public function forums(Request $request){
 
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Danh sách diễn đàn";
         $url_canonical = $request->url();
         //--seo
 
         $danh_muc_0 = DB::table('danh_muc')->where('id_danh_muc_cha','0')->get(); 
         $danh_muc_con = DB::table('danh_muc')->where('id_danh_muc_cha', '>=', '1')->get(); 
-        //group by id_danh_muc_cha => Bài viết mới nhất
-        //Count số bài viết
-        // Count lượt xem
         $nhan = DB::table('tbl_tag')->where('la_label','1')->get(); 
         
         Session::put('nhan',$nhan);
-        
-    	return view('pages.forums')->with('rightbar','true')->with('danh_muc_0',$danh_muc_0)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        $sidebar_active='forums';
+    	return view('pages.forums')->with('sidebar_active',$sidebar_active)->with('rightbar','true')->with('danh_muc_0',$danh_muc_0)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
+
+    public function address(Request $request){
+
+        //seo 
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
+        $meta_title = "Danh sách diễn đàn";
+        $url_canonical = $request->url();
+        //--seo
+
+        $danh_muc_0 = DB::table('tbl_tinhthanhpho')->get(); 
+        $danh_muc_con = DB::table('tbl_quanhuyen')->get(); 
+        $nhan = DB::table('tbl_tag')->where('la_label','1')->get(); 
+        
+        Session::put('nhan',$nhan);
+        $sidebar_active='address';
+    	return view('pages.address')->with('sidebar_active',$sidebar_active)->with('rightbar','true')->with('danh_muc_0',$danh_muc_0)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+    }
+    
     public function trang_chu(Request $request){
 
         //seo 
-        $meta_desc = "Chuyên bán những phụ kiện ,thiết bị game"; 
-        $meta_keywords = "thiet bi game,phu kien game,game phu kien,game giai tri";
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
         $meta_title = "Trang chủ";
         $url_canonical = $request->url();
         //--seo
 
-        $danh_muc_0 = DB::table('danh_muc')->where('id_danh_muc_cha','0')->get(); 
-        $danh_muc_con = DB::table('danh_muc')->where('id_danh_muc_cha', '>=', '1')->get(); 
-        //group by id_danh_muc_cha => Bài viết mới nhất
-        //Count số bài viết
-        // Count lượt xem
+        $post = DB::table('tbl_post')->orderBy('created_at', 'desc')->paginate(10); 
+
         $nhan = DB::table('tbl_tag')->where('la_label','1')->get(); 
-        
         Session::put('nhan',$nhan);
+        $sidebar_active='home';
         
-    	return view('pages.trang_chu')->with('danh_muc_0',$danh_muc_0)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+    	return view('pages.trang_chu')->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
 }

@@ -14,8 +14,6 @@
                                     class="uix_categoryTitle" data-xf-init=""
                                     data-shortcut="node-description">{{ $danh_muc_item->ten_danh_muc }}</a>
                             </div>
-                            <a href="javascript:;" class="u-ripple categoryCollapse--trigger rippleButton" rel="nofollow"><i
-                                    class="fa--xf far fa-chevron-up" aria-hidden="true"></i></a>
                         </h2>
                         <div class="block-container th_node--overwriteTextStyling">
                             <div class="uix_block-body--outer">

@@ -5,14 +5,18 @@
     class="has-js template-forum_list uix_page--fixed sidebarNav--active uix_hasWelcomeSection uix_hasSectionLinks uix_hasPageAction has-no-touchevents has-passiveeventlisteners has-no-hiddenscroll has-overflowanchor has-os-windows has-browser-chrome has-pointer-nav"
     data-run-jobs="">
 
+
+
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!---------Seo--------->
     <meta name="keywords" content="{{ $meta_keywords }}" />
     <!--//-------Seo--------->
     <title>{{ $meta_title }} | Gái gọi Hà Nội | Gái gọi Sài Gòn | Cộng đồng checker Việt Nam</title>
-    <link rel="shortcut icon" href="{{ 'frontend/images/favicon.ico' }}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
@@ -23,7 +27,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>{{ $meta_title }} | Gái gọi Hà Nội | Gái gọi Sài Gòn | Cộng đồng checker Việt Nam</title>
-    <link rel="manifest" href="/webmanifest.php">
     <meta name="theme-color" content="#2196f3">
     <meta name="msapplication-TileColor" content="#2196F3">
     <meta name="apple-mobile-web-app-title"
@@ -41,8 +44,7 @@
     <meta property="og:title" content="{{ $meta_title }}">
     <meta property="twitter:title" content="{{ $meta_title }}">
     <meta property="og:url" content="{{ $url_canonical }}" />
-    <link rel="preload" href="{{ asset('dang_tin/fonts/materialdesignicons-webfont.woff2') }}" as="font"
-        type="font/woff2" crossorigin="anonymous">
+
     <link rel="stylesheet" href="{{ asset('dang_tin/user/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dang_tin/user/css/index.css') }}">
     <link rel="stylesheet" href="{{ asset('dang_tin/user/css/css.css') }}">
@@ -432,8 +434,16 @@
 
                 <div class="p-body-inner ">
                     <!--XF:EXTRA_OUTPUT-->
-                    @include('pages.partials.notices')
+                    @php
+                        $table_telegram = DB::table('table_telegram')->get();
+                        $table_telegrams = [];
+                        foreach ($table_telegram as $table_telegram_item) {
+                            $table_telegrams[] = $table_telegram_item->link;
+                        }
+                        $random_keys = array_rand($table_telegrams, 1);
 
+                    @endphp
+                    @include('pages.partials.notices')
                     @include('pages.partials.welcome')
                     @if (!empty($breadcrumb))
                         <div class="breadcrumb">
@@ -442,7 +452,7 @@
                     @endif
 
                     <div uix_component="MainContainer" class="uix_contentWrapper">
-                        <a href="/threads/v-v-trien-khai-kenh-telegram-cho-checkerviet.125378/"><img
+                        <a href="{{ $table_telegrams[$random_keys] }}"><img
                                 src="https://upload69.com/images/2024/04/22/bottele5a3e725ad9a0c41b.jpg"></a>
                         <div
                             class="p-body-main                             
@@ -472,7 +482,52 @@
     </div>
     @include('pages.partials.script')
     @include('pages.partials.login')
+    @include('pages.partials.lock')
 
+    @php
+        if (!empty(Session::get('response'))) {
+            $response = json_decode(Session::get('response'));
+            if ($response->data != null) {
+                $data = $response->data;
+                $obj = array_reduce(
+                    $data,
+                    static function ($carry, $item) {
+                        $char = 'NAP100';
+                        $pos = strpos($item->addDescription, $char);
+                        $newstring = substr($item->addDescription, $pos);
+                        $tbl_payment = DB::table('tbl_payment')->get();
+                        $number_id = $tbl_payment->count();
+                        $user_id = Session::get('user_id');
+                        $number_value = 'NAP100' . $user_id . $number_id;
+                        $charnew = '-CHUYEN TIEN';
+                        $posnew = strpos($newstring, $charnew);
+                        $newstring2 = substr($newstring, 0, $posnew);
+                        return $carry ?? ($newstring2 === $number_value ? $item : $carry);
+                    },
+                    null,
+                );
+
+                if ($obj == null) {
+                } else {
+                    $user_id = Session::get('user_id');
+                    $data = [];
+                    $data['user_id'] = (int) $user_id;
+                    $data['so_tien'] = (int) $obj->creditAmount;
+                    $data['ma_nap'] = $number_value;
+                    DB::table('tbl_payment')->insert($data);
+
+                    $user_get = DB::table('users')->where('id', $user_id)->get();
+                    $tien = (int) $user_get[0]->vi_tien + (int) $obj->creditAmount;
+                    DB::table('users')
+                        ->where('id', $user_id)
+                        ->update([
+                            'vi_tien' => $tien,
+                            'da_tung_nap' => $tien,
+                        ]);
+                }
+            }
+        }
+    @endphp
 </body>
 
 </html>

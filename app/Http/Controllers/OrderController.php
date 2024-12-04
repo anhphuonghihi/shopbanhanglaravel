@@ -286,8 +286,8 @@ class OrderController extends Controller
 		return view('admin.view_order')->with(compact('order_details','customer','shipping','order_details','coupon_condition','coupon_number','order','order_status'));
 
 	}
-    public function manage_order(){
+    public function manage_payment(){
     	$order = Order::orderby('created_at','DESC')->paginate(5);
-    	return view('admin.manage_order')->with(compact('order'));
+    	return view('admin.manage_payment')->with(compact('order'));
     }
 }

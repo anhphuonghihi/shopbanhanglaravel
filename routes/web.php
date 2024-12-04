@@ -10,36 +10,28 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Frontend 
-Route::get('/home','HomeController@index2' );
-Route::get('/trang-chu','HomeController@index');
-// Route::get('/404','HomeController@error_page');
-Route::post('/tim-kiem','HomeController@search');
 
-//Danh muc san pham trang chu
-Route::get('/danh-muc/{slug_category_product}','CategoryProduct@show_category_home');
-Route::get('/thuong-hieu/{brand_slug}','BrandProduct@show_brand_home');
-Route::get('/chi-tiet/{product_slug}','ProductController@details_product');
+
+
 
 //Backend
 Route::get('/admin','AdminController@index');
 Route::get('/dashboard','AdminController@show_dashboard');
 
 Route::post('/admin-dashboard','AdminController@dashboard');
-
+Route::get('/manage-payment','AdminController@manage_payment');
 
 //Category Product
-Route::get('/add-category-product','CategoryProduct@add_category_product');
-Route::get('/edit-category-product/{category_product_id}','CategoryProduct@edit_category_product');
-Route::get('/delete-category-product/{category_product_id}','CategoryProduct@delete_category_product');
-Route::get('/all-category-product','CategoryProduct@all_category_product');
-
+Route::get('/add-category-post','AdminController@add_category_product');
+Route::get('/edit-category-post/{category_post_id}','AdminController@edit_category_post');
+Route::get('/delete-category-post/{category_post_id}','AdminController@delete_category_post');
+Route::get('/all-category-post','AdminController@all_category_post');
+Route::get('/unactive-category-menu/{category_post_id}','AdminController@unactive_category_post_menu');
+Route::get('/active-category-menu/{category_post_id}','AdminController@active_category_post_menu');
+Route::get('/unactive-category-home/{category_post_id}','AdminController@unactive_category_post_home');
+Route::get('/active-category-home/{category_post_id}','AdminController@active_category_post_home');
 Route::post('/export-csv','CategoryProduct@export_csv');
 Route::post('/import-csv','CategoryProduct@import_csv');
-
-
-Route::get('/unactive-category-product/{category_product_id}','CategoryProduct@unactive_category_product');
-Route::get('/active-category-product/{category_product_id}','CategoryProduct@active_category_product');
 
 //Send Mail 
 Route::get('/send-mail','HomeController@send_mail');
@@ -52,20 +44,8 @@ Route::get('/admin/callback','AdminController@callback_facebook');
 Route::get('/login-google','AdminController@login_google');
 Route::get('/google/callback','AdminController@callback_google');
 
-Route::post('/save-category-product','CategoryProduct@save_category_product');
-Route::post('/update-category-product/{category_product_id}','CategoryProduct@update_category_product');
-
-//Brand Product
-Route::get('/add-brand-product','BrandProduct@add_brand_product');
-Route::get('/edit-brand-product/{brand_product_id}','BrandProduct@edit_brand_product');
-Route::get('/delete-brand-product/{brand_product_id}','BrandProduct@delete_brand_product');
-Route::get('/all-brand-product','BrandProduct@all_brand_product');
-
-Route::get('/unactive-brand-product/{brand_product_id}','BrandProduct@unactive_brand_product');
-Route::get('/active-brand-product/{brand_product_id}','BrandProduct@active_brand_product');
-
-Route::post('/save-brand-product','BrandProduct@save_brand_product');
-Route::post('/update-brand-product/{brand_product_id}','BrandProduct@update_brand_product');
+Route::post('/save-category-post','AdminController@save_category_post');
+Route::post('/update-category-post/{category_post_id}','AdminController@update_category_post');
 
 
 //Product
@@ -75,19 +55,25 @@ Route::post('/update-brand-product/{brand_product_id}','BrandProduct@update_bran
 // });
 Route::get('users',
 		[
-			'uses'=>'UserController@index',
+			'uses'=>'AdminController@all_user',
 			'as'=> 'Users',
-			'middleware'=> 'roles'
-			// 'roles' => ['admin','author']
 		]);
+Route::get('users/{user_id}',
+[
+	'uses'=>'AdminController@all_user_id',
+	'as'=> 'Users',
+]);
 Route::get('add-users','UserController@add_users');
-Route::post('store-users','UserController@store_users');
+
+Route::get('/api-payment','AdminController@payment');
+  
+Route::post('store-users','UserController@payment');
 Route::post('assign-roles','UserController@assign_roles');
 
 
 
-Route::get('/delete-product/{product_id}','ProductController@delete_product');
-Route::get('/all-product','ProductController@all_product');
+Route::get('/delete-post/{post_id}','AdminController@delete_product');
+Route::get('/all-post','AdminController@all_post');
 Route::get('/unactive-product/{product_id}','ProductController@unactive_product');
 Route::get('/active-product/{product_id}','ProductController@active_product');
 Route::post('/save-product','ProductController@save_product');
@@ -99,76 +85,78 @@ Route::post('/check-coupon','CartController@check_coupon');
 Route::get('/unset-coupon','CouponController@unset_coupon');
 Route::get('/insert-coupon','CouponController@insert_coupon');
 Route::get('/delete-coupon/{coupon_id}','CouponController@delete_coupon');
-Route::get('/list-coupon','CouponController@list_coupon');
-Route::post('/insert-coupon-code','CouponController@insert_coupon_code');
-
-//Cart
-Route::post('/update-cart-quantity','CartController@update_cart_quantity');
-Route::post('/update-cart','CartController@update_cart');
-Route::post('/save-cart','CartController@save_cart');
-Route::post('/add-cart-ajax','CartController@add_cart_ajax');
-Route::get('/show-cart','CartController@show_cart');
-Route::get('/gio-hang','CartController@gio_hang');
-Route::get('/delete-to-cart/{rowId}','CartController@delete_to_cart');
-Route::get('/del-product/{session_id}','CartController@delete_product');
-Route::get('/del-all-product','CartController@delete_all_product');
-
-//Checkout
-Route::get('/dang-nhap','CheckoutController@login_checkout');
-Route::get('/del-fee','CheckoutController@del_fee');
-
-Route::get('/logout-checkout','CheckoutController@logout_checkout');
-Route::post('/add-customer','CheckoutController@add_customer');
-Route::post('/order-place','CheckoutController@order_place');
-Route::post('/login-customer','CheckoutController@login_customer');
-Route::get('/checkout','CheckoutController@checkout');
-Route::get('/payment','CheckoutController@payment');
-Route::post('/save-checkout-customer','CheckoutController@save_checkout_customer');
-Route::post('/calculate-fee','CheckoutController@calculate_fee');
-Route::post('/select-delivery-home','CheckoutController@select_delivery_home');
-Route::post('/confirm-order','CheckoutController@confirm_order');
-
-//Order
-Route::get('/delete-order/{order_code}','OrderController@order_code');
-Route::get('/print-order/{checkout_code}','OrderController@print_order');
-Route::get('/manage-order','OrderController@manage_order');
-Route::get('/view-order/{order_code}','OrderController@view_order');
-Route::post('/update-order-qty','OrderController@update_order_qty');
-Route::post('/update-qty','OrderController@update_qty');
-
-
-//Delivery
-Route::get('/delivery','DeliveryController@delivery');
-Route::post('/select-delivery','DeliveryController@select_delivery');
-Route::post('/insert-delivery','DeliveryController@insert_delivery');
-Route::post('/select-feeship','DeliveryController@select_feeship');
-Route::post('/update-delivery','DeliveryController@update_delivery');
-
-//Banner
-Route::get('/manage-slider','SliderController@manage_slider');
-Route::get('/add-slider','SliderController@add_slider');
-Route::get('/delete-slide/{slide_id}','SliderController@delete_slide');
-Route::post('/insert-slider','SliderController@insert_slider');
-Route::get('/unactive-slide/{slide_id}','SliderController@unactive_slide');
-Route::get('/active-slide/{slide_id}','SliderController@active_slide');
+Route::get('/withdraw-money','AdminController@list_withdraw_money');
+Route::get('/agree-withdraw/{withdraw_id}','AdminController@list_withdraw_money_agree');
+Route::get('/refused-withdraw/{withdraw_id}','AdminController@list_withdraw_money_refused');
+Route::post('/change-password','AdminController@change_password');
+Route::get('/change-password','AdminController@change_password_view');
+Route::post('/lock-account/{user_id}','AdminController@lock_account');
+Route::post('/open-account/{user_id}','AdminController@open_account');
+Route::get('/all-service','AdminController@service');
+Route::get('/all-ranks','AdminController@ranks');
+Route::get('/all-service-edit','AdminController@service_edit');
+Route::post('/rank-edit/{rank_id}','AdminController@rank_edit');
+Route::post('/service-edit/{service_id}','AdminController@service_edit_id');
+Route::get('/all-comment','AdminController@all_comments');
+Route::get('/rose','AdminController@rose');
+Route::post('/change-rose','AdminController@rose_change');
+Route::get('/all-telegram','AdminController@telegram');
+Route::post('/change-telegram/{telegram_id}','AdminController@telegram_change');
+Route::post('/comment/{comment_id}','AdminController@edit_comments');
 
 
 
+Route::get('/add-nhan-post','AdminController@add_nhan_product');
+Route::get('/edit-nhan-post/{nhan_post_id}','AdminController@edit_nhan_post');
+Route::get('/delete-nhan-post/{nhan_post_id}','AdminController@delete_nhan_post');
+Route::get('/all-nhan-post','AdminController@all_nhan_post');
+Route::post('/save-nhan-post','AdminController@save_nhan_post');
+Route::post('/update-nhan-post/{nhan_post_id}','AdminController@update_nhan_post');
 
 
-// Start
+Route::get('/add-select-post','AdminController@add_select_product');
+Route::get('/edit-select-post/{select_post_id}','AdminController@edit_select_post');
+Route::get('/delete-select-post/{select_post_id}','AdminController@delete_select_post');
+Route::get('/all-select-post','AdminController@all_select_post');
+Route::post('/save-select-post','AdminController@save_select_post');
+Route::post('/update-select-post/{select_post_id}','AdminController@update_select_post');
+
+
+
+Route::get('/add-bank-post','AdminController@add_bank_product');
+Route::get('/edit-bank-post/{bank_post_id}','AdminController@edit_bank_post');
+Route::get('/delete-bank-post/{bank_post_id}','AdminController@delete_bank_post');
+Route::get('/all-bank-post','AdminController@all_bank_post');
+Route::post('/save-bank-post','AdminController@save_bank_post');
+Route::post('/update-bank-post/{bank_post_id}','AdminController@update_bank_post');
+
+Route::post('/change-password-user/{user_id}','AdminController@change_password_user');
+Route::get('/change-password-user/{user_id}','AdminController@change_password_user_view');
+
+Route::post('/change-vi-tien-user/{user_id}','AdminController@change_vi_tien_user');
+Route::get('/change-vi-tien-user/{user_id}','AdminController@change_vi_tien_user_view');
+
+Route::get('/uy_tin','CategoryProduct@uy_tin' );
+Route::get('/bai_viet','CategoryProduct@bai_viet' );
 
 Route::get('/','HomeController@trang_chu' );
 
 
-Route::get('/forums','HomeController@forums' );
+Route::get('/address','HomeController@address' );
 
+Route::get('/forums','HomeController@forums' );
 
 Route::post('/login','LoginController@login_user');
 
 Route::post('/register','LoginController@register_user');
 
+
+Route::get('/register','LoginController@register_user_show');
+
+
 Route::get('/forums/{slug_danh_muc}','CategoryProduct@show_danh_muc_home');
+
+Route::get('/address/{slug_danh_muc}','CategoryProduct@show_huyen');
 
 Route::get('/whats-new','CategoryProduct@whats_new');
 
@@ -176,7 +164,8 @@ Route::get('/whats-new/news-post','CategoryProduct@news_post');
 
 Route::get('/whats-new/latest-activity','CategoryProduct@latest_activity');
 
-Route::get('/whats-new/search','CategoryProduct@search');
+
+Route::post('/search-result','CategoryProduct@search_result');
 
 Route::get('/account','CategoryProduct@account');
 
@@ -186,7 +175,7 @@ Route::get('/deposit-money','CategoryProduct@deposit_money');
 
 Route::get('/threads/{slug_post}','CategoryProduct@show_post');
 
-Route::get('/serve','CategoryProduct@serve');
+
 
 Route::get('/logout','CategoryProduct@logout');
 
@@ -198,3 +187,28 @@ Route::post('/referral-code','CategoryProduct@gioi_thieu_post');
 Route::get('/create-thread','CategoryProduct@view_create_post');
 
 Route::post('/create-thread','CategoryProduct@create_post');
+
+Route::post('/comment','CategoryProduct@create_comment');
+
+Route::get('/threads/{slug_post}/stiky','CategoryProduct@stiky');
+
+Route::get('/threads/{slug_post}/edit','CategoryProduct@view_edit_post');
+
+Route::get('/threads/{slug_post}/delete','CategoryProduct@delete');
+
+Route::post('/threads/{slug_post}/edit','CategoryProduct@edit_post');
+
+Route::post('/momo','CategoryProduct@checkMomo');
+
+Route::get('/lock','CategoryProduct@lock');
+
+Route::get('/withdraw','CategoryProduct@withdraw');
+
+Route::post('/withdraw-money-user','CategoryProduct@withdraw_money_user');
+
+
+
+Route::post('/deposit-money','CategoryProduct@update_payment');
+
+
+Route::post('/nap-tien','CategoryProduct@vi_nap_tien');

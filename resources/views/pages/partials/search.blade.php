@@ -1,6 +1,7 @@
 <div class="uix_searchBar">
     <div class="uix_searchBarInner">
-        <form action="/search" method="post" class="uix_searchForm" data-xf-init="quick-search">
+        <form action="/search-result" method="post" class="uix_searchForm">
+            @csrf
             <a class="uix_search--close">
                 <i class="fa--xf far fa-window-close" aria-hidden="true"></i>
             </a>
@@ -14,7 +15,6 @@
             <span class=" uix_searchIcon">
                 <i class="fa--xf far fa-search" aria-hidden="true"></i>
             </span>
-            <input type="hidden" name="_xfToken" value="1721660490,b2474ab21c41ae790c7f3dac46963e6b">
         </form>
     </div>
 
@@ -32,95 +32,4 @@
         <i aria-hidden="true"></i>
     </a>
 
-
-    <div class="menu menu--structural menu--wide" data-menu="menu" aria-hidden="true">
-        <form action="/search/search" method="post" class="menu-content" data-xf-init="quick-search">
-            <h3 class="menu-header">Tìm kiếm</h3>
-
-            <div class="menu-row">
-
-                <input type="text" class="input js-uix_syncValue" name="keywords" data-uixsync="search"
-                    placeholder="Tìm kiếm…" aria-label="Tìm kiếm" data-menu-autofocus="true">
-
-            </div>
-
-
-            <div class="menu-row">
-                <label class="iconic"><input type="checkbox" name="c[title_only]" value="1"><i
-                        aria-hidden="true"></i><span class="iconic-label">Chỉ tìm trong tiêu đề
-
-
-                        <span tabindex="0" role="button" data-xf-init="tooltip" data-trigger="hover focus click"
-                            data-original-title="Tags will also be searched" aria-label="Tags will also be searched"
-                            id="js-XFUniqueId1">
-
-                            <i class="fa--xf far fa-question-circle u-muted u-smaller" aria-hidden="true"></i>
-                        </span></span></label>
-
-            </div>
-
-            <div class="menu-row">
-                <div class="inputGroup">
-                    <span class="inputGroup-text" id="ctrl_search_menu_by_member">By:</span>
-                    <input type="text" class="input" name="c[users]" data-xf-init="auto-complete"
-                        placeholder="Thành viên" aria-labelledby="ctrl_search_menu_by_member" autocomplete="off">
-                </div>
-            </div>
-            <div class="menu-footer">
-                <span class="menu-footer-controls">
-                    <button type="submit"
-                        class="button--primary button button--icon button--icon--search rippleButton"><span
-                            class="button-text">Search</span></button>
-                    <a href="/search/" class="button rippleButton"><span class="button-text">Tìm nâng cao…</span></a>
-                </span>
-            </div>
-
-            <input type="hidden" name="_xfToken" value="1721660490,b2474ab21c41ae790c7f3dac46963e6b">
-        </form>
-    </div>
-
-
-    <div class="menu menu--structural menu--wide uix_searchDropdown__menu" aria-hidden="true">
-        <form action="/search" method="post" class="menu-content" data-xf-init="quick-search">
-
-
-            <input name="keywords" class="js-uix_syncValue" data-uixsync="search" placeholder="Tìm kiếm…"
-                aria-label="Tìm kiếm" type="hidden">
-
-
-
-            <div class="menu-row">
-                <label class="iconic"><input type="checkbox" name="c[title_only]" value="1"><i
-                        aria-hidden="true"></i><span class="iconic-label">Chỉ tìm trong tiêu đề
-
-
-                        <span tabindex="0" role="button" data-xf-init="tooltip" data-trigger="hover focus click"
-                            data-original-title="Tags will also be searched" aria-label="Tags will also be searched"
-                            id="js-XFUniqueId2">
-
-                            <i class="fa--xf far fa-question-circle u-muted u-smaller" aria-hidden="true"></i>
-                        </span></span></label>
-
-            </div>
-
-            <div class="menu-row">
-                <div class="inputGroup">
-                    <span class="inputGroup-text">By:</span>
-                    <input class="input" name="c[users]" data-xf-init="auto-complete" placeholder="Thành viên"
-                        autocomplete="off">
-                </div>
-            </div>
-            <div class="menu-footer">
-                <span class="menu-footer-controls">
-                    <button type="submit"
-                        class="button--primary button button--icon button--icon--search rippleButton"><span
-                            class="button-text">Search</span></button>
-                    <a href="/search/" class="button rippleButton" rel="nofollow"><span
-                            class="button-text">Advanced…</span></a>
-                </span>
-            </div>
-
-            <input type="hidden" name="_xfToken" value="1721660490,b2474ab21c41ae790c7f3dac46963e6b">
-        </form>
-    </div>
 </div>

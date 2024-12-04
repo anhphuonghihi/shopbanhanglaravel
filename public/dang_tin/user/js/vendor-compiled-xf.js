@@ -1021,78 +1021,7 @@ void 0 === window.jQuery && (jQuery = $ = {});
                       }
                   !k && b && b();
               },
-              ajax: function(a, b, c, f, e) {
-                  "function" == typeof c && void 0 === f && ((f = c), (c = {}));
-                  c = c || {};
-                  var d = !0,
-                      h = !0,
-                      k = !0;
-                  e &&
-                      (e.skipDefault && ((h = d = !1), delete e.skipDefault),
-                      e.skipDefaultSuccessError &&
-                          ((h = !1), delete e.skipDefaultSuccessError),
-                      e.skipDefaultSuccess &&
-                          ((d = !1), delete e.skipDefaultSuccess),
-                      e.skipError && ((k = !1), delete e.skipError));
-                  var m = function(n, t, x) {
-                          g(r).trigger("ajax:before-success", [n, t, x]);
-                          (h && XF.defaultAjaxSuccessError(n, t, x)) ||
-                              (d && XF.defaultAjaxSuccess(n, t, x)) ||
-                              (f && f(n, t, x));
-                      },
-                      l = function(n, t, x) {
-                          if (n.readyState)
-                              try {
-                                  var v = g.parseJSON(n.responseText);
-                                  m(v, "", n);
-                              } catch (y) {
-                                  XF.defaultAjaxError(n, t, x);
-                              }
-                      };
-                  c = XF.dataPush(
-                      c,
-                      "_xfRequestUri",
-                      q.location.pathname + q.location.search
-                  );
-                  c = XF.dataPush(c, "_xfWithData", 1);
-                  XF.config.csrf &&
-                      (c = XF.dataPush(c, "_xfToken", XF.config.csrf));
-                  var p = q.FormData && c instanceof FormData;
-                  a = g.extend(
-                      !0,
-                      {
-                          cache: !0,
-                          data: c || {},
-                          dataType: "json",
-                          beforeSend: function(n, t) {
-                              g(r).trigger("ajax:send", [n, t]);
-                          },
-                          error: k ? l : null,
-                          success: m,
-                          complete: function(n, t) {
-                              g(r).trigger("ajax:complete", [n, t]);
-                          },
-                          timeout: "get" === a ? 3e4 : 6e4,
-                          type: a,
-                          url: b,
-                          processData: p ? !1 : !0
-                      },
-                      e
-                  );
-                  p && (a.contentType = !1);
-                  switch (a.dataType) {
-                      case "html":
-                      case "json":
-                      case "xml":
-                          a.data = XF.dataPush(
-                              a.data,
-                              "_xfResponseType",
-                              a.dataType
-                          );
-                  }
-                  "json" != a.dataType && (d = !1);
-                  return g.ajax(a);
-              },
+
               dataPush: function(a, b, c) {
                   a && "string" != typeof a
                       ? void 0 !== a[0]
@@ -2384,7 +2313,6 @@ void 0 === window.jQuery && (jQuery = $ = {});
                   d = null,
                   h = function() {
                       g.ajax({
-                          url: XF.canonicalizeUrl("job.php"),
                           type: "post",
                           cache: !1,
                           dataType: "json",

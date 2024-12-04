@@ -46,7 +46,17 @@ class LoginController extends Controller
             return Redirect::back();
         }
     }
-  
+    public function register_user_show(Request $request)
+    {
+        $meta_desc = "Chuyên cung cấp dịch vụ gái gọi"; 
+        $meta_keywords = "gai goi ha noi,gai goi sai gon";
+        $meta_title = "Có gì mới?";
+        $url_canonical = $request->url();
+        $sidebar_active='new-post';
+        $post = DB::table('tbl_post')->orderBy('created_at', 'desc')->paginate(10); 
+        //--seo
+        return view('pages.register_user_show')->with('post',$post)->with('sidebar_active',$sidebar_active)->with('meta_desc',$meta_desc)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+    }
     public function register_user(Request $request){
         $data = $request->validate([
             //validation laravel 
@@ -73,6 +83,8 @@ class LoginController extends Controller
         
         ]);
         $data_user = array();
+        $rand = str_pad(dechex(rand(0x000000, 0xFFFFFF)), 6, 0, STR_PAD_LEFT);
+        $data_user['background_color'] = ('#' . $rand);
     	$data_user['email'] = $data['email'];
     	$data_user['username'] = $data['username'];
     	$data_user['password'] = md5($data['password']);
@@ -85,31 +97,25 @@ class LoginController extends Controller
  
         $data_user['ma_gioi_thieu'] = $randomString;
         $username = $data['username'];
+        $email = $data['email'];
         $username = User::where(function($query) use ($username) {
             $query->where('username', '=', $username); });
 
         if($username->count() > 0){
             Session::put('message','Tên người dùng đã tồn tại');
-            Session::flash('dki', "Special message goes here");
-            return Redirect::to('/');
+            Session::flash('oklogin', "Special message goes here");
+            return Redirect::to('/register');
         }
         else
         {
             $user_id = DB::table('users')->insertGetId($data_user);
+            Session::put('username',$data_user['username']);
+            Session::put('email',$data_user['email']);
+            Session::put('user_id',$user_id);
+           
+            Session::put('ma_gioi_thieu',$randomString);
+            return Redirect::to('/');
             
-            if ($user_id < 0) {
-                Session::put('message','Đăng kí tài khoản không thành công');
-                return Redirect::to('/');
-            }else{
-                Session::put('username',$data['username']);
-                Session::put('email',$data['email']);
-                Session::put('user_id',$user_id);
-                $login = User::where(function($query) use ($username) {
-                    $query->where('email', '=', $username)
-                    ->orWhere('username', '=',$username); })->where('password',$password)->first();
-                Session::put('ma_gioi_thieu',$login->ma_gioi_thieu);
-                return Redirect::to('/');
-            }
         }
     }
   
